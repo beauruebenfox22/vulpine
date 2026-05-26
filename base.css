@@ -1,0 +1,31 @@
+:root {
+    /* --- THE CANVAS & DEPTH --- */
+    /* An uncompromisingly deep matte charcoal-black. Soft but absolute. */
+    --base: #080808;
+
+    /* Used for sidebar navigation, glassmorphic code panels, and bento boxes */
+    --base-secondary: #121214;
+
+    /* A dark, warm slate for borders that keeps the red from looking isolated */
+    --border: rgba(40, 36, 36, 0.5);
+
+    /* --- THE CRIMSON STACK (Power & Intelligence) --- */
+    /* Your signature brand red. Deep, rich, and authoritative. */
+    --red-core: #C8102E;
+
+    /* The core of the lightbeam. A punchy scarlet used for active states and hovers. */
+    --red-glow: #FF2E44;
+
+    /* A deep wine/burgundy shadow for background gradients and canvas blending. */
+    --red-dark: #4A000B;
+
+    /* A subtle atmospheric ambient layer for box-shadows and canvas backdrops. */
+    --red-ambient: rgba(200, 16, 46, 0.12);
+
+    /* --- TYPOGRAPHY --- */
+    /* Stark off-white with a fractional warm undertone to mesh with the red */
+    --heading: #F9F9FB;
+
+    /* Crisp, clean mid-gray for highly readable paragraphs */
+    --copy: #BDBDBD;
+}

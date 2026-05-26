@@ -1,0 +1,357 @@
+.app-home-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* No gaps to ensure fullscreen hero sits flush with scrolling content */
+  width: 100%;
+  position: relative;
+}
+
+/* ==========================================================================
+   1. CINEMATIC INTRO OVERLAY
+   ========================================================================== */
+.intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--base);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+  pointer-events: all;
+}
+
+.intro-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.intro-title {
+  font-size: 5rem;
+  font-weight: 800;
+  letter-spacing: 0.4em;
+  color: var(--heading);
+  text-shadow: 0 0 30px rgba(200, 16, 46, 0.2);
+  margin-top: 1rem;
+  text-indent: 0.4em; /* Align center due to letter-spacing */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: intro-fade-up 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s;
+}
+
+.intro-subtitle {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5em;
+  color: var(--copy);
+  opacity: 0;
+  text-indent: 0.5em;
+  animation: intro-fade-up 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.8s;
+}
+
+/* Phase Transitions */
+.phase-1 .intro-title,
+.phase-1 .intro-subtitle,
+.phase-1 .intro-logo-anim {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.phase-2 .intro-overlay {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* ==========================================================================
+   2. SPLIT HERO PANELS (FULLSCREEN 100VH / 100VW)
+   ========================================================================== */
+.split-hero-container {
+  display: flex;
+  width: 100%;
+  height: 100vh; /* FULL HEIGHT */
+  overflow: hidden;
+  position: relative;
+  background-color: var(--base);
+}
+
+.hero-panel {
+  flex: 1 1 50%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 6rem 4rem 4rem 4rem; /* Generous padding to clear fixed header */
+  cursor: pointer;
+  transition: flex 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+              background 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.panel-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+}
+
+.text-block {
+  flex: 1;
+  max-width: 540px;
+}
+
+.panel-heading {
+  font-size: 3.25rem;
+  font-weight: 800;
+  color: var(--heading);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  transition: var(--transition-smooth);
+}
+
+.panel-description {
+  color: var(--copy);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.65;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  margin-top: 0;
+  transition: opacity 0.5s ease 0.15s, max-height 0.5s ease, margin 0.5s ease;
+  text-wrap: balance;
+}
+
+.foxy-cta-button {
+  display: inline-block;
+  color: var(--heading);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  margin-top: 2rem;
+  transition: var(--transition-smooth);
+}
+
+/* Left panel (AI Architecture) */
+.panel-ai {
+  background-color: var(--base-secondary);
+}
+
+.panel-ai .logo-wrapper {
+  transition: var(--transition-smooth);
+}
+
+.panel-ai .foxy-cta-button {
+  color: var(--copy);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  padding-bottom: 4px;
+}
+
+.panel-ai .foxy-cta-button:hover {
+  color: var(--red-glow);
+  border-bottom-color: var(--red-glow);
+  text-shadow: 0 0 10px rgba(255, 46, 68, 0.4);
+}
+
+/* Right panel (Shopify Commerce Systems) */
+.panel-shopify {
+  background: linear-gradient(135deg, var(--red-dark) 0%, rgba(200, 16, 46, 0.45) 100%);
+  border-left: 1px solid var(--border);
+}
+
+.panel-shopify .panel-content {
+  justify-content: flex-end;
+}
+
+.panel-shopify .text-block {
+  text-align: right;
+  margin-left: auto;
+}
+
+.panel-shopify .foxy-cta-button {
+  background: rgba(8, 8, 8, 0.5);
+  border: 1px solid rgba(255, 46, 68, 0.3);
+  padding: 0.8rem 1.8rem;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.panel-shopify .foxy-cta-button:hover {
+  background: var(--red-core);
+  border-color: var(--red-glow);
+  box-shadow: 0 0 20px var(--red-ambient);
+  transform: translateY(-2px);
+}
+
+/* Vector Shopping Cart Backdrop Outline */
+.panel-backdrop-icon {
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 500px;
+  height: 500px;
+  color: rgba(255, 255, 255, 0.015);
+  z-index: 1;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+/* ==========================================================================
+   3. HOVER / EXPANSION STATES
+   ========================================================================== */
+
+/* Left Hovered (AI Active) */
+.hover-ai .panel-ai {
+  flex: 1.8;
+}
+
+.hover-ai .panel-ai .panel-heading {
+  color: #fff;
+  text-shadow: 0 0 20px rgba(255, 46, 68, 0.15);
+}
+
+.hover-ai .panel-ai .panel-description {
+  opacity: 1;
+  max-height: 160px;
+  margin-top: 1.4rem;
+}
+
+.hover-ai .panel-ai .logo-wrapper {
+  transform: scale(1.08) rotate(3deg);
+}
+
+/* Left Hovered -> Shrink Right */
+.hover-ai .panel-shopify {
+  flex: 0.8;
+  opacity: 0.25;
+  filter: grayscale(90%) blur(1px);
+}
+
+/* Right Hovered (Shopify Active) */
+.hover-shopify .panel-shopify {
+  flex: 1.8;
+  background: linear-gradient(135deg, var(--red-core) 0%, var(--red-dark) 100%);
+}
+
+.hover-shopify .panel-shopify .panel-description {
+  opacity: 1;
+  max-height: 160px;
+  margin-top: 1.4rem;
+}
+
+.hover-shopify .panel-shopify .panel-backdrop-icon {
+  color: rgba(255, 255, 255, 0.05);
+  transform: scale(1.08) rotate(-3deg);
+}
+
+/* Right Hovered -> Shrink Left */
+.hover-shopify .panel-ai {
+  flex: 0.8;
+  opacity: 0.25;
+  filter: grayscale(90%) blur(1px);
+}
+
+
+/* ==========================================================================
+   5. ANIMATIONS & RESPONSIVENESS
+   ========================================================================== */
+@keyframes intro-fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes visualizer-node-ping {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+@keyframes audio-wave-pulse {
+  0% {
+    height: 4px;
+  }
+  100% {
+    height: 16px;
+  }
+}
+
+/* Cinematic sliding entries during intro */
+.phase-2 .panel-ai {
+  animation: slide-in-top-panel 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.phase-2 .panel-shopify {
+  animation: slide-in-bottom-panel 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slide-in-top-panel {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-bottom-panel {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .split-hero-container {
+    height: auto;
+    flex-direction: column;
+  }
+  
+  .hero-panel {
+    padding: 6rem 2.5rem 3rem 2.5rem; /* Space for fixed header on mobile */
+    flex: 1 1 auto !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  
+  .panel-shopify {
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .panel-shopify .panel-content {
+    justify-content: flex-start;
+  }
+
+  .panel-shopify .text-block {
+    text-align: left;
+    margin-left: 0;
+  }
+  
+
+  .panel-backdrop-icon {
+    width: 350px;
+    height: 350px;
+  }
+}

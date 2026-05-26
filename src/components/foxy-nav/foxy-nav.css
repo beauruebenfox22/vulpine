@@ -1,0 +1,843 @@
+/* ==========================================================================
+   1. FULLSCREEN MENU TAKEOVER CONTAINER
+   ========================================================================== */
+.foxy-nav-takeover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 980;
+  background-color: var(--base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              visibility 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.foxy-nav-takeover.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.nav-constellation-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   2. DIAGONAL SECTOR DIVISION BACKGROUNDS
+   ========================================================================== */
+.nav-bg-sector-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42%;
+  height: 100%;
+  background: rgba(8, 8, 8, 0.96);
+  z-index: 1;
+}
+
+.nav-bg-sector-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 58%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(10, 10, 12, 0.98) 0%, rgba(18, 18, 20, 0.96) 100%);
+  border-left: 1px solid rgba(255, 46, 68, 0.08);
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center right;
+}
+
+/* TILT DIAGONAL LINE SHARPLY ON HOVER TAKEOVER */
+.foxy-nav-takeover.takeover-stage-active .nav-bg-sector-right {
+  transform: skewX(-8deg) translateX(-25px);
+  border-left-color: rgba(255, 46, 68, 0.25);
+}
+
+/* ==========================================================================
+   3. FLOATING CLOSE BUTTON CONTROL
+   ========================================================================== */
+.foxy-close-btn {
+  position: fixed;
+  top: 30px;
+  right: 4rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(18, 18, 20, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1005;
+  outline: none;
+  padding: 0;
+  transition: border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.close-icon-line {
+  position: absolute;
+  width: 18px;
+  height: 1.5px;
+  background-color: var(--heading);
+  border-radius: 1px;
+  transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.close-icon-line.line-1 { transform: rotate(45deg); }
+.close-icon-line.line-2 { transform: rotate(-45deg); }
+
+.foxy-close-btn:hover {
+  border-color: var(--red-glow);
+  background-color: rgba(20, 20, 22, 0.7);
+  box-shadow: 0 0 15px var(--red-ambient);
+  transform: scale(1.05) rotate(90deg);
+}
+
+.foxy-close-btn:hover .close-icon-line {
+  background-color: var(--red-glow);
+}
+
+/* ==========================================================================
+   4. NAVIGATION TAKE OVER GRID LAYOUT
+   ========================================================================== */
+.nav-takeover-grid {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px); /* Leave room for footer */
+  display: grid;
+  grid-template-columns: 42% 58%;
+  z-index: 10;
+  padding-top: 90px; /* Space under floating header */
+}
+
+.nav-grid-col {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.col-inner {
+  padding: 2rem 4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   5. DIRECTORY LINKS (COLUMN 1)
+   ========================================================================== */
+.directory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.directory-item {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--heading);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  letter-spacing: -0.03em;
+  transform-origin: left center;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              text-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.directory-num {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--copy);
+  opacity: 0.5;
+  font-family: monospace;
+  transition: color 0.5s;
+}
+
+/* High contrast highlight for case studies */
+.directory-item.highlight {
+  color: var(--red-core);
+}
+
+/* HOVER / INTERACTIVE TRANSITIONS ON ACTIVE COMPRESSION */
+.directory-item:hover {
+  color: #fff;
+  transform: scale(1.03) translateX(12px);
+  text-shadow: 0 0 15px rgba(255, 46, 68, 0.25);
+}
+
+.directory-item:hover .directory-num {
+  color: var(--red-glow);
+  opacity: 0.9;
+}
+
+/* Link Compression and dim down secondary items */
+.foxy-nav-takeover.takeover-stage-active .directory-item {
+  opacity: 0.12;
+  filter: blur(1.5px);
+  transform: translateY(12px) scale(0.95);
+}
+
+/* Keep focused link anchored, expanded, white */
+.foxy-nav-takeover.takeover-stage-active .directory-item.is-focused {
+  opacity: 1;
+  filter: none;
+  color: #fff;
+  transform: scale(1.06) translateX(15px);
+  text-shadow: 0 0 20px rgba(255, 46, 68, 0.3);
+}
+
+.foxy-nav-takeover.takeover-stage-active .directory-item.is-focused .directory-num {
+  color: var(--red-glow);
+  opacity: 0.95;
+}
+
+/* ==========================================================================
+   6. DYNAMIC CENTER STAGE TAKE OVER SYSTEMS
+   ========================================================================== */
+.nav-grid-stage-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.stage-container {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* STAGE A: DEFAULT STATE (GRID SYSTEM LAYOUT) */
+.stage-default {
+  display: grid;
+  grid-template-columns: 52% 48%;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.col-bento-middle .col-inner {
+  padding: 2rem 2rem 2rem 4rem;
+  gap: 2rem;
+}
+
+.col-bento-right .col-inner {
+  padding: 2rem 4rem 2rem 2rem;
+}
+
+/* Bento Box Containers inside takeover */
+.nav-bento-box {
+  background: rgba(18, 18, 20, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2.2rem;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.nav-bento-box:hover {
+  border-color: rgba(255, 46, 68, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4),
+              0 0 15px var(--red-ambient);
+}
+
+.bento-box-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--red-glow);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bento-box-heading .badge {
+  font-size: 0.65rem;
+  color: var(--copy);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.bento-box-meta {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--copy);
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-top: -0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.bento-box-description {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--copy);
+  margin-bottom: 1.5rem;
+  text-wrap: balance;
+}
+
+/* AI Debate Bento module */
+.bento-debate-fields {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.bento-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bento-form-group label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--copy);
+}
+
+.bento-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.bento-select-wrapper select {
+  width: 100%;
+  background: rgba(8, 8, 8, 0.6);
+  border: 1px solid var(--border);
+  color: var(--heading);
+  padding: 0.7rem 1rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.bento-select-wrapper select:focus {
+  outline: none;
+  border-color: var(--red-core);
+}
+
+.bento-select-wrapper::after {
+  content: '▼';
+  font-size: 0.55rem;
+  color: var(--copy);
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.bento-debate-action {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.bento-debate-btn {
+  background: var(--base);
+  color: var(--heading);
+  border: 1px solid var(--border);
+  padding: 0.8rem 1.8rem;
+  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.bento-debate-btn:hover:not(:disabled) {
+  border-color: var(--red-glow);
+  box-shadow: 0 0 10px var(--red-ambient);
+  background: linear-gradient(135deg, rgba(8,8,8,0.8) 0%, rgba(200,16,46,0.15) 100%);
+}
+
+.bento-debate-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.bento-visualizer {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0.45;
+  transition: var(--transition-smooth);
+}
+
+.bento-visualizer.active {
+  opacity: 1;
+}
+
+.visualizer-status-text {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--copy);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.bento-visualizer.active .visualizer-status-text {
+  color: var(--red-glow);
+  text-shadow: 0 0 8px rgba(255, 46, 68, 0.4);
+}
+
+.visualizer-wave {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 14px;
+}
+
+.visualizer-wave .wave-bar {
+  width: 2px;
+  background-color: #444;
+  height: 3px;
+  border-radius: 1px;
+}
+
+.bento-visualizer.active .visualizer-wave .wave-bar {
+  background-color: var(--red-glow);
+  animation: audio-wave-pulse 1.2s ease-in-out infinite alternate;
+}
+
+.bento-visualizer.active .bar-1 { animation-delay: 0.1s !important; }
+.bento-visualizer.active .bar-2 { animation-delay: 0.4s !important; }
+.bento-visualizer.active .bar-3 { animation-delay: 0.2s !important; }
+.bento-visualizer.active .bar-4 { animation-delay: 0.6s !important; }
+.bento-visualizer.active .bar-5 { animation-delay: 0.3s !important; }
+
+/* Light DOM Nodes tree graphic */
+.bento-dom-tree {
+  margin: 1.2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dom-node {
+  background: rgba(8, 8, 8, 0.75);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1.4rem;
+  font-family: monospace;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--heading);
+  letter-spacing: 0.05em;
+  transition: var(--transition-smooth);
+}
+
+.dom-node.root-node {
+  border-color: var(--red-glow);
+  box-shadow: 0 0 10px var(--red-ambient);
+}
+
+.dom-node:hover {
+  background: var(--base-secondary);
+  border-color: #fff;
+}
+
+.dom-branches {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.dom-branches .dom-line {
+  width: 1px;
+  height: 18px;
+  background-color: var(--border);
+}
+
+.dom-branch-group {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  position: relative;
+  width: 100%;
+}
+
+.dom-branch-group::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 25%;
+  width: 50%;
+  height: 1px;
+  background-color: var(--border);
+}
+
+.bento-action-link {
+  display: inline-block;
+  color: var(--heading);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  padding-bottom: 3px;
+  transition: var(--transition-smooth);
+}
+
+.bento-action-link:hover {
+  color: var(--red-glow);
+  border-bottom-color: var(--red-glow);
+  text-shadow: 0 0 8px var(--red-ambient);
+}
+
+/* Lead Escalation Contact panel */
+.bento-contact {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bento-box-subtitle {
+  font-size: 0.85rem;
+  color: var(--copy);
+  margin-top: -0.6rem;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.escalation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  flex: 1;
+}
+
+.form-group-field {
+  width: 100%;
+}
+
+.form-group-field input,
+.form-group-field textarea {
+  width: 100%;
+  background: rgba(8, 8, 8, 0.65);
+  border: 1px solid var(--border);
+  color: var(--heading);
+  padding: 0.9rem 1.2rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.form-group-field input:focus,
+.form-group-field textarea:focus {
+  outline: none;
+  border-color: rgba(255, 46, 68, 0.5);
+  box-shadow: 0 0 10px var(--red-ambient);
+}
+
+.escalation-submit-btn {
+  width: 100%;
+  background: var(--red-core);
+  color: #fff;
+  border: 1px solid var(--red-glow);
+  border-radius: 4px;
+  padding: 1rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.escalation-submit-btn:hover {
+  background: var(--red-dark);
+  border-color: var(--red-glow);
+  box-shadow: 0 0 20px var(--red-ambient);
+  transform: translateY(-1px);
+}
+
+/* Glowing geometric star accent */
+.contact-decoration-star {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 16px;
+  height: 16px;
+  background-color: var(--border);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  opacity: 0.15;
+  transition: var(--transition-smooth);
+}
+
+.nav-bento-box:hover .contact-decoration-star {
+  background-color: var(--red-glow);
+  opacity: 0.7;
+  transform: scale(1.15) rotate(15deg);
+  box-shadow: 0 0 10px var(--red-glow);
+}
+
+/* ==========================================================================
+   7. STAGE B & C: SUB-BRANCH STAGE TAKEOVERS
+   ========================================================================== */
+.stage-ai, .stage-shopify {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px);
+  display: flex;
+  align-items: center;
+}
+
+.takeover-content {
+  padding: 2rem 4rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.takeover-header {
+  margin-bottom: 3.5rem;
+}
+
+.takeover-label {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--red-glow);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 8px rgba(255, 46, 68, 0.3);
+}
+
+.takeover-heading {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--heading);
+  letter-spacing: -0.02em;
+  margin-top: 0;
+}
+
+.takeover-link-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.takeover-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.6rem 2rem;
+  background: rgba(18, 18, 20, 0.65);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--heading);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.takeover-link-item .item-num {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--copy);
+  opacity: 0.55;
+  width: 40px;
+}
+
+.takeover-link-item .item-label {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  flex: 1;
+  text-indent: 0.5rem;
+  transition: color 0.4s;
+}
+
+.takeover-link-item .item-arrow {
+  font-size: 1.2rem;
+  color: var(--copy);
+  opacity: 0.5;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover Branch Sub links */
+.takeover-link-item:hover {
+  border-color: rgba(255, 46, 68, 0.4);
+  background: linear-gradient(135deg, rgba(18, 18, 20, 0.8) 0%, rgba(200, 16, 46, 0.18) 100%);
+  transform: translateX(12px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5),
+              0 0 15px var(--red-ambient);
+}
+
+.takeover-link-item:hover .item-label {
+  color: #fff;
+}
+
+.takeover-link-item:hover .item-num {
+  color: var(--red-glow);
+  opacity: 0.95;
+}
+
+.takeover-link-item:hover .item-arrow {
+  color: var(--red-glow);
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+/* ==========================================================================
+   8. ACTIVE STATE RESOLUTIONS (STAGE SWITCHES)
+   ========================================================================== */
+
+/* Active Stage takeover -> Hide generic panels */
+.foxy-nav-takeover.takeover-stage-active .stage-default {
+  opacity: 0 !important;
+  transform: translateY(-30px) !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  display: none !important;
+}
+
+/* Fade in AI branch Stage */
+.foxy-nav-takeover.hover-ai .stage-ai {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Fade in Shopify branch Stage */
+.foxy-nav-takeover.hover-shopify .stage-shopify {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   9. INTEGRATED TAKEOVER FOOTER ACCENTS
+   ========================================================================== */
+.takeover-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 4rem;
+  background: transparent;
+  z-index: 10;
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.takeover-footer-text {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--copy);
+  opacity: 0.45;
+}
+
+/* ==========================================================================
+   10. RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .nav-takeover-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow-y: auto;
+    padding-bottom: 80px;
+  }
+  .nav-bg-sector-left {
+    width: 100%;
+    height: 100%;
+  }
+  .nav-bg-sector-right {
+    display: none;
+  }
+  .col-inner {
+    padding: 2rem;
+  }
+  .directory-item {
+    font-size: 1.8rem;
+  }
+  .stage-default {
+    grid-template-columns: 1fr;
+  }
+  .col-bento-middle .col-inner {
+    padding: 2rem;
+  }
+  .col-bento-right .col-inner {
+    padding: 2rem;
+  }
+  .foxy-close-btn {
+    top: 20px;
+    right: 2rem;
+  }
+  .takeover-content {
+    padding: 2rem;
+  }
+  .takeover-heading {
+    font-size: 2.2rem;
+  }
+  .takeover-link-item {
+    padding: 1.2rem;
+  }
+  .takeover-link-item .item-label {
+    font-size: 1.05rem;
+  }
+}
