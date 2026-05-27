@@ -17,6 +17,16 @@
   z-index: 10;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
+body.modal-open .vulpine-nav-header {
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0; /* completely hide header so it doesn't conflict */
+}
+
 /* ==========================================================================
    2. FLOATING BRAND OVERLAY HEADER
    ========================================================================== */

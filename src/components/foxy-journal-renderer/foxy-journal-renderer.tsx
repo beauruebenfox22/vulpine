@@ -14,6 +14,18 @@ export class FoxyJournalRenderer {
     return journalData.find(post => post.slug === this.slug) || null;
   }
 
+  componentDidLoad() {
+    if (typeof document !== 'undefined') {
+      document.body.classList.add('modal-open');
+    }
+  }
+
+  disconnectedCallback() {
+    if (typeof document !== 'undefined') {
+      document.body.classList.remove('modal-open');
+    }
+  }
+
   render() {
     const post = this.getPost();
 
@@ -36,30 +48,32 @@ export class FoxyJournalRenderer {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
         </button>
 
-        <div class="renderer-layout">
-          {/* LEFT 30% MARGIN */}
-          <aside class="renderer-meta">
-            <div class="tracking-line">
-              <div class={`data-node ${isAI ? 'node-ai' : 'node-shopify'}`}></div>
-            </div>
-            <div class="meta-data">
-              <span class="meta-label">AUTHOR // {post.author.toUpperCase()}</span>
-              <span class="meta-date">EXEC: {post.date}</span>
-            </div>
-          </aside>
+        <div class="scroll-container">
+          <div class="renderer-layout">
+            {/* LEFT 30% MARGIN */}
+            <aside class="renderer-meta">
+              <div class="tracking-line">
+                <div class={`data-node ${isAI ? 'node-ai' : 'node-shopify'}`}></div>
+              </div>
+              <div class="meta-data">
+                <span class="meta-label">AUTHOR // {post.author.toUpperCase()}</span>
+                <span class="meta-date">EXEC: {post.date}</span>
+              </div>
+            </aside>
 
-          {/* RIGHT 70% CONTENT */}
-          <article class="renderer-content">
-            <header class="post-header">
-              <span class={`post-track ${isAI ? 'track-ai' : 'track-shopify'}`}>
-                [ {post.topic.toUpperCase()} ]
-              </span>
-              <h1 class="post-title">{post.title}</h1>
-              <h2 class="post-subtitle">{post.subtitle}</h2>
-            </header>
+            {/* RIGHT 70% CONTENT */}
+            <article class="renderer-content">
+              <header class="post-header">
+                <span class={`post-track ${isAI ? 'track-ai' : 'track-shopify'}`}>
+                  [ {post.topic.toUpperCase()} ]
+                </span>
+                <h1 class="post-title">{post.title}</h1>
+                <h2 class="post-subtitle">{post.subtitle}</h2>
+              </header>
 
-            <div class="post-body" innerHTML={post.body}></div>
-          </article>
+              <div class="post-body" innerHTML={post.body}></div>
+            </article>
+          </div>
         </div>
       </div>
     );
