@@ -59,12 +59,25 @@ export class AppRoot {
             <Route path="/">
               <app-home />
             </Route>
+            <Route path="/about">
+              <app-about />
+            </Route>
             <Route path="/work-with-us">
               <app-work-with-us />
+            </Route>
+            <Route path="/contact">
+              <app-contact />
             </Route>
             <Route
               path={match("/profile/:name")}
               render={({ name }) => <app-profile name={name} />}
+            />
+            <Route path="/blog">
+              <app-blog />
+            </Route>
+            <Route
+              path={match("/blog/:slug")}
+              render={({ slug }) => <app-blog initialSlug={slug} />}
             />
             <Route
               path={match("/services/:type")}

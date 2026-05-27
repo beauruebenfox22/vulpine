@@ -6,6 +6,13 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface AppAbout {
+    }
+    interface AppBlog {
+        "initialSlug": string;
+    }
+    interface AppContact {
+    }
     interface AppHome {
     }
     interface AppProfile {
@@ -24,6 +31,13 @@ export namespace Components {
     }
     interface FoxyFooter {
     }
+    interface FoxyHero {
+        "headline": string;
+        "subheadline": string;
+    }
+    interface FoxyJournalRenderer {
+        "slug": string;
+    }
     interface FoxyLogo {
         "size": 'small' | 'medium' | 'large';
     }
@@ -31,11 +45,33 @@ export namespace Components {
         "active": boolean;
     }
 }
+export interface FoxyJournalRendererCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFoxyJournalRendererElement;
+}
 export interface FoxyNavCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFoxyNavElement;
 }
 declare global {
+    interface HTMLAppAboutElement extends Components.AppAbout, HTMLStencilElement {
+    }
+    var HTMLAppAboutElement: {
+        prototype: HTMLAppAboutElement;
+        new (): HTMLAppAboutElement;
+    };
+    interface HTMLAppBlogElement extends Components.AppBlog, HTMLStencilElement {
+    }
+    var HTMLAppBlogElement: {
+        prototype: HTMLAppBlogElement;
+        new (): HTMLAppBlogElement;
+    };
+    interface HTMLAppContactElement extends Components.AppContact, HTMLStencilElement {
+    }
+    var HTMLAppContactElement: {
+        prototype: HTMLAppContactElement;
+        new (): HTMLAppContactElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
     var HTMLAppHomeElement: {
@@ -84,6 +120,29 @@ declare global {
         prototype: HTMLFoxyFooterElement;
         new (): HTMLFoxyFooterElement;
     };
+    interface HTMLFoxyHeroElement extends Components.FoxyHero, HTMLStencilElement {
+    }
+    var HTMLFoxyHeroElement: {
+        prototype: HTMLFoxyHeroElement;
+        new (): HTMLFoxyHeroElement;
+    };
+    interface HTMLFoxyJournalRendererElementEventMap {
+        "closeModal": void;
+    }
+    interface HTMLFoxyJournalRendererElement extends Components.FoxyJournalRenderer, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFoxyJournalRendererElementEventMap>(type: K, listener: (this: HTMLFoxyJournalRendererElement, ev: FoxyJournalRendererCustomEvent<HTMLFoxyJournalRendererElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFoxyJournalRendererElementEventMap>(type: K, listener: (this: HTMLFoxyJournalRendererElement, ev: FoxyJournalRendererCustomEvent<HTMLFoxyJournalRendererElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLFoxyJournalRendererElement: {
+        prototype: HTMLFoxyJournalRendererElement;
+        new (): HTMLFoxyJournalRendererElement;
+    };
     interface HTMLFoxyLogoElement extends Components.FoxyLogo, HTMLStencilElement {
     }
     var HTMLFoxyLogoElement: {
@@ -108,6 +167,9 @@ declare global {
         new (): HTMLFoxyNavElement;
     };
     interface HTMLElementTagNameMap {
+        "app-about": HTMLAppAboutElement;
+        "app-blog": HTMLAppBlogElement;
+        "app-contact": HTMLAppContactElement;
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
@@ -116,11 +178,20 @@ declare global {
         "foxy-constellation": HTMLFoxyConstellationElement;
         "foxy-estimate": HTMLFoxyEstimateElement;
         "foxy-footer": HTMLFoxyFooterElement;
+        "foxy-hero": HTMLFoxyHeroElement;
+        "foxy-journal-renderer": HTMLFoxyJournalRendererElement;
         "foxy-logo": HTMLFoxyLogoElement;
         "foxy-nav": HTMLFoxyNavElement;
     }
 }
 declare namespace LocalJSX {
+    interface AppAbout {
+    }
+    interface AppBlog {
+        "initialSlug"?: string;
+    }
+    interface AppContact {
+    }
     interface AppHome {
     }
     interface AppProfile {
@@ -139,6 +210,14 @@ declare namespace LocalJSX {
     }
     interface FoxyFooter {
     }
+    interface FoxyHero {
+        "headline"?: string;
+        "subheadline"?: string;
+    }
+    interface FoxyJournalRenderer {
+        "onCloseModal"?: (event: FoxyJournalRendererCustomEvent<void>) => void;
+        "slug"?: string;
+    }
     interface FoxyLogo {
         "size"?: 'small' | 'medium' | 'large';
     }
@@ -147,6 +226,9 @@ declare namespace LocalJSX {
         "onMenuClose"?: (event: FoxyNavCustomEvent<void>) => void;
     }
     interface IntrinsicElements {
+        "app-about": AppAbout;
+        "app-blog": AppBlog;
+        "app-contact": AppContact;
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
@@ -155,6 +237,8 @@ declare namespace LocalJSX {
         "foxy-constellation": FoxyConstellation;
         "foxy-estimate": FoxyEstimate;
         "foxy-footer": FoxyFooter;
+        "foxy-hero": FoxyHero;
+        "foxy-journal-renderer": FoxyJournalRenderer;
         "foxy-logo": FoxyLogo;
         "foxy-nav": FoxyNav;
     }
@@ -163,6 +247,9 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "app-about": LocalJSX.AppAbout & JSXBase.HTMLAttributes<HTMLAppAboutElement>;
+            "app-blog": LocalJSX.AppBlog & JSXBase.HTMLAttributes<HTMLAppBlogElement>;
+            "app-contact": LocalJSX.AppContact & JSXBase.HTMLAttributes<HTMLAppContactElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
@@ -171,6 +258,8 @@ declare module "@stencil/core" {
             "foxy-constellation": LocalJSX.FoxyConstellation & JSXBase.HTMLAttributes<HTMLFoxyConstellationElement>;
             "foxy-estimate": LocalJSX.FoxyEstimate & JSXBase.HTMLAttributes<HTMLFoxyEstimateElement>;
             "foxy-footer": LocalJSX.FoxyFooter & JSXBase.HTMLAttributes<HTMLFoxyFooterElement>;
+            "foxy-hero": LocalJSX.FoxyHero & JSXBase.HTMLAttributes<HTMLFoxyHeroElement>;
+            "foxy-journal-renderer": LocalJSX.FoxyJournalRenderer & JSXBase.HTMLAttributes<HTMLFoxyJournalRendererElement>;
             "foxy-logo": LocalJSX.FoxyLogo & JSXBase.HTMLAttributes<HTMLFoxyLogoElement>;
             "foxy-nav": LocalJSX.FoxyNav & JSXBase.HTMLAttributes<HTMLFoxyNavElement>;
         }

@@ -10,16 +10,11 @@ export class AppWorkWithUs {
     return (
       <div class="mission-control-wrapper">
         
-        {/* Ultra-sharp 30vh Semantic Header */}
-        <header class="mission-header">
-          <div class="header-content">
-            <h1 class="mission-title">WORK WITH US</h1>
-            <h2 class="mission-subtitle">
-              We operate where logic layers meet commerce. Fully embedded, specialized remote, or on-site accelerators.
-            </h2>
-          </div>
-          <div class="header-scanline"></div>
-        </header>
+        {/* Reusable Hero Component */}
+        <foxy-hero 
+          headline="WORK WITH US"
+          subheadline="We operate where logic layers meet commerce. Fully embedded, specialized remote, or on-site accelerators."
+        ></foxy-hero>
 
         {/* Dashboard Grid */}
         <main class="dashboard-grid">

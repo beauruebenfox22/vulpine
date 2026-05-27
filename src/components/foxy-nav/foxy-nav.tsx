@@ -123,9 +123,9 @@ export class FoxyNav {
                 </a>
 
                 <a
-                  href="#"
+                  href="/about"
                   class="directory-item"
-                  onClick={(e) => { e.preventDefault(); alert("Manifesto Clicked"); this.handleClose(); }}
+                  onClick={(e) => { e.preventDefault(); Router.push('/about'); this.handleClose(); }}
                   onMouseEnter={() => this.setSubmenu(null)}
                 >
                   <span class="directory-num">04 //</span> ABOUT
@@ -134,25 +134,25 @@ export class FoxyNav {
                 <a
                   href="/work-with-us"
                   class="directory-item"
-                  onClick={(e) => { e.preventDefault(); alert("Journal (Blog) Clicked"); this.handleClose(); }}
+                  onClick={(e) => { e.preventDefault(); Router.push('/work-with-us'); this.handleClose(); }}
                   onMouseEnter={() => this.setSubmenu(null)}
                 >
                   <span class="directory-num">05 //</span> WORK WITH US
                 </a>
 
                 <a
-                  href="#"
+                  href="/contact"
                   class="directory-item"
-                  onClick={(e) => { e.preventDefault(); alert("Journal (Blog) Clicked"); this.handleClose(); }}
+                  onClick={(e) => { e.preventDefault(); Router.push('/contact'); this.handleClose(); }}
                   onMouseEnter={() => this.setSubmenu(null)}
                 >
                   <span class="directory-num">06 //</span> CONTACT
                 </a>
 
                 <a
-                  href="#"
+                  href="/blog"
                   class="directory-item"
-                  onClick={(e) => { e.preventDefault(); alert("Journal (Blog) Clicked"); this.handleClose(); }}
+                  onClick={(e) => { e.preventDefault(); Router.push('/blog'); this.handleClose(); }}
                   onMouseEnter={() => this.setSubmenu(null)}
                 >
                   <span class="directory-num">07 //</span> BLOG
