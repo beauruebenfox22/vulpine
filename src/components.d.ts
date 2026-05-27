@@ -13,7 +13,14 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface AppServices {
+        "serviceType": 'ai' | 'shopify';
+    }
+    interface AppWorkWithUs {
+    }
     interface FoxyConstellation {
+    }
+    interface FoxyEstimate {
     }
     interface FoxyFooter {
     }
@@ -47,11 +54,29 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLAppServicesElement extends Components.AppServices, HTMLStencilElement {
+    }
+    var HTMLAppServicesElement: {
+        prototype: HTMLAppServicesElement;
+        new (): HTMLAppServicesElement;
+    };
+    interface HTMLAppWorkWithUsElement extends Components.AppWorkWithUs, HTMLStencilElement {
+    }
+    var HTMLAppWorkWithUsElement: {
+        prototype: HTMLAppWorkWithUsElement;
+        new (): HTMLAppWorkWithUsElement;
+    };
     interface HTMLFoxyConstellationElement extends Components.FoxyConstellation, HTMLStencilElement {
     }
     var HTMLFoxyConstellationElement: {
         prototype: HTMLFoxyConstellationElement;
         new (): HTMLFoxyConstellationElement;
+    };
+    interface HTMLFoxyEstimateElement extends Components.FoxyEstimate, HTMLStencilElement {
+    }
+    var HTMLFoxyEstimateElement: {
+        prototype: HTMLFoxyEstimateElement;
+        new (): HTMLFoxyEstimateElement;
     };
     interface HTMLFoxyFooterElement extends Components.FoxyFooter, HTMLStencilElement {
     }
@@ -86,7 +111,10 @@ declare global {
         "app-home": HTMLAppHomeElement;
         "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "app-services": HTMLAppServicesElement;
+        "app-work-with-us": HTMLAppWorkWithUsElement;
         "foxy-constellation": HTMLFoxyConstellationElement;
+        "foxy-estimate": HTMLFoxyEstimateElement;
         "foxy-footer": HTMLFoxyFooterElement;
         "foxy-logo": HTMLFoxyLogoElement;
         "foxy-nav": HTMLFoxyNavElement;
@@ -100,7 +128,14 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface AppServices {
+        "serviceType"?: 'ai' | 'shopify';
+    }
+    interface AppWorkWithUs {
+    }
     interface FoxyConstellation {
+    }
+    interface FoxyEstimate {
     }
     interface FoxyFooter {
     }
@@ -115,7 +150,10 @@ declare namespace LocalJSX {
         "app-home": AppHome;
         "app-profile": AppProfile;
         "app-root": AppRoot;
+        "app-services": AppServices;
+        "app-work-with-us": AppWorkWithUs;
         "foxy-constellation": FoxyConstellation;
+        "foxy-estimate": FoxyEstimate;
         "foxy-footer": FoxyFooter;
         "foxy-logo": FoxyLogo;
         "foxy-nav": FoxyNav;
@@ -128,7 +166,10 @@ declare module "@stencil/core" {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "app-services": LocalJSX.AppServices & JSXBase.HTMLAttributes<HTMLAppServicesElement>;
+            "app-work-with-us": LocalJSX.AppWorkWithUs & JSXBase.HTMLAttributes<HTMLAppWorkWithUsElement>;
             "foxy-constellation": LocalJSX.FoxyConstellation & JSXBase.HTMLAttributes<HTMLFoxyConstellationElement>;
+            "foxy-estimate": LocalJSX.FoxyEstimate & JSXBase.HTMLAttributes<HTMLFoxyEstimateElement>;
             "foxy-footer": LocalJSX.FoxyFooter & JSXBase.HTMLAttributes<HTMLFoxyFooterElement>;
             "foxy-logo": LocalJSX.FoxyLogo & JSXBase.HTMLAttributes<HTMLFoxyLogoElement>;
             "foxy-nav": LocalJSX.FoxyNav & JSXBase.HTMLAttributes<HTMLFoxyNavElement>;

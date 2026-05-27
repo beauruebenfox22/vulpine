@@ -1,4 +1,6 @@
 import { Component, Prop, State, Event, EventEmitter, h } from '@stencil/core';
+import { Router } from "../../";
+
 
 @Component({
   tag: 'foxy-nav',
@@ -24,6 +26,13 @@ export class FoxyNav {
   private setSubmenu = (menu: 'ai' | 'shopify' | null) => {
     this.hoveredSubmenu = menu;
   };
+
+  private navigateToService = (track: 'ai' | 'shopify', anchor?: string) => {
+    const path = `/services/${track}${anchor ? '#' + anchor : ''}`;
+    Router.push(path);
+    this.handleClose();
+  };
+
 
   private triggerDebate = () => {
     if (this.debating) return;
@@ -80,70 +89,73 @@ export class FoxyNav {
 
         {/* NAVIGATION TAKEOVER CONTAINER GRID */}
         <div class="nav-takeover-grid">
-          
+
           {/* COLUMN 1: DIRECTORY LINKS */}
           <div class="nav-grid-col col-directory">
             <div class="col-inner">
               <nav class="directory-list">
-                
-                {/* 01 // HOME */}
-                <a 
-                  href="#" 
-                  class="directory-item" 
-                  onClick={(e) => { e.preventDefault(); this.handleClose(); }}
-                  onMouseEnter={() => this.setSubmenu(null)}
-                >
-                  <span class="directory-num">01 //</span> HOME
-                </a>
 
-                {/* 02 // AI ENGINEERING */}
-                <a 
-                  href="#" 
+                <a
+                  href="#"
                   class={aiTriggerClasses}
-                  onClick={(e) => { e.preventDefault(); this.setSubmenu(this.hoveredSubmenu === 'ai' ? null : 'ai'); }}
+                  onClick={(e) => { e.preventDefault(); this.navigateToService('ai'); }}
                   onMouseEnter={() => this.setSubmenu('ai')}
                 >
-                  <span class="directory-num">02 //</span> AI ENGINEERING
+                  <span class="directory-num">01 //</span> AI ENGINEERING
                 </a>
 
-                {/* 03 // SHOPIFY ENGINEERING */}
-                <a 
-                  href="#" 
+                <a
+                  href="#"
                   class={shopifyTriggerClasses}
-                  onClick={(e) => { e.preventDefault(); this.setSubmenu(this.hoveredSubmenu === 'shopify' ? null : 'shopify'); }}
+                  onClick={(e) => { e.preventDefault(); this.navigateToService('shopify'); }}
                   onMouseEnter={() => this.setSubmenu('shopify')}
                 >
-                  <span class="directory-num">03 //</span> SHOPIFY ENGINEERING
+                  <span class="directory-num">02 //</span> SHOPIFY ENGINEERING
                 </a>
 
-                {/* 04 // GEMINI CASE STUDIES */}
-                <a 
-                  href="#" 
-                  class="directory-item highlight" 
+                <a
+                  href="#"
+                  class="directory-item highlight"
                   onClick={(e) => { e.preventDefault(); alert("Gemini Case Studies Clicked"); this.handleClose(); }}
                   onMouseEnter={() => this.setSubmenu(null)}
                 >
-                  <span class="directory-num">04 //</span> GEMINI CASE STUDIES
+                  <span class="directory-num">03 //</span> CASE STUDIES
                 </a>
 
-                {/* 05 // MANIFESTO */}
-                <a 
-                  href="#" 
-                  class="directory-item" 
+                <a
+                  href="#"
+                  class="directory-item"
                   onClick={(e) => { e.preventDefault(); alert("Manifesto Clicked"); this.handleClose(); }}
                   onMouseEnter={() => this.setSubmenu(null)}
                 >
-                  <span class="directory-num">05 //</span> MANIFESTO
+                  <span class="directory-num">04 //</span> ABOUT
                 </a>
 
-                {/* 06 // JOURNAL (BLOG) */}
-                <a 
-                  href="#" 
-                  class="directory-item" 
+                <a
+                  href="/work-with-us"
+                  class="directory-item"
                   onClick={(e) => { e.preventDefault(); alert("Journal (Blog) Clicked"); this.handleClose(); }}
                   onMouseEnter={() => this.setSubmenu(null)}
                 >
-                  <span class="directory-num">06 //</span> JOURNAL (BLOG)
+                  <span class="directory-num">05 //</span> WORK WITH US
+                </a>
+
+                <a
+                  href="#"
+                  class="directory-item"
+                  onClick={(e) => { e.preventDefault(); alert("Journal (Blog) Clicked"); this.handleClose(); }}
+                  onMouseEnter={() => this.setSubmenu(null)}
+                >
+                  <span class="directory-num">06 //</span> CONTACT
+                </a>
+
+                <a
+                  href="#"
+                  class="directory-item"
+                  onClick={(e) => { e.preventDefault(); alert("Journal (Blog) Clicked"); this.handleClose(); }}
+                  onMouseEnter={() => this.setSubmenu(null)}
+                >
+                  <span class="directory-num">07 //</span> BLOG
                 </a>
 
               </nav>
@@ -152,23 +164,23 @@ export class FoxyNav {
 
           {/* DYNAMIC SHIFT CONTAINER FOR MIDDLE AND RIGHT COLUMNS */}
           <div class="nav-grid-stage-wrapper">
-            
+
             {/* STAGE A: DEFAULT STATE BENTO GRID (BLOG, DEBATE, CONTACT) */}
             <div class="stage-container stage-default">
-              
+
               {/* MIDDLE BENTO PANEL COLUMN */}
               <div class="nav-grid-col col-bento-middle">
                 <div class="col-inner">
-                  
+
                   {/* BENTO BOX A1: AI DEBATE TEAM */}
                   <div class="nav-bento-box bento-debate">
                     <h3 class="bento-box-heading">AI DEBATE TEAM LOGIC <span class="badge">(GEMINI)</span></h3>
-                    
+
                     <div class="bento-debate-fields">
                       <div class="bento-form-group">
                         <label>TOPIC:</label>
                         <div class="bento-select-wrapper">
-                          <select 
+                          <select
                             onChange={(e: any) => this.debateTopic = e.target.value}
                             disabled={this.debating}
                           >
@@ -183,7 +195,7 @@ export class FoxyNav {
                       <div class="bento-form-group">
                         <label>AGENTS:</label>
                         <div class="bento-select-wrapper">
-                          <select 
+                          <select
                             onChange={(e: any) => this.debateAgents = e.target.value}
                             disabled={this.debating}
                           >
@@ -200,7 +212,7 @@ export class FoxyNav {
                     </p>
 
                     <div class="bento-debate-action">
-                      <button 
+                      <button
                         class={`bento-debate-btn ${this.debating ? 'is-debating' : ''}`}
                         onClick={this.triggerDebate}
                         disabled={this.debating}
@@ -225,7 +237,7 @@ export class FoxyNav {
                   <div class="nav-bento-box bento-performance">
                     <h3 class="bento-box-heading">LIGHT DOM FOR HEAVY ENGINEERING</h3>
                     <span class="bento-box-meta">OCT 2026</span>
-                    
+
                     {/* DOM Tree Diagram visualization in Light DOM */}
                     <div class="bento-dom-tree">
                       <div class="dom-node root-node">HOST</div>
@@ -241,7 +253,7 @@ export class FoxyNav {
                     <p class="bento-box-description">
                       Optimizing Stencil apps for speed and accessibility, not trends.
                     </p>
-                    
+
                     <a href="#" class="bento-action-link" onClick={(e) => { e.preventDefault(); alert("DOM Article Clicked"); this.handleClose(); }}>
                       [ READ ARTICLE ]
                     </a>
@@ -253,7 +265,7 @@ export class FoxyNav {
               {/* RIGHT COLUMN: LEAD ESCALATION */}
               <div class="nav-grid-col col-bento-right">
                 <div class="col-inner">
-                  
+
                   {/* BENTO BOX A3: CONTACT/LEAD ESCALATION */}
                   <div class="nav-bento-box bento-contact">
                     <h3 class="bento-box-heading">READY TO ESCALATE?</h3>
@@ -263,17 +275,17 @@ export class FoxyNav {
 
                     <form onSubmit={this.handleEscalate} class="escalation-form">
                       <div class="form-group-field">
-                        <input 
-                          type="text" 
-                          placeholder="[ NAME ]" 
+                        <input
+                          type="text"
+                          placeholder="[ NAME ]"
                           value={this.contactName}
                           onInput={(e: any) => this.contactName = e.target.value}
                           required
                         />
                       </div>
                       <div class="form-group-field">
-                        <textarea 
-                          placeholder="[ PROJECT DETAILS (TEXTAREA) ]" 
+                        <textarea
+                          placeholder="[ PROJECT DETAILS (TEXTAREA) ]"
                           rows={4}
                           value={this.contactDetails}
                           onInput={(e: any) => this.contactDetails = e.target.value}
@@ -303,22 +315,22 @@ export class FoxyNav {
                 </div>
 
                 <div class="takeover-link-grid">
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); alert("Gemini Orchestration Clicked"); this.handleClose(); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'gemini-orchestration'); }}>
                     <span class="item-num">02.A</span>
                     <span class="item-label">GEMINI_ORCHESTRATION</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); alert("Autonomous Agents Clicked"); this.handleClose(); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'autonomous-agents'); }}>
                     <span class="item-num">02.B</span>
                     <span class="item-label">AUTONOMOUS_AGENTS</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); alert("Secure SDK Bridges Clicked"); this.handleClose(); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'secure-sdk-bridges'); }}>
                     <span class="item-num">02.C</span>
                     <span class="item-label">SECURE_SDK_BRIDGES</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); alert("Logic Layer Integration Clicked"); this.handleClose(); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'logic-layer-integration'); }}>
                     <span class="item-num">02.D</span>
                     <span class="item-label">LOGIC_LAYER_INTEGRATION</span>
                     <span class="item-arrow">→</span>
@@ -336,22 +348,22 @@ export class FoxyNav {
                 </div>
 
                 <div class="takeover-link-grid">
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); alert("Headless Architecture Clicked"); this.handleClose(); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'headless-architecture'); }}>
                     <span class="item-num">03.A</span>
                     <span class="item-label">HEADLESS_ARCHITECTURE</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); alert("Platform Re-engineering Clicked"); this.handleClose(); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'platform-re-engineering'); }}>
                     <span class="item-num">03.B</span>
                     <span class="item-label">PLATFORM_RE-ENGINEERING</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); alert("Custom App Development Clicked"); this.handleClose(); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'custom-app-development'); }}>
                     <span class="item-num">03.C</span>
                     <span class="item-label">CUSTOM_APP_DEVELOPMENT</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); alert("Extensibility Engines Clicked"); this.handleClose(); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'extensibility-engines'); }}>
                     <span class="item-num">03.D</span>
                     <span class="item-label">EXTENSIBILITY_ENGINES</span>
                     <span class="item-arrow">→</span>
@@ -364,12 +376,6 @@ export class FoxyNav {
 
         </div>
 
-        {/* INTEGRATED TAKEOVER FOOTER LEGAL ACCENT */}
-        <footer class="takeover-footer">
-          <p class="takeover-footer-text">
-            Copyright © 2026 logic layer or Shopify complexity. All rights reserved.
-          </p>
-        </footer>
       </div>
     );
   }

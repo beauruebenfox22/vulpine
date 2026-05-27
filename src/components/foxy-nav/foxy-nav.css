@@ -16,7 +16,7 @@
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1),
-              visibility 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    visibility 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .foxy-nav-takeover.is-active {
@@ -59,7 +59,7 @@
   border-left: 1px solid rgba(255, 46, 68, 0.08);
   z-index: 1;
   transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1),
-              border-color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    border-color 0.8s cubic-bezier(0.25, 1, 0.5, 1);
   transform-origin: center right;
 }
 
@@ -91,9 +91,9 @@
   outline: none;
   padding: 0;
   transition: border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .close-icon-line {
@@ -105,8 +105,13 @@
   transition: background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.close-icon-line.line-1 { transform: rotate(45deg); }
-.close-icon-line.line-2 { transform: rotate(-45deg); }
+.close-icon-line.line-1 {
+  transform: rotate(45deg);
+}
+
+.close-icon-line.line-2 {
+  transform: rotate(-45deg);
+}
 
 .foxy-close-btn:hover {
   border-color: var(--red-glow);
@@ -125,11 +130,13 @@
 .nav-takeover-grid {
   position: relative;
   width: 100%;
-  height: calc(100vh - 80px); /* Leave room for footer */
+  height: calc(100vh - 80px);
+  /* Leave room for footer */
   display: grid;
   grid-template-columns: 42% 58%;
   z-index: 10;
-  padding-top: 90px; /* Space under floating header */
+  padding-top: 90px;
+  /* Space under floating header */
 }
 
 .nav-grid-col {
@@ -166,10 +173,10 @@
   letter-spacing: -0.03em;
   transform-origin: left center;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              text-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    text-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .directory-num {
@@ -233,8 +240,8 @@
   width: 100%;
   height: 100%;
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* STAGE A: DEFAULT STATE (GRID SYSTEM LAYOUT) */
@@ -271,7 +278,7 @@
 .nav-bento-box:hover {
   border-color: rgba(255, 46, 68, 0.25);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4),
-              0 0 15px var(--red-ambient);
+    0 0 15px var(--red-ambient);
 }
 
 .bento-box-heading {
@@ -394,7 +401,7 @@
 .bento-debate-btn:hover:not(:disabled) {
   border-color: var(--red-glow);
   box-shadow: 0 0 10px var(--red-ambient);
-  background: linear-gradient(135deg, rgba(8,8,8,0.8) 0%, rgba(200,16,46,0.15) 100%);
+  background: linear-gradient(135deg, rgba(8, 8, 8, 0.8) 0%, rgba(200, 16, 46, 0.15) 100%);
 }
 
 .bento-debate-btn:disabled {
@@ -446,11 +453,25 @@
   animation: audio-wave-pulse 1.2s ease-in-out infinite alternate;
 }
 
-.bento-visualizer.active .bar-1 { animation-delay: 0.1s !important; }
-.bento-visualizer.active .bar-2 { animation-delay: 0.4s !important; }
-.bento-visualizer.active .bar-3 { animation-delay: 0.2s !important; }
-.bento-visualizer.active .bar-4 { animation-delay: 0.6s !important; }
-.bento-visualizer.active .bar-5 { animation-delay: 0.3s !important; }
+.bento-visualizer.active .bar-1 {
+  animation-delay: 0.1s !important;
+}
+
+.bento-visualizer.active .bar-2 {
+  animation-delay: 0.4s !important;
+}
+
+.bento-visualizer.active .bar-3 {
+  animation-delay: 0.2s !important;
+}
+
+.bento-visualizer.active .bar-4 {
+  animation-delay: 0.6s !important;
+}
+
+.bento-visualizer.active .bar-5 {
+  animation-delay: 0.3s !important;
+}
 
 /* Light DOM Nodes tree graphic */
 .bento-dom-tree {
@@ -627,7 +648,8 @@
 /* ==========================================================================
    7. STAGE B & C: SUB-BRANCH STAGE TAKEOVERS
    ========================================================================== */
-.stage-ai, .stage-shopify {
+.stage-ai,
+.stage-shopify {
   position: absolute;
   top: 0;
   left: 0;
@@ -720,7 +742,7 @@
   background: linear-gradient(135deg, rgba(18, 18, 20, 0.8) 0%, rgba(200, 16, 46, 0.18) 100%);
   transform: translateX(12px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5),
-              0 0 15px var(--red-ambient);
+    0 0 15px var(--red-ambient);
 }
 
 .takeover-link-item:hover .item-label {
@@ -768,31 +790,6 @@
 }
 
 /* ==========================================================================
-   9. INTEGRATED TAKEOVER FOOTER ACCENTS
-   ========================================================================== */
-.takeover-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  padding: 0 4rem;
-  background: transparent;
-  z-index: 10;
-  border-top: 1px solid rgba(255, 255, 255, 0.02);
-}
-
-.takeover-footer-text {
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  color: var(--copy);
-  opacity: 0.45;
-}
-
-/* ==========================================================================
    10. RESPONSIVENESS
    ========================================================================== */
 @media (max-width: 1024px) {
@@ -802,41 +799,53 @@
     overflow-y: auto;
     padding-bottom: 80px;
   }
+
   .nav-bg-sector-left {
     width: 100%;
     height: 100%;
   }
+
   .nav-bg-sector-right {
     display: none;
   }
+
   .col-inner {
     padding: 2rem;
   }
+
   .directory-item {
     font-size: 1.8rem;
   }
+
   .stage-default {
     grid-template-columns: 1fr;
   }
+
   .col-bento-middle .col-inner {
     padding: 2rem;
   }
+
   .col-bento-right .col-inner {
     padding: 2rem;
   }
+
   .foxy-close-btn {
     top: 20px;
     right: 2rem;
   }
+
   .takeover-content {
     padding: 2rem;
   }
+
   .takeover-heading {
     font-size: 2.2rem;
   }
+
   .takeover-link-item {
     padding: 1.2rem;
   }
+
   .takeover-link-item .item-label {
     font-size: 1.05rem;
   }

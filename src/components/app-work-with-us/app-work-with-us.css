@@ -1,0 +1,362 @@
+.mission-control-wrapper {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: var(--base);
+  padding-top: 80px; /* Account for global header */
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   HEADER SECTION (30vh)
+   ========================================================================== */
+.mission-header {
+  height: 30vh;
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4rem;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+  background: radial-gradient(circle at 10% 90%, rgba(200, 16, 46, 0.05) 0%, transparent 50%);
+}
+
+.header-content {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.mission-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--heading);
+  letter-spacing: 0.1em;
+  line-height: 1;
+  margin: 0 0 1rem 0;
+  text-shadow: 0 0 20px rgba(200, 16, 46, 0.3);
+  text-transform: uppercase;
+}
+
+.mission-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--copy);
+  max-width: 600px;
+  margin: 0;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+}
+
+.header-scanline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red-glow), transparent);
+  animation: scanline 4s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes scanline {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ==========================================================================
+   DASHBOARD GRID
+   ========================================================================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 2rem 4rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.dashboard-widget {
+  background: var(--base-secondary);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.dashboard-widget:hover {
+  border-color: rgba(200, 16, 46, 0.5);
+}
+
+.widget-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(8, 8, 10, 0.5);
+}
+
+.widget-id {
+  font-family: 'Outfit', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--red-glow);
+  letter-spacing: 0.1em;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--red-core);
+  border-radius: 2px;
+  background: rgba(200, 16, 46, 0.1);
+}
+
+.widget-header h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--heading);
+  letter-spacing: 0.2em;
+  margin: 0;
+}
+
+.widget-body {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ==========================================================================
+   WIDGET CONTENT STYLES
+   ========================================================================== */
+.data-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.data-list li {
+  font-size: 0.9rem;
+  color: var(--copy);
+  line-height: 1.5;
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.dashboard-widget:hover .data-list li {
+  border-left-color: var(--red-core);
+}
+
+.data-list strong {
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.widget-text {
+  font-size: 0.95rem;
+  color: var(--copy);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================================
+   CUSTOM SVG ANIMATIONS
+   ========================================================================== */
+/* Widget 1: Vector Nodes */
+.vector-animation {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+.node-svg { width: 100%; height: 100%; }
+.node-ring { fill: none; stroke: var(--border); stroke-width: 1; stroke-dasharray: 4 4; animation: spin-slow 20s linear infinite; transform-origin: center; }
+.node-point { fill: var(--red-glow); }
+.node-link { stroke: var(--red-core); stroke-width: 1.5; opacity: 0.6; }
+.node-core { fill: transparent; stroke: var(--red-glow); stroke-width: 2; animation: pulse-core 2s ease-in-out infinite; transform-origin: center; }
+
+@keyframes spin-slow { 100% { transform: rotate(360deg); } }
+@keyframes pulse-core {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.3; }
+}
+
+/* Widget 2: Pricing Bar Chart */
+.pricing-animation {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: flex-end;
+}
+.bar-chart {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  align-items: flex-end;
+}
+.bar {
+  flex: 1;
+  background: var(--border);
+  height: 20%;
+  position: relative;
+  border-radius: 2px 2px 0 0;
+}
+.bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--fill);
+  background: var(--red-core);
+  border-radius: 2px 2px 0 0;
+  animation: grow-bar 1.5s ease-out forwards;
+  transform-origin: bottom;
+  box-shadow: 0 0 10px rgba(200, 16, 46, 0.4);
+}
+@keyframes grow-bar {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* Widget 3: Radar */
+.radar-animation {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+.radar-svg { width: 100%; height: 100%; }
+.radar-grid { fill: none; stroke: var(--border); stroke-width: 1; }
+.radar-axis { stroke: var(--border); stroke-width: 1; }
+.radar-sweep { 
+  fill: rgba(200, 16, 46, 0.2); 
+  transform-origin: center; 
+  animation: spin-slow 4s linear infinite; 
+}
+.radar-blip {
+  fill: #fff;
+  opacity: 0;
+  animation: blip 4s linear infinite;
+}
+@keyframes blip {
+  0%, 100% { opacity: 0; transform: scale(0.5); }
+  5% { opacity: 1; transform: scale(1.5); filter: drop-shadow(0 0 5px #fff); }
+  20% { opacity: 0; transform: scale(1); }
+}
+
+/* Widget 4: Hex Core */
+.core-animation {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hex-core {
+  width: 40px;
+  height: 45px;
+  background-color: var(--red-core);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px var(--red-glow);
+}
+.hex-pulse {
+  width: 60px;
+  height: 65px;
+  border: 1px solid var(--red-glow);
+  position: absolute;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: hex-expand 2s ease-out infinite;
+}
+@keyframes hex-expand {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* ==========================================================================
+   GRID LAYOUT MAPPING
+   ========================================================================== */
+.widget-vectors {
+  grid-column: 1 / 2;
+}
+.widget-pricing {
+  grid-column: 1 / 2;
+}
+.widget-demographics {
+  grid-column: 2 / 3;
+}
+.widget-edge {
+  grid-column: 2 / 3;
+}
+.widget-estimator {
+  grid-column: 3 / 4;
+  grid-row: 1 / 5; /* Span all rows on the right */
+}
+
+/* Clean up foxy-estimate to fit dashboard card */
+.widget-estimator .estimator-body {
+  padding: 0;
+}
+foxy-estimate {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.widget-estimator .foxy-estimate-container {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 1.5rem;
+  max-width: none;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .widget-estimator {
+    grid-column: 1 / 3;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .mission-header {
+    padding: 0 2rem;
+    height: auto;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
+  .mission-title {
+    font-size: 3rem;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+  .widget-estimator {
+    grid-column: 1 / 2;
+  }
+}

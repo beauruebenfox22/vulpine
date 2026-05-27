@@ -26,7 +26,7 @@ export class AppRoot {
   render() {
     return (
       <div class={{ 'vulpine-app': true, 'menu-open': this.menuOpen }}>
-        
+
         {/* BRAND OVERLAY HEADER */}
         <header class="vulpine-nav-header">
           <div class="nav-brand" onClick={this.handleBrandClick} role="button" tabIndex={0}>
@@ -35,8 +35,8 @@ export class AppRoot {
           </div>
 
           {/* SEXY ANIMATED HAMBURGER ICON */}
-          <button 
-            class={{ 'foxy-burger-btn': true, 'is-open': this.menuOpen }} 
+          <button
+            class={{ 'foxy-burger-btn': true, 'is-open': this.menuOpen }}
             onClick={this.toggleMenu}
             aria-label="Toggle Menu"
             aria-expanded={this.menuOpen ? 'true' : 'false'}
@@ -59,12 +59,26 @@ export class AppRoot {
             <Route path="/">
               <app-home />
             </Route>
+            <Route path="/work-with-us">
+              <app-work-with-us />
+            </Route>
             <Route
               path={match("/profile/:name")}
               render={({ name }) => <app-profile name={name} />}
             />
+            <Route
+              path={match("/services/:type")}
+              render={({ type }) => <app-services serviceType={type as any} />}
+            />
           </Router.Switch>
         </main>
+
+        <footer class="foxy-footer">
+          <p class="foxy-footer-text">
+            Copyright © 2026 logic layer or Shopify complexity. All rights reserved.
+          </p>
+        </footer>
+
       </div>
     );
   }

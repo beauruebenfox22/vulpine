@@ -11,7 +11,7 @@
 }
 
 .vulpine-main {
-  flex: 1;
+  flex: 1 0 auto;
   width: 100%;
   position: relative;
   z-index: 10;
@@ -32,7 +32,8 @@
   padding: 0 4rem;
   z-index: 1000;
   background: transparent;
-  pointer-events: none; /* Allows canvas mouse interaction to cascade beneath the header */
+  pointer-events: none;
+  /* Allows canvas mouse interaction to cascade beneath the header */
 }
 
 .nav-brand {
@@ -40,7 +41,8 @@
   align-items: center;
   gap: 0.8rem;
   cursor: pointer;
-  pointer-events: auto; /* Clickable */
+  pointer-events: auto;
+  /* Clickable */
   transition: var(--transition-smooth);
 }
 
@@ -74,14 +76,16 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  pointer-events: auto; /* Clickable */
+  pointer-events: auto;
+  /* Clickable */
   outline: none;
   padding: 0;
-  z-index: 1001; /* Layer over sidebar overlays */
+  z-index: 1001;
+  /* Layer over sidebar overlays */
   transition: border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .burger-circle-glow {
@@ -97,7 +101,7 @@
   pointer-events: none;
   z-index: 1;
   transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .burger-inner {
@@ -117,8 +121,8 @@
   border-radius: 2px;
   transform-origin: center;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              width 0.3s ease;
+    background-color 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    width 0.3s ease;
 }
 
 /* SEXY HOVER TENSION EFFECTS */
@@ -164,3 +168,22 @@
   background-color: var(--red-glow);
 }
 
+.foxy-footer {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4rem;
+  background: transparent;
+  z-index: 10;
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.foxy-footer-text {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--copy);
+  opacity: 0.45;
+}

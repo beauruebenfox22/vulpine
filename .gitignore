@@ -25,3 +25,6 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .env
+
+# Local Netlify folder
+.netlify

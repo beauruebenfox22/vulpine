@@ -1,0 +1,598 @@
+/* ==========================================================================
+   VOLPINE SERVICE DECK SYSTEM (LIGHT DOM ARCHITECTURE)
+   ========================================================================== */
+
+/* Parent Container: The Scroll Snapping Deck */
+.service-deck-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  position: relative;
+  background-color: var(--base);
+}
+
+/* ==========================================================================
+   THEME STACKS USING NATIVE CUSTOM PROPERTIES
+   ========================================================================== */
+.app-services-container.track-ai {
+  --theme-core: var(--red-core, #C8102E);
+  --theme-glow: var(--red-glow, #FF2E44);
+  --theme-dark: var(--red-dark, #4A000B);
+  --theme-ambient: rgba(200, 16, 46, 0.1);
+}
+
+.app-services-container.track-shopify {
+  --theme-core: #95BF47; /* Shopify Green */
+  --theme-glow: #A1E02C; /* Acid Lime */
+  --theme-dark: #0D2610; /* Deep Olive */
+  --theme-ambient: rgba(149, 191, 71, 0.08);
+}
+
+/* ==========================================================================
+   SCROLL SNAP SECTIONS
+   ========================================================================== */
+.deck-section {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--base);
+}
+
+/* Alternating Grid Formats */
+.deck-section.align-left {
+  grid-template-columns: 45vw 55vw;
+}
+
+.deck-section.align-right {
+  grid-template-columns: 55vw 45vw;
+}
+
+/* Subtle fade-in when section is active */
+.deck-section {
+  view-timeline-name: --section-visible;
+  view-timeline-axis: block;
+}
+
+/* ==========================================================================
+   PANEL 1: NARRATIVE PANEL (TEXT & CONTENT)
+   ========================================================================== */
+.narrative-panel {
+  background-color: var(--base);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.deck-section.align-left .narrative-panel {
+  grid-column: 1;
+  grid-row: 1;
+  padding: 0 4rem 0 6rem;
+}
+
+.deck-section.align-right .narrative-panel {
+  grid-column: 2;
+  grid-row: 1;
+  padding: 0 6rem 0 4rem;
+}
+
+.panel-inner {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+}
+
+/* Large Faint ID Label */
+.faint-id-label {
+  position: absolute;
+  top: -5.5rem;
+  left: -1rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11rem;
+  font-weight: 800;
+  color: var(--theme-core);
+  opacity: 0.04;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Narratives headings */
+.narrative-heading {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.narrative-body-text {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--copy);
+  margin-bottom: 2.5rem;
+}
+
+/* Capabilities Bento Chips */
+.capabilities-bento-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+}
+
+.bento-chip {
+  background: var(--base-secondary);
+  border: 1px solid var(--border);
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--transition-smooth);
+}
+
+.bento-chip:hover {
+  border-color: var(--theme-core);
+  box-shadow: 0 4px 15px var(--theme-ambient);
+  transform: translateY(-2px);
+}
+
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--theme-glow);
+  box-shadow: 0 0 8px var(--theme-glow);
+}
+
+.chip-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+
+/* Narrative Actions */
+.cta-outline-btn {
+  background: transparent;
+  border: 1px solid var(--theme-core);
+  color: #ffffff;
+  padding: 0.9rem 1.8rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.cta-outline-btn:hover {
+  background-color: var(--theme-core);
+  border-color: var(--theme-core);
+  box-shadow: 0 4px 20px var(--theme-ambient);
+}
+
+/* ==========================================================================
+   PANEL 2: ARTSTAGE PANEL (VISUAL DISPLAY)
+   ========================================================================== */
+.artstage-panel {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--theme-dark) 0%, var(--base) 100%);
+  overflow: hidden;
+}
+
+/* Diagonal Clip Paths with 15% overlap offsets */
+.deck-section.align-left .artstage-panel {
+  grid-column: 2;
+  grid-row: 1;
+  clip-path: polygon(15% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.deck-section.align-right .artstage-panel {
+  grid-column: 1;
+  grid-row: 1;
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+}
+
+/* Ambient glow graphics in background */
+.artstage-decorations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.decor-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+}
+
+.bg-glow-circle-1 {
+  width: 350px;
+  height: 350px;
+  background-color: var(--theme-glow);
+  top: 20%;
+  right: 10%;
+}
+
+.bg-glow-circle-2 {
+  width: 250px;
+  height: 250px;
+  background-color: var(--theme-core);
+  bottom: 10%;
+  left: 20%;
+}
+
+/* SVG Container */
+.artstage-visual-container {
+  position: relative;
+  z-index: 2;
+  width: 60%;
+  max-width: 420px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visual-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   SVG ENGINE ANIMATION KEYFRAMES
+   ========================================================================== */
+
+/* 1. Network Matrix */
+.glow-pulse {
+  animation: glowPulse 2s infinite ease-in-out;
+}
+
+.glow-pulse.delay-1 { animation-delay: 0.4s; }
+.glow-pulse.delay-2 { animation-delay: 0.8s; }
+.glow-pulse.delay-3 { animation-delay: 1.2s; }
+.glow-pulse.delay-4 { animation-delay: 1.6s; }
+
+@keyframes glowPulse {
+  0%, 100% {
+    r: 12px;
+    opacity: 0.4;
+  }
+  50% {
+    r: 22px;
+    opacity: 0.9;
+  }
+}
+
+.conn-line {
+  stroke: var(--theme-core);
+  stroke-width: 1.5;
+  opacity: 0.2;
+  stroke-dasharray: 4;
+  animation: dashCycle 15s infinite linear;
+}
+
+.conn-line.delay-1 { animation-duration: 10s; }
+.conn-line.delay-2 { animation-duration: 8s; }
+.conn-line.delay-3 { animation-duration: 12s; }
+.conn-line.delay-4 { animation-duration: 9s; }
+.conn-line.delay-5 { animation-duration: 11s; }
+
+@keyframes dashCycle {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+/* 2. Agent Flow */
+.flow-dash {
+  animation: flowDash 3.5s infinite linear;
+}
+
+@keyframes flowDash {
+  to {
+    stroke-dashoffset: -135;
+  }
+}
+
+/* 3. Secure Bridge */
+.shield-pulse {
+  animation: shieldPulse 3s infinite ease-in-out;
+}
+
+@keyframes shieldPulse {
+  0%, 100% {
+    stroke-opacity: 0.3;
+    transform: scale(0.96);
+    transform-origin: center;
+  }
+  50% {
+    stroke-opacity: 0.9;
+    transform: scale(1.02);
+    transform-origin: center;
+  }
+}
+
+.shield-rotate {
+  animation: shieldRotate 25s infinite linear;
+  transform-origin: center;
+}
+
+@keyframes shieldRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 4. Logic State */
+.state-flow-line {
+  stroke: var(--theme-core);
+  animation: stateDash 5s infinite linear;
+}
+
+.state-flow-line-rev {
+  stroke: var(--theme-glow);
+  animation: stateDashRev 5s infinite linear;
+}
+
+@keyframes stateDash {
+  to {
+    stroke-dashoffset: -50;
+  }
+}
+
+@keyframes stateDashRev {
+  to {
+    stroke-dashoffset: 50;
+  }
+}
+
+.node-flash {
+  animation: nodeFlash 1.5s infinite alternate ease-in-out;
+}
+
+.node-flash.delay-2 {
+  animation-delay: 0.75s;
+}
+
+@keyframes nodeFlash {
+  from {
+    opacity: 0.2;
+    r: 3px;
+  }
+  to {
+    opacity: 1;
+    r: 6px;
+    fill: var(--theme-glow);
+  }
+}
+
+/* 5. Headless API */
+.api-bridge-pulse {
+  animation: apiPulse 3s infinite linear;
+}
+
+@keyframes apiPulse {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+/* 6. Database Split */
+.data-transfer-dash {
+  animation: dataTransfer 4s infinite linear;
+}
+
+@keyframes dataTransfer {
+  to {
+    stroke-dashoffset: -36;
+  }
+}
+
+/* 7. Dashboard Nodes */
+.bar-grow-1 { animation: barGrow 3s infinite alternate ease-in-out; transform-origin: bottom; }
+.bar-grow-2 { animation: barGrow 3s infinite alternate ease-in-out 0.5s; transform-origin: bottom; }
+.bar-grow-3 { animation: barGrow 3s infinite alternate ease-in-out 1s; transform-origin: bottom; }
+.bar-grow-4 { animation: barGrow 3s infinite alternate ease-in-out 1.5s; transform-origin: bottom; }
+
+@keyframes barGrow {
+  from {
+    transform: scaleY(0.75);
+  }
+  to {
+    transform: scaleY(1.05);
+  }
+}
+
+.line-reveal {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: lineReveal 4s forwards infinite alternate ease-in-out;
+}
+
+@keyframes lineReveal {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 8. Extensibility Blocks */
+.block-slide-1 {
+  animation: blockSlide1 4s infinite alternate ease-in-out;
+}
+.block-slide-2 {
+  animation: blockSlide2 4s infinite alternate ease-in-out 1s;
+}
+
+@keyframes blockSlide1 {
+  0% {
+    transform: translateX(-15px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes blockSlide2 {
+  0% {
+    transform: translateX(15px);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   ON-PAGE PROGRESS DOTS SIDEBAR NAVIGATION
+   ========================================================================== */
+.service-dot-nav {
+  position: fixed;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 100;
+}
+
+.dot-nav-item {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  outline: none;
+}
+
+.dot-inner {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: var(--transition-smooth);
+}
+
+.dot-nav-item:hover .dot-inner,
+.dot-nav-item.is-active .dot-inner {
+  background-color: var(--theme-glow);
+  box-shadow: 0 0 10px var(--theme-glow);
+  transform: scale(1.4);
+}
+
+/* Tooltip floating layout */
+.dot-tooltip {
+  position: absolute;
+  right: 2.5rem;
+  background-color: var(--base-secondary);
+  border: 1px solid var(--border);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(10px);
+  transition: var(--transition-smooth);
+}
+
+.dot-nav-item:hover .dot-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM OVERRIDES
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .deck-section.align-left,
+  .deck-section.align-right {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .deck-section.align-left .narrative-panel,
+  .deck-section.align-right .narrative-panel {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 3rem 2rem 4rem 2rem;
+  }
+
+  .deck-section.align-left .artstage-panel,
+  .deck-section.align-right .artstage-panel {
+    grid-column: 1;
+    grid-row: 1;
+    height: 45vh;
+    min-height: 350px;
+    clip-path: none !important;
+  }
+
+  .service-deck-wrapper {
+    scroll-snap-type: none;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .service-dot-nav {
+    display: none; /* Hide progress dots sidebar on tablets/mobiles */
+  }
+
+  .faint-id-label {
+    font-size: 8rem;
+    top: -4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .narrative-heading {
+    font-size: 2rem;
+  }
+
+  .faint-id-label {
+    font-size: 6rem;
+    top: -3rem;
+  }
+
+  .artstage-visual-container {
+    width: 75%;
+  }
+}
