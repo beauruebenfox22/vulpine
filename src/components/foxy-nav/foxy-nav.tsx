@@ -1,5 +1,6 @@
 import { Component, Prop, State, Event, EventEmitter, Method, h } from '@stencil/core';
 import { Router } from "../../";
+import themeStore from '../../store/theme';
 
 
 @Component({
@@ -18,6 +19,11 @@ export class FoxyNav {
   @State() debateTopic: string = 'Quantum Supremacy';
   @State() debateAgents: string = '5';
   @State() debating: boolean = false;
+
+  private toggleTheme = (mode: 'dark' | 'light', e: Event) => {
+    e.preventDefault();
+    themeStore.mode = mode;
+  };
 
   private handleClose = () => {
     this.menuClose.emit();
@@ -84,6 +90,7 @@ export class FoxyNav {
       'has-sub',
       this.hoveredSubmenu === 'ai' ? 'is-focused' : '',
       this.hoveredSubmenu === 'shopify' ? 'is-dimmed' : '',
+      Router.activePath?.includes('/services/ai') ? 'highlight' : '',
     ].filter(Boolean).join(' ');
 
     const shopifyTriggerClasses = [
@@ -91,7 +98,10 @@ export class FoxyNav {
       'has-sub',
       this.hoveredSubmenu === 'shopify' ? 'is-focused' : '',
       this.hoveredSubmenu === 'ai' ? 'is-dimmed' : '',
+      Router.activePath?.includes('/services/shopify') ? 'highlight' : '',
     ].filter(Boolean).join(' ');
+
+    const isPathActive = (path: string) => Router.activePath === path || Router.activePath?.startsWith(`${path}/`);
 
     return (
       <div class={rootClasses}>
@@ -130,7 +140,7 @@ export class FoxyNav {
 
                 <a
                   href="#"
-                  class="directory-item highlight"
+                  class={`directory-item ${isPathActive('/case-studies') ? 'highlight' : ''}`}
                   onClick={(e) => { e.preventDefault(); alert("Gemini Case Studies Clicked"); this.handleClose(); }}
                   onMouseEnter={() => this.handleDesktopHover(null)}
                 >
@@ -139,7 +149,7 @@ export class FoxyNav {
 
                 <a
                   href="/about"
-                  class="directory-item"
+                  class={`directory-item ${isPathActive('/about') ? 'highlight' : ''}`}
                   onClick={(e) => { e.preventDefault(); Router.push('/about'); this.handleClose(); }}
                   onMouseEnter={() => this.handleDesktopHover(null)}
                 >
@@ -148,7 +158,7 @@ export class FoxyNav {
 
                 <a
                   href="/work-with-us"
-                  class="directory-item"
+                  class={`directory-item ${isPathActive('/work-with-us') ? 'highlight' : ''}`}
                   onClick={(e) => { e.preventDefault(); Router.push('/work-with-us'); this.handleClose(); }}
                   onMouseEnter={() => this.handleDesktopHover(null)}
                 >
@@ -157,7 +167,7 @@ export class FoxyNav {
 
                 <a
                   href="/contact"
-                  class="directory-item"
+                  class={`directory-item ${isPathActive('/contact') ? 'highlight' : ''}`}
                   onClick={(e) => { e.preventDefault(); Router.push('/contact'); this.handleClose(); }}
                   onMouseEnter={() => this.handleDesktopHover(null)}
                 >
@@ -166,7 +176,7 @@ export class FoxyNav {
 
                 <a
                   href="/blog"
-                  class="directory-item"
+                  class={`directory-item ${isPathActive('/blog') ? 'highlight' : ''}`}
                   onClick={(e) => { e.preventDefault(); Router.push('/blog'); this.handleClose(); }}
                   onMouseEnter={() => this.handleDesktopHover(null)}
                 >
@@ -280,6 +290,22 @@ export class FoxyNav {
               {/* RIGHT COLUMN: LEAD ESCALATION */}
               <div class="nav-grid-col col-bento-right">
                 <div class="col-inner">
+
+                  {/* DESKTOP THEME TOGGLE */}
+                  <div class="nav-theme-toggle-desktop">
+                    <button 
+                      class={`theme-btn ${themeStore.mode === 'dark' ? 'is-active' : ''}`}
+                      onClick={(e) => this.toggleTheme('dark', e)}
+                    >
+                      [ DARK MODE ]
+                    </button>
+                    <button 
+                      class={`theme-btn ${themeStore.mode === 'light' ? 'is-active' : ''}`}
+                      onClick={(e) => this.toggleTheme('light', e)}
+                    >
+                      [ LIGHT MODE ]
+                    </button>
+                  </div>
 
                   {/* BENTO BOX A3: CONTACT/LEAD ESCALATION */}
                   <div class="nav-bento-box bento-contact">
@@ -395,6 +421,22 @@ export class FoxyNav {
 
           </div>
 
+        </div>
+
+        {/* MOBILE FLOATING THEME TOGGLE */}
+        <div class="nav-theme-toggle-mobile">
+          <button 
+            class={`theme-btn ${themeStore.mode === 'dark' ? 'is-active' : ''}`}
+            onClick={(e) => this.toggleTheme('dark', e)}
+          >
+            DARK
+          </button>
+          <button 
+            class={`theme-btn ${themeStore.mode === 'light' ? 'is-active' : ''}`}
+            onClick={(e) => this.toggleTheme('light', e)}
+          >
+            LIGHT
+          </button>
         </div>
 
       </div>

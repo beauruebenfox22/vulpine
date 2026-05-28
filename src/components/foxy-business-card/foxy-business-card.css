@@ -158,3 +158,38 @@
   box-shadow: 0 10px 20px rgba(149, 191, 71, 0.25);
   border-color: #95bf47;
 }
+
+/* ==========================================================================
+   LIGHT MODE THEME OVERRIDES
+   ========================================================================== */
+body.vulpine-light .btn-card {
+  background: linear-gradient(110deg, var(--red-glow) 50%, var(--base) 50%);
+  color: var(--heading);
+}
+
+body.vulpine-light .btn-card::before {
+  background: linear-gradient(110deg, var(--red-core) 50%, var(--base-secondary) 50%);
+}
+
+body.vulpine-light .theme-shopify:not(.menu-open) .btn-card {
+  background: linear-gradient(110deg, #95bf47 50%, var(--base) 50%);
+  color: var(--heading);
+}
+
+body.vulpine-light .theme-shopify:not(.menu-open) .btn-card::before {
+  background: linear-gradient(110deg, #7da139 50%, var(--base-secondary) 50%);
+}
+
+body.vulpine-light .card-dropdown {
+  background: rgba(229, 231, 235, 0.85); /* base */
+  border-color: var(--border);
+}
+
+body.vulpine-light .dropdown-btn {
+  color: var(--copy);
+}
+
+body.vulpine-light .dropdown-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--heading);
+}

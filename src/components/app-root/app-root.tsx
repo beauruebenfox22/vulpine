@@ -1,6 +1,7 @@
 import { Component, State, h } from '@stencil/core';
 import { Router } from "../../";
 import { Route, match } from "stencil-router-v2";
+import { initThemeStore } from '../../store/theme';
 
 @Component({
   tag: 'app-root',
@@ -10,6 +11,10 @@ import { Route, match } from "stencil-router-v2";
 export class AppRoot {
   @State() menuOpen: boolean = false;
   @State() drilldownActive: boolean = false;
+
+  componentWillLoad() {
+    initThemeStore();
+  }
 
   private handleDrilldownChange = (e: CustomEvent<boolean>) => {
     this.drilldownActive = e.detail;

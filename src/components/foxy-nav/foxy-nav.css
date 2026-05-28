@@ -556,7 +556,6 @@
 
 /* Lead Escalation Contact panel */
 .bento-contact {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -927,4 +926,137 @@
   .takeover-link-item .item-label {
     font-size: 1.05rem;
   }
+}
+
+/* ==========================================================================
+   10. THEME TOGGLE (DESKTOP & MOBILE)
+   ========================================================================== */
+.nav-theme-toggle-desktop {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.theme-btn {
+  background: transparent;
+  border: none;
+  color: var(--copy);
+  font-family: 'Outfit', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  padding: 0;
+  transition: var(--transition-smooth);
+}
+
+.theme-btn:hover {
+  color: #fff;
+}
+
+.theme-btn.is-active {
+  color: var(--red-glow);
+  text-shadow: 0 0 10px var(--red-ambient);
+}
+
+.nav-theme-toggle-mobile {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .nav-theme-toggle-desktop {
+    display: none;
+  }
+
+  .nav-theme-toggle-mobile {
+    display: flex;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: rgba(8, 8, 8, 0.85);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 4px;
+    padding: 0.5rem;
+    gap: 1rem;
+    z-index: 1010;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .nav-theme-toggle-mobile .theme-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    border-radius: 2px;
+  }
+
+  .nav-theme-toggle-mobile .theme-btn.is-active {
+    background: rgba(200, 16, 46, 0.1);
+    color: var(--red-glow);
+    border: 1px solid rgba(255, 46, 68, 0.3);
+  }
+}
+
+/* ==========================================================================
+   LIGHT MODE THEME OVERRIDES
+   ========================================================================== */
+body.vulpine-light .nav-bg-sector-left {
+  background: rgba(229, 231, 235, 0.98); /* var(--base) */
+}
+
+body.vulpine-light .nav-bg-sector-right {
+  background: linear-gradient(135deg, rgba(243, 244, 246, 0.98) 0%, rgba(229, 231, 235, 0.96) 100%);
+  border-left-color: rgba(200, 16, 46, 0.15);
+}
+
+body.vulpine-light .foxy-close-btn {
+  background: rgba(243, 244, 246, 0.8);
+}
+
+body.vulpine-light .foxy-close-btn:hover {
+  background: rgba(229, 231, 235, 0.9);
+}
+
+body.vulpine-light .nav-bento-box,
+body.vulpine-light .takeover-link-item {
+  background: rgba(243, 244, 246, 0.85);
+}
+
+body.vulpine-light .takeover-link-item:hover {
+  background: linear-gradient(135deg, rgba(229, 231, 235, 0.9) 0%, rgba(200, 16, 46, 0.1) 100%);
+}
+
+body.vulpine-light .takeover-explore-btn {
+  background: rgba(229, 231, 235, 0.8);
+  color: var(--heading);
+}
+
+body.vulpine-light .takeover-explore-btn:hover {
+  background: rgba(200, 16, 46, 0.1);
+  color: var(--red-core);
+}
+
+body.vulpine-light .bento-select-wrapper select,
+body.vulpine-light .form-group-field input,
+body.vulpine-light .form-group-field textarea,
+body.vulpine-light .dom-node {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+body.vulpine-light .bento-debate-btn,
+body.vulpine-light .takeover-back-btn {
+  background: rgba(229, 231, 235, 0.8);
+}
+
+body.vulpine-light .bento-debate-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, rgba(243, 244, 246, 0.9) 0%, rgba(200, 16, 46, 0.15) 100%);
+}
+
+body.vulpine-light .directory-item:hover {
+  color: var(--heading);
+}
+
+body.vulpine-light .foxy-nav-takeover.takeover-stage-active .directory-item.is-focused {
+  color: var(--heading);
 }

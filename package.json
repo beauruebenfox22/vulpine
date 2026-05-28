@@ -19,5 +19,8 @@
     "puppeteer": "^21.11.0",
     "stencil-router-v2": "^0.6.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@stencil/store": "^2.2.2"
+  }
 }

@@ -35,6 +35,19 @@
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ==========================================================================
+   GLOBAL LIGHT THEME OVERRIDES (Industrial Aesthetic)
+   ========================================================================== */
+body.vulpine-light {
+  --base: #E5E7EB; /* Brushed Aluminum */
+  --base-secondary: #F3F4F6; /* Bone White */
+  --border: #D1D5DB; /* Crisp Light Gray */
+  --heading: #111827; /* Dark Charcoal */
+  --copy: #374151; /* Medium Dark Gray */
+  /* Keep the core reds untouched to serve as high-contrast sports car accents */
+  --red-ambient: rgba(200, 16, 46, 0.1); 
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

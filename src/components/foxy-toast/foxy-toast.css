@@ -92,3 +92,21 @@
   width: 16px;
   height: 16px;
 }
+
+/* ==========================================================================
+   LIGHT MODE THEME OVERRIDES
+   ========================================================================== */
+body.vulpine-light .toast-info {
+  color: var(--heading);
+  border-color: var(--border);
+}
+
+body.vulpine-light .toast-success {
+  background-color: var(--base-secondary);
+  color: #7da139; /* Darker emerald for contrast */
+}
+
+body.vulpine-light .toast-alert {
+  background-color: var(--base);
+  color: var(--red-core);
+}
