@@ -62,10 +62,10 @@ export class AppRoot {
           <div class="nav-actions">
             {/* SEXY ANIMATED HAMBURGER ICON */}
             <button
-              class={{ 
-                'foxy-burger-btn': true, 
+              class={{
+                'foxy-burger-btn': true,
                 'is-open': this.menuOpen && !this.drilldownActive,
-                'is-back': this.drilldownActive 
+                'is-back': this.drilldownActive
               }}
               onClick={this.toggleMenu}
               aria-label="Toggle Menu"
@@ -82,8 +82,8 @@ export class AppRoot {
         </header>
 
         {/* IMMERSIVE FULL-PAGE TAKEOVER NAVIGATION DIRECTORY */}
-        <foxy-nav 
-          active={this.menuOpen} 
+        <foxy-nav
+          active={this.menuOpen}
           onMenuClose={this.closeMenu}
           onDrilldownChange={this.handleDrilldownChange}
         ></foxy-nav>
@@ -123,7 +123,7 @@ export class AppRoot {
 
         <footer class="foxy-footer">
           <p class="foxy-footer-text">
-            Copyright © 2026 logic layer or Shopify complexity. All rights reserved.
+            Copyright © {new Date().getFullYear()} Vulpine Digital. All rights reserved.
           </p>
         </footer>
 

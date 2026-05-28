@@ -243,7 +243,7 @@
 
 .hover-ai .panel-ai .panel-description {
   opacity: 1;
-  max-height: 160px;
+  max-height: 500px;
   margin-top: 1.4rem;
 }
 
@@ -266,7 +266,7 @@
 
 .hover-shopify .panel-shopify .panel-description {
   opacity: 1;
-  max-height: 160px;
+  max-height: 500px;
   margin-top: 1.4rem;
 }
 
@@ -401,5 +401,19 @@
   .panel-backdrop-icon {
     width: 350px;
     height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-title {
+    font-size: 2.8rem;
+    letter-spacing: 0.25em;
+    text-indent: 0.25em;
+  }
+
+  .intro-subtitle {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
   }
 }

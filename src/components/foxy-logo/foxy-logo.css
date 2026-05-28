@@ -70,3 +70,16 @@ foxy-logo {
     background: radial-gradient(circle, rgba(255, 46, 68, 0.18) 0%, rgba(200, 16, 46, 0) 75%);
   }
 }
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .size-large {
+    width: 140px;
+    height: 140px;
+  }
+
+  .size-medium {
+    width: 100px;
+    height: 100px;
+  }
+}
