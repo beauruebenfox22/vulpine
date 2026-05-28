@@ -1,4 +1,4 @@
-import { Component, Prop, State, Event, EventEmitter, h } from '@stencil/core';
+import { Component, Prop, State, Event, EventEmitter, Method, h } from '@stencil/core';
 import { Router } from "../../";
 
 
@@ -10,6 +10,7 @@ import { Router } from "../../";
 export class FoxyNav {
   @Prop() active: boolean = false;
   @Event() menuClose: EventEmitter<void>;
+  @Event() drilldownChange: EventEmitter<boolean>;
 
   @State() hoveredSubmenu: 'ai' | 'shopify' | null = null;
   @State() contactName: string = '';
@@ -20,11 +21,25 @@ export class FoxyNav {
 
   private handleClose = () => {
     this.menuClose.emit();
-    this.hoveredSubmenu = null;
+    this.setSubmenu(null);
   };
 
+  @Method()
+  async resetDrilldown() {
+    this.setSubmenu(null);
+  }
+
   private setSubmenu = (menu: 'ai' | 'shopify' | null) => {
-    this.hoveredSubmenu = menu;
+    if (this.hoveredSubmenu !== menu) {
+      this.hoveredSubmenu = menu;
+      this.drilldownChange.emit(menu !== null);
+    }
+  };
+
+  private handleDesktopHover = (menu: 'ai' | 'shopify' | null) => {
+    if (typeof window !== 'undefined' && window.innerWidth > 1024) {
+      this.setSubmenu(menu);
+    }
   };
 
   private navigateToService = (track: 'ai' | 'shopify', anchor?: string) => {
@@ -98,8 +113,8 @@ export class FoxyNav {
                 <a
                   href="#"
                   class={aiTriggerClasses}
-                  onClick={(e) => { e.preventDefault(); this.navigateToService('ai'); }}
-                  onMouseEnter={() => this.setSubmenu('ai')}
+                  onClick={(e) => { e.preventDefault(); this.setSubmenu('ai'); }}
+                  onMouseEnter={() => this.handleDesktopHover('ai')}
                 >
                   <span class="directory-num">01 //</span> AI ENGINEERING
                 </a>
@@ -107,8 +122,8 @@ export class FoxyNav {
                 <a
                   href="#"
                   class={shopifyTriggerClasses}
-                  onClick={(e) => { e.preventDefault(); this.navigateToService('shopify'); }}
-                  onMouseEnter={() => this.setSubmenu('shopify')}
+                  onClick={(e) => { e.preventDefault(); this.setSubmenu('shopify'); }}
+                  onMouseEnter={() => this.handleDesktopHover('shopify')}
                 >
                   <span class="directory-num">02 //</span> SHOPIFY ENGINEERING
                 </a>
@@ -117,7 +132,7 @@ export class FoxyNav {
                   href="#"
                   class="directory-item highlight"
                   onClick={(e) => { e.preventDefault(); alert("Gemini Case Studies Clicked"); this.handleClose(); }}
-                  onMouseEnter={() => this.setSubmenu(null)}
+                  onMouseEnter={() => this.handleDesktopHover(null)}
                 >
                   <span class="directory-num">03 //</span> CASE STUDIES
                 </a>
@@ -126,7 +141,7 @@ export class FoxyNav {
                   href="/about"
                   class="directory-item"
                   onClick={(e) => { e.preventDefault(); Router.push('/about'); this.handleClose(); }}
-                  onMouseEnter={() => this.setSubmenu(null)}
+                  onMouseEnter={() => this.handleDesktopHover(null)}
                 >
                   <span class="directory-num">04 //</span> ABOUT
                 </a>
@@ -135,7 +150,7 @@ export class FoxyNav {
                   href="/work-with-us"
                   class="directory-item"
                   onClick={(e) => { e.preventDefault(); Router.push('/work-with-us'); this.handleClose(); }}
-                  onMouseEnter={() => this.setSubmenu(null)}
+                  onMouseEnter={() => this.handleDesktopHover(null)}
                 >
                   <span class="directory-num">05 //</span> WORK WITH US
                 </a>
@@ -144,7 +159,7 @@ export class FoxyNav {
                   href="/contact"
                   class="directory-item"
                   onClick={(e) => { e.preventDefault(); Router.push('/contact'); this.handleClose(); }}
-                  onMouseEnter={() => this.setSubmenu(null)}
+                  onMouseEnter={() => this.handleDesktopHover(null)}
                 >
                   <span class="directory-num">06 //</span> CONTACT
                 </a>
@@ -153,7 +168,7 @@ export class FoxyNav {
                   href="/blog"
                   class="directory-item"
                   onClick={(e) => { e.preventDefault(); Router.push('/blog'); this.handleClose(); }}
-                  onMouseEnter={() => this.setSubmenu(null)}
+                  onMouseEnter={() => this.handleDesktopHover(null)}
                 >
                   <span class="directory-num">07 //</span> BLOG
                 </a>
@@ -310,7 +325,6 @@ export class FoxyNav {
             <div class="stage-container stage-ai">
               <div class="takeover-content">
                 <div class="takeover-header">
-                  <span class="takeover-label">// RECONSTRUCTING GRID ... [ BRANCH: AI_ENGINEERING ]</span>
                   <h3 class="takeover-heading">INTELLIGENT SYSTEMS</h3>
                 </div>
 
@@ -335,6 +349,10 @@ export class FoxyNav {
                     <span class="item-label">LOGIC_LAYER_INTEGRATION</span>
                     <span class="item-arrow">→</span>
                   </a>
+
+                  <a href="#" class="takeover-explore-btn" onClick={(e) => { e.preventDefault(); this.navigateToService('ai'); }}>
+                    [ EXPLORE FULL ARCHITECTURE &rarr; ]
+                  </a>
                 </div>
               </div>
             </div>
@@ -343,7 +361,6 @@ export class FoxyNav {
             <div class="stage-container stage-shopify">
               <div class="takeover-content">
                 <div class="takeover-header">
-                  <span class="takeover-label">// RECONSTRUCTING GRID ... [ BRANCH: SHOPIFY_ENGINEERING ]</span>
                   <h3 class="takeover-heading">COMMERCE SYSTEMS</h3>
                 </div>
 
@@ -367,6 +384,10 @@ export class FoxyNav {
                     <span class="item-num">03.D</span>
                     <span class="item-label">EXTENSIBILITY_ENGINES</span>
                     <span class="item-arrow">→</span>
+                  </a>
+
+                  <a href="#" class="takeover-explore-btn" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify'); }}>
+                    [ EXPLORE FULL PLATFORM &rarr; ]
                   </a>
                 </div>
               </div>

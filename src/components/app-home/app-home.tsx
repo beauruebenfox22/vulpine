@@ -1,4 +1,5 @@
 import { Component, State, h } from '@stencil/core';
+import { setSEO } from '../../utils/seo';
 
 @Component({
   tag: 'app-home',
@@ -11,9 +12,15 @@ export class AppHome {
   @State() activePanel: 'ai' | 'shopify' | null = null;
 
   componentWillLoad() {
+    setSEO({
+      title: 'Vulpine Digital | Autonomous AI & Shopify Engineering',
+      description: 'We build bulletproof commerce architectures and autonomous AI agents. Less vibing, more velocity.',
+      url: 'https://vulpine.digital/'
+    });
+
     // Check if the cinematic intro has already played in this browser session
     const hasIntroPlayed = sessionStorage.getItem('volpine_intro_played') === 'true';
-    
+
     if (hasIntroPlayed) {
       this.introActive = false;
       this.introPhase = 3; // Ready state
@@ -44,17 +51,35 @@ export class AppHome {
     }, 4600);
   }
 
+  private handlePanelClick(panel: 'ai' | 'shopify', e: Event) {
+    if (typeof window !== 'undefined' && window.innerWidth <= 1024) {
+      if (this.activePanel === panel) {
+        this.activePanel = null;
+      } else {
+        this.activePanel = panel;
+        // Scroll into view after transition starts
+        setTimeout(() => {
+          (e.currentTarget as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    }
+  }
+
   private handlePanelEnter(panel: 'ai' | 'shopify') {
-    this.activePanel = panel;
+    if (typeof window !== 'undefined' && window.innerWidth > 1024) {
+      this.activePanel = panel;
+    }
   }
 
   private handlePanelLeave() {
-    this.activePanel = null;
+    if (typeof window !== 'undefined' && window.innerWidth > 1024) {
+      this.activePanel = null;
+    }
   }
 
   render() {
     const isIntroSequence = this.introActive;
-    
+
     return (
       <div class={{
         'app-home-layout': true,
@@ -63,7 +88,8 @@ export class AppHome {
         'hover-ai': this.activePanel === 'ai',
         'hover-shopify': this.activePanel === 'shopify',
       }}>
-        
+        <h1 class="sr-only">Vulpine Digital - AI & Commerce Engineering</h1>
+
         {/* CINEMATIC INTRO OVERLAY */}
         {isIntroSequence && (
           <div class="intro-overlay">
@@ -77,53 +103,54 @@ export class AppHome {
 
         {/* FULLSCREEN SPLIT HERO CONTAINER */}
         <section class="split-hero-container">
-          
+
           {/* LEFT COLUMN: AI ARCHITECTURE */}
-          <div 
+          <div
             class={{
               'hero-panel': true,
               'panel-ai': true,
               'active': this.activePanel === 'ai',
               'inactive': this.activePanel === 'shopify',
             }}
+            onClick={(e) => this.handlePanelClick('ai', e)}
             onMouseEnter={() => this.handlePanelEnter('ai')}
             onMouseLeave={() => this.handlePanelLeave()}
           >
             {/* Interactive living lines canvas behind the logo */}
             {!isIntroSequence && <foxy-constellation></foxy-constellation>}
-            
+
             <div class="panel-content">
               <div class="logo-wrapper">
                 <foxy-logo size="large"></foxy-logo>
               </div>
-              
+
               <div class="text-block">
                 <h2 class="panel-heading">
-                  ARCHITECT <br />
-                  THE FUTURE <br />
-                  OF AI.
+                  TREND <br />
+                  DEFYING AI.
                 </h2>
-                
+
                 {/* Expanded text appearing in the open hover state (as in homepage_open.png) */}
                 <p class="panel-description">
-                  GEMINI ORCHESTRATION, CUSTOM AGENTS, LOGIC LAYER, AND END-TO-END LLM ENGINEERING. WE BUILD INTELLECTUAL PLATFORMS, SECURE SDK INTEGRATIONS, AND COMPONENT-DRIVEN INFRASTRUCTURE BUCKING THE TREND.
+                  We don’t do AI buzzword bingo. We build the actual tech. From fine-tuned models and agentic orchestration to rapid-fire traditional software, Vulpine has the raw machinery to ship what others just PowerPoint about. Less vibing, more velocity.
                 </p>
-                
-                <a href="#" class="foxy-cta-button" onClick={(e) => { e.preventDefault(); alert("Explore Gemini Solutions Clicked"); }}>
-                  [ EXPLORE GEMINI SOLUTIONS ]
+
+                <a href="/services/ai" class="foxy-cta-button" onClick={(e) => { e.preventDefault(); alert("Explore Gemini Solutions Clicked"); }}>
+                  [ Deploy the tech... ]
                 </a>
               </div>
             </div>
           </div>
 
           {/* RIGHT COLUMN: SHOPIFY SYSTEMS */}
-          <div 
+          <div
             class={{
               'hero-panel': true,
               'panel-shopify': true,
               'active': this.activePanel === 'shopify',
               'inactive': this.activePanel === 'ai',
             }}
+            onClick={(e) => this.handlePanelClick('shopify', e)}
             onMouseEnter={() => this.handlePanelEnter('shopify')}
             onMouseLeave={() => this.handlePanelLeave()}
           >
@@ -139,25 +166,24 @@ export class AppHome {
             <div class="panel-content">
               <div class="text-block">
                 <h2 class="panel-heading">
-                  ENGINEER <br />
-                  COMMERCE <br />
-                  SYSTEMS.
+                  UNHINGED <br />
+                  SHOPIFY.
                 </h2>
-                
+
                 {/* Expanded text appearing in the open hover state */}
                 <p class="panel-description">
-                  HIGH-CONVERSION SHOPIFY STORES, HEADLESS LIQUID CODEBASES, CUSTOM EXTENSIONS, PIXEL-PERFECT SCHEMAS, AND STENCIL ARCHITECTURE DELIVERING SPEED, ACCESSIBILITY, AND DRY CODE PATTERNS.
+                  Our roots. Our playground. And hell, we make it look good. Shopify has never had this much sex appeal. From unhinged custom themes to show-stopping features that actually convert, we build bulletproof e-com architecture that lasts. If you want a basic template, go elsewhere. If you want to dominate, you need Vulpine.
                 </p>
-                
+
                 <a href="#" class="foxy-cta-button" onClick={(e) => { e.preventDefault(); alert("Build Stores Clicked"); }}>
-                  [ BUILD HIGH-CONVERSION SHOPIFY STORES ]
+                  [ See the appeal... ]
                 </a>
               </div>
             </div>
           </div>
-          
+
         </section>
-        
+
       </div>
     );
   }

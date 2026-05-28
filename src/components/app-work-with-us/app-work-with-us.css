@@ -282,6 +282,10 @@ foxy-estimate {
   .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .dashboard-widget {
+    grid-column: auto;
+    grid-row: auto;
+  }
   .widget-estimator {
     grid-column: 1 / 3;
     grid-row: auto;
@@ -292,7 +296,11 @@ foxy-estimate {
 @media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
-    padding: 2rem;
+    padding: 1.5rem;
+  }
+  .dashboard-widget {
+    grid-column: 1 / 2;
+    grid-row: auto;
   }
   .widget-estimator {
     grid-column: 1 / 2;

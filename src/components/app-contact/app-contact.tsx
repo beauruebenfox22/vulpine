@@ -1,4 +1,5 @@
 import { Component, State, h } from '@stencil/core';
+import { setSEO } from '../../utils/seo';
 
 @Component({
   tag: 'app-contact',
@@ -12,6 +13,15 @@ export class AppContact {
   @State() formType: 'ai' | 'shopify' = 'ai';
   @State() formMessage: string = '';
   @State() isSubmitting: boolean = false;
+  @State() isCapacityExpanded: boolean = false;
+
+  componentWillLoad() {
+    setSEO({
+      title: 'Contact Vulpine | Escalate Your Engineering Challenges',
+      description: 'Secure transmission line to Vulpine Digital. Escalate your Shopify and AI system architecture needs.',
+      url: 'https://vulpine.digital/contact'
+    });
+  }
 
   private handleSubmit = (e: Event) => {
     e.preventDefault();
@@ -37,11 +47,17 @@ export class AppContact {
             
             {/* Capacity Indicator: Server Rack */}
             <div class="capacity-module">
-              <div class="module-header">
+              <div 
+                class="module-header" 
+                onClick={() => { if (typeof window !== 'undefined' && window.innerWidth <= 1024) this.isCapacityExpanded = !this.isCapacityExpanded; }}
+              >
                 <h3>VULPINE CAPACITY // SYSTEM LOAD</h3>
-                <span class="status-indicator">2/5 ACTIVE</span>
+                <span class="status-indicator">
+                  2/5 ACTIVE
+                  <span class="collapse-icon mobile-only">{this.isCapacityExpanded ? '▲' : '▼'}</span>
+                </span>
               </div>
-              <div class="server-rack">
+              <div class={`server-rack ${this.isCapacityExpanded ? 'expanded' : 'collapsed'}`}>
                 
                 {/* Slot 1: Shopify */}
                 <div class="rack-slot occupied-shopify">

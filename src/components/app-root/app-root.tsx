@@ -9,9 +9,22 @@ import { Route, match } from "stencil-router-v2";
 })
 export class AppRoot {
   @State() menuOpen: boolean = false;
+  @State() drilldownActive: boolean = false;
+
+  private handleDrilldownChange = (e: CustomEvent<boolean>) => {
+    this.drilldownActive = e.detail;
+  };
 
   private toggleMenu = () => {
-    this.menuOpen = !this.menuOpen;
+    if (this.drilldownActive) {
+      // If we're in a drilldown, clicking the "X" acts as a back button
+      const navEl = document.querySelector('foxy-nav') as any;
+      if (navEl && typeof navEl.resetDrilldown === 'function') {
+        navEl.resetDrilldown();
+      }
+    } else {
+      this.menuOpen = !this.menuOpen;
+    }
   };
 
   private handleBrandClick = () => {
@@ -21,11 +34,14 @@ export class AppRoot {
 
   private closeMenu = () => {
     this.menuOpen = false;
+    this.drilldownActive = false; // Reset drilldown state when completely closing
   };
 
   render() {
+    const isShopifyRoute = Router.activePath && Router.activePath.includes('/services/shopify');
+
     return (
-      <div class={{ 'vulpine-app': true, 'menu-open': this.menuOpen }}>
+      <div class={{ 'vulpine-app': true, 'menu-open': this.menuOpen, 'theme-shopify': isShopifyRoute }}>
 
         {/* BRAND OVERLAY HEADER */}
         <header class="vulpine-nav-header">
@@ -41,7 +57,11 @@ export class AppRoot {
           <div class="nav-actions">
             {/* SEXY ANIMATED HAMBURGER ICON */}
             <button
-              class={{ 'foxy-burger-btn': true, 'is-open': this.menuOpen }}
+              class={{ 
+                'foxy-burger-btn': true, 
+                'is-open': this.menuOpen && !this.drilldownActive,
+                'is-back': this.drilldownActive 
+              }}
               onClick={this.toggleMenu}
               aria-label="Toggle Menu"
               aria-expanded={this.menuOpen ? 'true' : 'false'}
@@ -57,7 +77,11 @@ export class AppRoot {
         </header>
 
         {/* IMMERSIVE FULL-PAGE TAKEOVER NAVIGATION DIRECTORY */}
-        <foxy-nav active={this.menuOpen} onMenuClose={this.closeMenu}></foxy-nav>
+        <foxy-nav 
+          active={this.menuOpen} 
+          onMenuClose={this.closeMenu}
+          onDrilldownChange={this.handleDrilldownChange}
+        ></foxy-nav>
 
         {/* MAIN ROUTER CONTENT VIEWPORT */}
         <main class="vulpine-main">

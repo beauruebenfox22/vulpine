@@ -134,3 +134,27 @@
   transform: scale(1.1);
   color: var(--red-core);
 }
+
+/* ==========================================================================
+   RESPONSIVENESS & THEME OVERRIDES
+   ========================================================================== */
+@media (max-width: 768px) {
+  .btn-card {
+    padding: 0.75rem 1.75rem;
+  }
+}
+
+/* Turn the button emerald green when on Shopify track (unless menu is open) */
+.theme-shopify:not(.menu-open) .btn-card {
+  background: linear-gradient(110deg, #95bf47 50%, #1a1a1c 50%);
+  border-color: rgba(149, 191, 71, 0.3);
+}
+
+.theme-shopify:not(.menu-open) .btn-card::before {
+  background: linear-gradient(110deg, #7da139 50%, #2a2a2e 50%);
+}
+
+.theme-shopify:not(.menu-open) .btn-card:hover {
+  box-shadow: 0 10px 20px rgba(149, 191, 71, 0.25);
+  border-color: #95bf47;
+}

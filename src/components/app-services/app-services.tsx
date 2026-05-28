@@ -357,9 +357,15 @@ export class AppServices {
   render() {
     const services = this.serviceType === 'ai' ? this.aiServices : this.shopifyServices;
     const currentThemeClass = this.serviceType === 'ai' ? 'track-ai' : 'track-shopify';
+    const seoTitle = this.serviceType === 'ai' 
+      ? 'Vulpine Digital Services - Autonomous AI Architecture' 
+      : 'Vulpine Digital Services - Shopify Commerce Systems';
 
     return (
       <div class={`app-services-container ${currentThemeClass}`}>
+        
+        {/* SEO Hidden H1 */}
+        <h1 class="sr-only">{seoTitle}</h1>
         
         {/* PROGRESS DOTS SIDEBAR NAVIGATION */}
         <div class="service-dot-nav" role="navigation" aria-label="Page scroll position">

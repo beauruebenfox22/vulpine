@@ -18,7 +18,6 @@
 
 .mission-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 5rem;
   font-weight: 900;
   color: var(--heading);
   letter-spacing: 0.1em;
@@ -51,8 +50,13 @@
 }
 
 @keyframes scanline {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Responsive Overrides */
@@ -62,8 +66,5 @@
     height: auto;
     padding-top: 4rem;
     padding-bottom: 2rem;
-  }
-  .mission-title {
-    font-size: 3rem;
   }
 }

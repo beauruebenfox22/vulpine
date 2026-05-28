@@ -790,6 +790,48 @@
 }
 
 /* ==========================================================================
+   9. DRILLDOWN BUTTONS (BACK & EXPLORE)
+   ========================================================================== */
+.takeover-back-btn {
+  display: none; /* Hidden on desktop, we rely on mouseout */
+  background: rgba(8, 8, 8, 0.4);
+  color: var(--heading);
+  border: 1px solid var(--border);
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  font-family: 'Outfit', sans-serif;
+  transition: var(--transition-smooth);
+}
+
+.takeover-back-btn:hover {
+  border-color: var(--red-glow);
+  color: var(--red-glow);
+  box-shadow: 0 0 10px var(--red-ambient);
+}
+
+.takeover-explore-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  color: var(--red-core);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  transition: var(--transition-smooth);
+}
+
+.takeover-explore-btn:hover {
+  color: var(--red-glow);
+  text-shadow: 0 0 10px rgba(255, 46, 68, 0.4);
+}
+
+/* ==========================================================================
    10. RESPONSIVENESS
    ========================================================================== */
 @media (max-width: 1024px) {
@@ -797,7 +839,9 @@
     grid-template-columns: 1fr;
     height: auto;
     overflow-y: auto;
+    overflow-x: hidden;
     padding-bottom: 80px;
+    position: relative;
   }
 
   .nav-bg-sector-left {
@@ -810,23 +854,38 @@
   }
 
   .col-inner {
-    padding: 2rem;
+    padding: 1.5rem 2rem;
+  }
+
+  /* Make sure the primary directory transitions out smoothly */
+  .col-directory {
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+    width: 100%;
+  }
+
+  .foxy-nav-takeover.takeover-stage-active .col-directory {
+    transform: translateX(-100%);
+    opacity: 0;
+    position: absolute; /* Remove from document flow when hidden */
+    pointer-events: none;
   }
 
   .directory-item {
     font-size: 1.8rem;
   }
 
+  /* Bento Boxes are hidden entirely on mobile as requested */
   .stage-default {
-    grid-template-columns: 1fr;
+    display: none !important;
   }
 
-  .col-bento-middle .col-inner {
-    padding: 2rem;
-  }
-
+  .col-bento-middle .col-inner,
   .col-bento-right .col-inner {
-    padding: 2rem;
+    padding: 1rem 2rem;
+  }
+
+  .bento-debate-fields {
+    grid-template-columns: 1fr;
   }
 
   .foxy-close-btn {
@@ -834,12 +893,31 @@
     right: 2rem;
   }
 
+  /* Drilldown slide-in stages */
+  .stage-ai,
+  .stage-shopify {
+    transform: translateX(100%);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+  }
+
+  .foxy-nav-takeover.hover-ai .stage-ai,
+  .foxy-nav-takeover.hover-shopify .stage-shopify {
+    transform: translateX(0);
+    position: relative; /* Become part of the scroll height */
+    padding-top: 1rem;
+  }
+
   .takeover-content {
-    padding: 2rem;
+    padding: 1rem 2rem;
   }
 
   .takeover-heading {
     font-size: 2.2rem;
+  }
+
+  /* Show the back button on mobile */
+  .takeover-back-btn {
+    display: inline-block;
   }
 
   .takeover-link-item {

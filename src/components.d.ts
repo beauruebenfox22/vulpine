@@ -15,9 +15,6 @@ export namespace Components {
     }
     interface AppHome {
     }
-    interface AppProfile {
-        "name": string;
-    }
     interface AppRoot {
     }
     interface AppServices {
@@ -45,6 +42,7 @@ export namespace Components {
     }
     interface FoxyNav {
         "active": boolean;
+        "resetDrilldown": () => Promise<void>;
     }
     interface FoxyToast {
         "message": string;
@@ -90,12 +88,6 @@ declare global {
     var HTMLAppHomeElement: {
         prototype: HTMLAppHomeElement;
         new (): HTMLAppHomeElement;
-    };
-    interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
-    }
-    var HTMLAppProfileElement: {
-        prototype: HTMLAppProfileElement;
-        new (): HTMLAppProfileElement;
     };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
@@ -170,6 +162,7 @@ declare global {
     };
     interface HTMLFoxyNavElementEventMap {
         "menuClose": void;
+        "drilldownChange": boolean;
     }
     interface HTMLFoxyNavElement extends Components.FoxyNav, HTMLStencilElement {
         addEventListener<K extends keyof HTMLFoxyNavElementEventMap>(type: K, listener: (this: HTMLFoxyNavElement, ev: FoxyNavCustomEvent<HTMLFoxyNavElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -213,7 +206,6 @@ declare global {
         "app-blog": HTMLAppBlogElement;
         "app-contact": HTMLAppContactElement;
         "app-home": HTMLAppHomeElement;
-        "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
         "app-services": HTMLAppServicesElement;
         "app-work-with-us": HTMLAppWorkWithUsElement;
@@ -238,9 +230,6 @@ declare namespace LocalJSX {
     interface AppContact {
     }
     interface AppHome {
-    }
-    interface AppProfile {
-        "name"?: string;
     }
     interface AppRoot {
     }
@@ -270,6 +259,7 @@ declare namespace LocalJSX {
     }
     interface FoxyNav {
         "active"?: boolean;
+        "onDrilldownChange"?: (event: FoxyNavCustomEvent<boolean>) => void;
         "onMenuClose"?: (event: FoxyNavCustomEvent<void>) => void;
     }
     interface FoxyToast {
@@ -285,7 +275,6 @@ declare namespace LocalJSX {
         "app-blog": AppBlog;
         "app-contact": AppContact;
         "app-home": AppHome;
-        "app-profile": AppProfile;
         "app-root": AppRoot;
         "app-services": AppServices;
         "app-work-with-us": AppWorkWithUs;
@@ -309,7 +298,6 @@ declare module "@stencil/core" {
             "app-blog": LocalJSX.AppBlog & JSXBase.HTMLAttributes<HTMLAppBlogElement>;
             "app-contact": LocalJSX.AppContact & JSXBase.HTMLAttributes<HTMLAppContactElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
-            "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-services": LocalJSX.AppServices & JSXBase.HTMLAttributes<HTMLAppServicesElement>;
             "app-work-with-us": LocalJSX.AppWorkWithUs & JSXBase.HTMLAttributes<HTMLAppWorkWithUsElement>;

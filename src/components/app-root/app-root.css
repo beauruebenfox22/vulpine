@@ -24,7 +24,8 @@ body.modal-open {
 body.modal-open .vulpine-nav-header {
   z-index: 0;
   pointer-events: none;
-  opacity: 0; /* completely hide header so it doesn't conflict */
+  opacity: 0;
+  /* completely hide header so it doesn't conflict */
 }
 
 /* ==========================================================================
@@ -49,16 +50,19 @@ body.modal-open .vulpine-nav-header {
 .nav-brand {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 1.2rem;
   cursor: pointer;
   pointer-events: auto;
-  /* Clickable */
   transition: var(--transition-smooth);
+}
+
+.nav-brand foxy-logo {
+  transform: scale(1.25);
+  transform-origin: left center;
 }
 
 .nav-brand:hover {
   opacity: 0.85;
-  transform: translateY(-1px);
 }
 
 .nav-brand .brand-text {
@@ -74,7 +78,8 @@ body.modal-open .vulpine-nav-header {
   display: flex;
   align-items: center;
   gap: 2rem;
-  pointer-events: none; /* Let children handle pointer-events */
+  pointer-events: none;
+  /* Let children handle pointer-events */
 }
 
 .nav-center-action {
@@ -84,9 +89,15 @@ body.modal-open .vulpine-nav-header {
   pointer-events: auto;
 }
 
-@media (max-width: 1024px) {
-  .nav-center-action {
-    display: none; /* Hide on smaller screens to prevent logo overlap */
+@media (max-width: 768px) {
+  .vulpine-nav-header {
+    padding: 0 2.5rem;
+    /* Align perfectly with hero content padding */
+  }
+
+  .nav-brand .brand-text {
+    display: none;
+    /* Hide text to save space on mobile */
   }
 }
 
@@ -183,18 +194,47 @@ body.modal-open .vulpine-nav-header {
   box-shadow: 0 0 20px rgba(255, 46, 68, 0.3);
 }
 
-.foxy-burger-btn.is-open .line-2 {
-  width: 0;
-  opacity: 0;
-}
-
 .foxy-burger-btn.is-open .line-1 {
   transform: translateY(6.25px) rotate(45deg);
   background-color: var(--red-glow);
 }
 
+.foxy-burger-btn.is-open .line-2 {
+  width: 0;
+  opacity: 0;
+}
+
 .foxy-burger-btn.is-open .line-3 {
   transform: translateY(-6.25px) rotate(-45deg);
+  background-color: var(--red-glow);
+}
+
+/* BACK ARROW ANIMATION: TRANSFORM BURGER TO AN ARROW WHEN DRILLDOWN ACTIVE */
+.foxy-burger-btn.is-back {
+  border-color: var(--red-glow);
+  box-shadow: 0 0 20px rgba(255, 46, 68, 0.3);
+}
+
+.foxy-burger-btn.is-back .burger-circle-glow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.foxy-burger-btn.is-back .line-1 {
+  transform: translateY(5px) translateX(-2px) rotate(-45deg);
+  width: 50%;
+  background-color: var(--red-glow);
+}
+
+.foxy-burger-btn.is-back .line-2 {
+  transform: translateX(2px);
+  background-color: var(--red-glow);
+  width: 100%;
+}
+
+.foxy-burger-btn.is-back .line-3 {
+  transform: translateY(-5px) translateX(-2px) rotate(45deg);
+  width: 50%;
   background-color: var(--red-glow);
 }
 
@@ -205,9 +245,9 @@ body.modal-open .vulpine-nav-header {
   align-items: center;
   justify-content: center;
   padding: 0 4rem;
-  background: transparent;
+  background: linear-gradient(90deg, var(--base-secondary) 0%, rgba(200, 16, 46, 0.25) 50%, rgba(149, 191, 71, 0.2) 100%);
   z-index: 10;
-  border-top: 1px solid rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .foxy-footer-text {
@@ -216,4 +256,10 @@ body.modal-open .vulpine-nav-header {
   letter-spacing: 0.08em;
   color: var(--copy);
   opacity: 0.45;
+}
+
+@media screen and (max-width: 768px) {
+  .foxy-footer-text {
+    text-align: center;
+  }
 }

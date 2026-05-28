@@ -61,7 +61,7 @@ export class AppAbout {
               <h2>VULPINE DIRECTIVE</h2>
             </div>
             <div class="bento-content">
-              <h3 class="manifesto-headline">AI FIRST.<br/>NOT VIBE CODE.</h3>
+              <h1 class="manifesto-headline">AI FIRST.<br/>NOT VIBE CODE.</h1>
               <p>
                 We are a hyper-specialized engineering consultancy. We don't build standard corporate brochures. We architect high-performance, AI-driven commerce systems that break conventions and redefine industry standards. 
               </p>
