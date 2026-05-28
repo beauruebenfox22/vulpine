@@ -34,20 +34,26 @@ export class AppRoot {
             <span class="brand-text">VULPINE</span>
           </div>
 
-          {/* SEXY ANIMATED HAMBURGER ICON */}
-          <button
-            class={{ 'foxy-burger-btn': true, 'is-open': this.menuOpen }}
-            onClick={this.toggleMenu}
-            aria-label="Toggle Menu"
-            aria-expanded={this.menuOpen ? 'true' : 'false'}
-          >
-            <div class="burger-circle-glow"></div>
-            <div class="burger-inner">
-              <span class="burger-line line-1"></span>
-              <span class="burger-line line-2"></span>
-              <span class="burger-line line-3"></span>
-            </div>
-          </button>
+          <div class="nav-center-action">
+            <foxy-business-card></foxy-business-card>
+          </div>
+
+          <div class="nav-actions">
+            {/* SEXY ANIMATED HAMBURGER ICON */}
+            <button
+              class={{ 'foxy-burger-btn': true, 'is-open': this.menuOpen }}
+              onClick={this.toggleMenu}
+              aria-label="Toggle Menu"
+              aria-expanded={this.menuOpen ? 'true' : 'false'}
+            >
+              <div class="burger-circle-glow"></div>
+              <div class="burger-inner">
+                <span class="burger-line line-1"></span>
+                <span class="burger-line line-2"></span>
+                <span class="burger-line line-3"></span>
+              </div>
+            </button>
+          </div>
         </header>
 
         {/* IMMERSIVE FULL-PAGE TAKEOVER NAVIGATION DIRECTORY */}
@@ -91,6 +97,9 @@ export class AppRoot {
             Copyright © 2026 logic layer or Shopify complexity. All rights reserved.
           </p>
         </footer>
+
+        {/* GLOBAL NOTIFICATION SYSTEM */}
+        <foxy-toast-container></foxy-toast-container>
 
       </div>
     );

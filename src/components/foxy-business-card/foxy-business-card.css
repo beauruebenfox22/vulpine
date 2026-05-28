@@ -1,0 +1,136 @@
+.card-wrapper {
+  position: relative;
+  display: inline-block;
+  pointer-events: auto; /* Since it sits in the header */
+}
+
+/* ==========================================================================
+   THE MAIN BUTTON (DIAGONAL SPLIT)
+   ========================================================================== */
+.btn-card {
+  position: relative;
+  background: linear-gradient(110deg, var(--red-glow) 50%, #1a1a1c 50%);
+  color: #fff;
+  font-family: 'Outfit', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.8rem 2.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.btn-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(110deg, var(--red-core) 50%, #2a2a2e 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.btn-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(200, 16, 46, 0.25);
+  border-color: var(--red-glow);
+}
+
+.btn-card:hover::before {
+  opacity: 1;
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   DROPDOWN MENU
+   ========================================================================== */
+.card-dropdown {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0; /* Align right to match standard header dropdowns */
+  background: rgba(18, 18, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 240px;
+  
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1002;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Invisible bridge to prevent hover state from dropping when traversing the gap */
+.card-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -1.5rem;
+  left: 0;
+  width: 100%;
+  height: 1.5rem;
+}
+
+.card-dropdown.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--copy);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.dropdown-btn:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+}
+
+.dropdown-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--red-glow);
+  transition: transform 0.2s ease;
+}
+
+.dropdown-btn:hover .dropdown-icon {
+  transform: scale(1.1);
+  color: var(--red-core);
+}

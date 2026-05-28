@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Fox;Ruben;;;
+FN:Ruben Fox
+ORG:Vulpine Digital
+TITLE:Operator
+EMAIL;TYPE=PREF,INTERNET:operator@vulpine.digital
+TEL;TYPE=CELL,VOICE:+441234567890
+URL:https://vulpine.digital
+END:VCARD

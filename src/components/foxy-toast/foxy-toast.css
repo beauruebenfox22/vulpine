@@ -1,0 +1,94 @@
+.toast-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  pointer-events: auto;
+  min-width: 320px;
+  max-width: 400px;
+  animation: slide-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.toast-card.is-closing {
+  animation: slide-out 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(50px) scale(0.95); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes slide-out {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+/* ==========================================================================
+   THEMES
+   ========================================================================== */
+
+/* Alert: white BG bold red text */
+.toast-alert {
+  background-color: #ffffff;
+  color: var(--red-core);
+  border-left: 4px solid var(--red-core);
+  font-weight: 700;
+}
+
+/* Success: charcoal BG with our emerald green */
+.toast-success {
+  background-color: var(--base-secondary);
+  color: #95bf47; /* Shopify emerald */
+  border: 1px solid rgba(149, 191, 71, 0.3);
+  border-left: 4px solid #95bf47;
+}
+
+/* Info: charcoal/crimson BG */
+.toast-info {
+  background-color: var(--base-secondary);
+  color: #ffffff;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--red-glow);
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.toast-close-btn {
+  background: transparent;
+  border: none;
+  color: currentColor;
+  opacity: 0.6;
+  cursor: pointer;
+  padding: 0.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.toast-close-btn:hover {
+  opacity: 1;
+}
+
+.toast-close-btn svg {
+  width: 16px;
+  height: 16px;
+}

@@ -70,6 +70,26 @@ body.modal-open .vulpine-nav-header {
   user-select: none;
 }
 
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  pointer-events: none; /* Let children handle pointer-events */
+}
+
+.nav-center-action {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+@media (max-width: 1024px) {
+  .nav-center-action {
+    display: none; /* Hide on smaller screens to prevent logo overlap */
+  }
+}
+
 /* ==========================================================================
    3. SEXY ANIMATED HAMBURGER ICON
    ========================================================================== */
