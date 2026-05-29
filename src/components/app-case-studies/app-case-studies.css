@@ -1,0 +1,186 @@
+.case-studies-page {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 120px;
+  background: var(--base);
+  color: var(--copy);
+}
+
+/* Header Section */
+.cs-header {
+  padding: 4rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.cs-header-content {
+  max-width: 800px;
+}
+
+.cs-badge {
+  font-family: 'Space Mono', monospace;
+  color: var(--vulpine-red);
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.cs-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.5rem 0;
+  color: var(--heading);
+  text-transform: uppercase;
+}
+
+.cs-subtitle {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  max-width: 600px;
+  opacity: 0.8;
+}
+
+/* Masonry Grid */
+.cs-grid-container {
+  padding: 0 5% 5rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.cs-masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 300px;
+  gap: 1.5rem;
+}
+
+.cs-card {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--base-secondary);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Grid Spans */
+.cs-card.span-tall {
+  grid-row: span 2;
+}
+.cs-card.span-wide {
+  grid-column: span 2;
+}
+@media (max-width: 768px) {
+  .cs-card.span-wide {
+    grid-column: span 1;
+  }
+}
+
+/* Image Layer */
+.cs-card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%) contrast(1.2);
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+/* Overlay Layer */
+.cs-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  opacity: 0.9;
+  transition: opacity 0.4s ease;
+}
+
+.cs-category {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--vulpine-red);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.cs-project-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff; /* Always white regardless of theme for contrast against image */
+  margin: 0;
+  transform: translateY(10px);
+  transition: transform 0.4s ease;
+}
+
+.cs-card-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.cs-metric-badge {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: #fff;
+}
+
+/* Hover States */
+.cs-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--vulpine-red);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.cs-card:hover .cs-card-image {
+  transform: scale(1.05);
+  filter: grayscale(0%) contrast(1.1);
+}
+
+.cs-card:hover .cs-project-title {
+  transform: translateY(0);
+}
+
+.cs-card:hover .cs-card-metrics {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CTA Section */
+.cs-cta {
+  text-align: center;
+  padding: 6rem 5%;
+  border-top: 1px solid var(--border);
+  background: var(--base-secondary);
+}
+
+.cs-cta h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--heading);
+  margin-bottom: 2rem;
+}

@@ -5,3 +5,11 @@
 [[edge_functions]]
   path = "/api/estimate"
   function = "estimate"
+
+[[edge_functions]]
+  path = "/api/orchestrator"
+  function = "orchestrator"
+
+[[edge_functions]]
+  path = "/api/orchestrator-summarizer"
+  function = "orchestrator-summarizer"

@@ -13,6 +13,7 @@ export class FoxyNav {
   @Prop() active: boolean = false;
   @Event() menuClose: EventEmitter<void>;
   @Event() drilldownChange: EventEmitter<boolean>;
+  @Event() openDebate: EventEmitter<void>;
 
   @State() hoveredSubmenu: 'ai' | 'shopify' | null = null;
   @State() contactName: string = '';
@@ -53,16 +54,6 @@ export class FoxyNav {
     const path = `/services/${track}${anchor ? '#' + anchor : ''}`;
     Router.push(path);
     this.handleClose();
-  };
-
-
-  private triggerDebate = () => {
-    if (this.debating) return;
-    this.debating = true;
-    setTimeout(() => {
-      this.debating = false;
-      triggerToast(`Debate on "${this.debateTopic}" with ${this.debateAgents} Gemini Agents completed!`, 'success');
-    }, 3500);
   };
 
   private handleEscalate = (e: Event) => {
@@ -156,9 +147,9 @@ export class FoxyNav {
                 </a>
 
                 <a
-                  href="#"
+                  href="/case-studies"
                   class={`directory-item ${isPathActive('/case-studies') ? 'highlight' : ''}`}
-                  onClick={(e) => { e.preventDefault(); triggerToast("Gemini Case Studies Clicked", 'info'); this.handleClose(); }}
+                  onClick={(e) => { e.preventDefault(); Router.push('/case-studies'); this.handleClose(); }}
                   onMouseEnter={() => this.handleDesktopHover(null)}
                 >
                   <span class="directory-num">03 //</span> CASE STUDIES
@@ -214,65 +205,29 @@ export class FoxyNav {
               <div class="nav-grid-col col-bento-middle">
                 <div class="col-inner">
 
-                  {/* BENTO BOX A1: AI DEBATE TEAM */}
-                  <div class="nav-bento-box bento-debate">
-                    <h3 class="bento-box-heading">AI DEBATE TEAM LOGIC <span class="badge">(GEMINI)</span></h3>
+                  {/* BENTO BOX A1: NEW BLOG POST PLACEMENT (Replaced Debate) */}
+                  <div class="nav-bento-box bento-performance">
+                    <h3 class="bento-box-heading">THE EDGE ORCHESTRATION LAYER</h3>
+                    <span class="bento-box-meta">MAY 2026</span>
 
-                    <div class="bento-debate-fields">
-                      <div class="bento-form-group">
-                        <label>TOPIC:</label>
-                        <div class="bento-select-wrapper">
-                          <select
-                            onChange={(e: any) => this.debateTopic = e.target.value}
-                            disabled={this.debating}
-                          >
-                            <option value="Quantum Supremacy" selected={this.debateTopic === 'Quantum Supremacy'}>[ Quantum Supremacy ]</option>
-                            <option value="AGI Ethics" selected={this.debateTopic === 'AGI Ethics'}>[ AGI Ethics ]</option>
-                            <option value="Shopify Liquid vs Headless" selected={this.debateTopic === 'Shopify Liquid vs Headless'}>[ Headless vs Liquid ]</option>
-                            <option value="Autonomous Agents" selected={this.debateTopic === 'Autonomous Agents'}>[ Autonomous Agents ]</option>
-                          </select>
-                        </div>
-                      </div>
-
-                      <div class="bento-form-group">
-                        <label>AGENTS:</label>
-                        <div class="bento-select-wrapper">
-                          <select
-                            onChange={(e: any) => this.debateAgents = e.target.value}
-                            disabled={this.debating}
-                          >
-                            <option value="3" selected={this.debateAgents === '3'}>[ 3 ]</option>
-                            <option value="5" selected={this.debateAgents === '5'}>[ 5 ]</option>
-                            <option value="8" selected={this.debateAgents === '8'}>[ 8 ]</option>
-                          </select>
+                    <div class="bento-dom-tree">
+                      <div class="dom-node root-node">NETLIFY EDGE</div>
+                      <div class="dom-branches">
+                        <div class="dom-line"></div>
+                        <div class="dom-branch-group">
+                          <div class="dom-node child-node">AGENT A</div>
+                          <div class="dom-node child-node">AGENT B</div>
                         </div>
                       </div>
                     </div>
 
                     <p class="bento-box-description">
-                      Gemini orchestration logic deployed for dynamic AI agent debate.
+                      How we utilize edge networks to facilitate high-speed, multi-agent AI debates.
                     </p>
 
-                    <div class="bento-debate-action">
-                      <button
-                        class={`bento-debate-btn ${this.debating ? 'is-debating' : ''}`}
-                        onClick={this.triggerDebate}
-                        disabled={this.debating}
-                      >
-                        {this.debating ? 'DEBATING...' : 'DEBATE!'}
-                      </button>
-
-                      <div class={`bento-visualizer ${this.debating ? 'active' : ''}`}>
-                        <div class="visualizer-wave">
-                          <span class="wave-bar bar-1"></span>
-                          <span class="wave-bar bar-2"></span>
-                          <span class="wave-bar bar-3"></span>
-                          <span class="wave-bar bar-4"></span>
-                          <span class="wave-bar bar-5"></span>
-                        </div>
-                        <span class="visualizer-status-text">{this.debating ? 'computing' : 'idle'}</span>
-                      </div>
-                    </div>
+                    <a href="#" class="bento-action-link" onClick={(e) => { e.preventDefault(); triggerToast("Orchestration Article Clicked", 'info'); this.handleClose(); }}>
+                      [ READ ARTICLE ]
+                    </a>
                   </div>
 
                   {/* BENTO BOX A2: LIGHT DOM PERFORMANCE */}
@@ -308,19 +263,25 @@ export class FoxyNav {
               <div class="nav-grid-col col-bento-right">
                 <div class="col-inner">
 
-                  {/* DESKTOP THEME TOGGLE */}
+                  {/* DESKTOP THEME TOGGLE & ORCHESTRATION TRIGGER */}
                   <div class="nav-theme-toggle-desktop">
-                    <button 
+                    <button
                       class={`theme-btn ${themeStore.mode === 'dark' ? 'is-active' : ''}`}
                       onClick={(e) => this.toggleTheme('dark', e)}
                     >
                       [ DARK MODE ]
                     </button>
-                    <button 
+                    <button
                       class={`theme-btn ${themeStore.mode === 'light' ? 'is-active' : ''}`}
                       onClick={(e) => this.toggleTheme('light', e)}
                     >
                       [ LIGHT MODE ]
+                    </button>
+                    <button
+                      class="theme-btn orchestration-trigger-btn"
+                      onClick={(e) => { e.preventDefault(); this.openDebate.emit(); this.handleClose(); }}
+                    >
+                      [ MULTI-AGENT ORCHESTRATION ]
                     </button>
                   </div>
 
@@ -333,7 +294,7 @@ export class FoxyNav {
 
                     <form name="escalate" method="POST" data-netlify="true" data-netlify-recaptcha="true" onSubmit={this.handleEscalate} class="escalation-form">
                       <input type="hidden" name="form-name" value="escalate" />
-                      
+
                       <div class="form-group-field">
                         <input
                           type="text"
@@ -354,9 +315,9 @@ export class FoxyNav {
                           required
                         ></textarea>
                       </div>
-                      
+
                       <div data-netlify-recaptcha="true" class="recaptcha-wrapper"></div>
-                      
+
                       <button type="submit" class="escalation-submit-btn">
                         [ ESCALATE PROJECT ]
                       </button>
@@ -447,19 +408,25 @@ export class FoxyNav {
 
         </div>
 
-        {/* MOBILE FLOATING THEME TOGGLE */}
+        {/* MOBILE FLOATING THEME TOGGLE & ORCHESTRATION TRIGGER */}
         <div class="nav-theme-toggle-mobile">
-          <button 
+          <button
             class={`theme-btn ${themeStore.mode === 'dark' ? 'is-active' : ''}`}
             onClick={(e) => this.toggleTheme('dark', e)}
           >
             DARK
           </button>
-          <button 
+          <button
             class={`theme-btn ${themeStore.mode === 'light' ? 'is-active' : ''}`}
             onClick={(e) => this.toggleTheme('light', e)}
           >
             LIGHT
+          </button>
+          <button
+            class="theme-btn orchestration-trigger-btn"
+            onClick={(e) => { e.preventDefault(); this.openDebate.emit(); this.handleClose(); }}
+          >
+            ORCHESTRATE
           </button>
         </div>
 
