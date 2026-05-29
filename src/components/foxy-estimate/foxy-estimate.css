@@ -156,10 +156,105 @@
   margin-bottom: 0.5rem;
 }
 
+.result-content {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 1rem;
+}
+
+.result-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.result-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.result-content::-webkit-scrollbar-thumb {
+  background: var(--red-core);
+  border-radius: 3px;
+}
+
+.result-content::-webkit-scrollbar-thumb:hover {
+  background: var(--red-glow);
+}
+
 .result-content p {
   margin-bottom: 1rem;
   color: var(--heading);
   line-height: 1.7;
+}
+
+.send-vulpine-btn {
+  background: transparent;
+  color: var(--emerald-core);
+  border: 1px solid var(--emerald-core);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.send-vulpine-btn:hover {
+  background: rgba(80, 200, 120, 0.1);
+  box-shadow: 0 0 15px rgba(80, 200, 120, 0.2);
+}
+
+.capture-form-group {
+  margin-bottom: 1rem;
+}
+
+.capture-form-group label {
+  display: block;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  color: var(--emerald-core);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.capture-form-group input {
+  width: 100%;
+  background: rgba(8, 8, 8, 0.5);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', sans-serif;
+  color: var(--heading);
+  transition: var(--transition-smooth);
+}
+
+.capture-form-group input:focus {
+  outline: none;
+  border-color: var(--emerald-core);
+}
+
+.capture-submit-btn {
+  background: var(--emerald-core);
+  color: #000;
+  border: none;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+  transition: var(--transition-smooth);
+}
+
+.capture-submit-btn:hover {
+  background: var(--emerald-glow);
+  box-shadow: 0 0 20px rgba(80, 200, 120, 0.4);
 }
 
 .result-content li {

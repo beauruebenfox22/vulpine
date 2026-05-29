@@ -50,6 +50,11 @@ export namespace Components {
     interface FoxyLogo {
         "size": 'small' | 'medium' | 'large';
     }
+    interface FoxyModal {
+        "aiOutput": string;
+        "isOpen": boolean;
+        "modalTitle": string;
+    }
     interface FoxyNav {
         "active": boolean;
         "resetDrilldown": () => Promise<void>;
@@ -69,6 +74,10 @@ export interface FoxyDebateTakeoverCustomEvent<T> extends CustomEvent<T> {
 export interface FoxyJournalRendererCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFoxyJournalRendererElement;
+}
+export interface FoxyModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFoxyModalElement;
 }
 export interface FoxyNavCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -209,6 +218,23 @@ declare global {
         prototype: HTMLFoxyLogoElement;
         new (): HTMLFoxyLogoElement;
     };
+    interface HTMLFoxyModalElementEventMap {
+        "modalClose": void;
+    }
+    interface HTMLFoxyModalElement extends Components.FoxyModal, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFoxyModalElementEventMap>(type: K, listener: (this: HTMLFoxyModalElement, ev: FoxyModalCustomEvent<HTMLFoxyModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFoxyModalElementEventMap>(type: K, listener: (this: HTMLFoxyModalElement, ev: FoxyModalCustomEvent<HTMLFoxyModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLFoxyModalElement: {
+        prototype: HTMLFoxyModalElement;
+        new (): HTMLFoxyModalElement;
+    };
     interface HTMLFoxyNavElementEventMap {
         "menuClose": void;
         "drilldownChange": boolean;
@@ -270,6 +296,7 @@ declare global {
         "foxy-hero": HTMLFoxyHeroElement;
         "foxy-journal-renderer": HTMLFoxyJournalRendererElement;
         "foxy-logo": HTMLFoxyLogoElement;
+        "foxy-modal": HTMLFoxyModalElement;
         "foxy-nav": HTMLFoxyNavElement;
         "foxy-toast": HTMLFoxyToastElement;
         "foxy-toast-container": HTMLFoxyToastContainerElement;
@@ -322,6 +349,12 @@ declare namespace LocalJSX {
     interface FoxyLogo {
         "size"?: 'small' | 'medium' | 'large';
     }
+    interface FoxyModal {
+        "aiOutput"?: string;
+        "isOpen"?: boolean;
+        "modalTitle"?: string;
+        "onModalClose"?: (event: FoxyModalCustomEvent<void>) => void;
+    }
     interface FoxyNav {
         "active"?: boolean;
         "onDrilldownChange"?: (event: FoxyNavCustomEvent<boolean>) => void;
@@ -355,6 +388,7 @@ declare namespace LocalJSX {
         "foxy-hero": FoxyHero;
         "foxy-journal-renderer": FoxyJournalRenderer;
         "foxy-logo": FoxyLogo;
+        "foxy-modal": FoxyModal;
         "foxy-nav": FoxyNav;
         "foxy-toast": FoxyToast;
         "foxy-toast-container": FoxyToastContainer;
@@ -382,6 +416,7 @@ declare module "@stencil/core" {
             "foxy-hero": LocalJSX.FoxyHero & JSXBase.HTMLAttributes<HTMLFoxyHeroElement>;
             "foxy-journal-renderer": LocalJSX.FoxyJournalRenderer & JSXBase.HTMLAttributes<HTMLFoxyJournalRendererElement>;
             "foxy-logo": LocalJSX.FoxyLogo & JSXBase.HTMLAttributes<HTMLFoxyLogoElement>;
+            "foxy-modal": LocalJSX.FoxyModal & JSXBase.HTMLAttributes<HTMLFoxyModalElement>;
             "foxy-nav": LocalJSX.FoxyNav & JSXBase.HTMLAttributes<HTMLFoxyNavElement>;
             "foxy-toast": LocalJSX.FoxyToast & JSXBase.HTMLAttributes<HTMLFoxyToastElement>;
             "foxy-toast-container": LocalJSX.FoxyToastContainer & JSXBase.HTMLAttributes<HTMLFoxyToastContainerElement>;
