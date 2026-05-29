@@ -69,9 +69,11 @@ export class FoxyEstimate {
         sessionStorage.setItem('vulpine_estimate_result', this.estimateResult);
         this.isLimitReached = true;
       }
+      triggerToast('System scope generated successfully.', 'success');
     } catch (err) {
       console.error(err);
       this.error = "Our AI system is currently resting. Please try again or contact us directly.";
+      triggerToast('AI Engine encountered an error.', 'alert');
     } finally {
       this.isEstimating = false;
     }
@@ -147,8 +149,8 @@ export class FoxyEstimate {
           </div>
         )}
 
-        <foxy-modal 
-          isOpen={this.isModalOpen} 
+        <foxy-modal
+          isOpen={this.isModalOpen}
           modalTitle="SECURE TRANSMISSION"
           aiOutput={this.estimateResult || ''}
           onModalClose={() => this.isModalOpen = false}
