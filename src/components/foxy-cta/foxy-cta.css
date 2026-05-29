@@ -1,0 +1,102 @@
+.foxy-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 3rem;
+  background: rgba(18, 18, 20, 0.4);
+  border: 1px solid rgba(255, 46, 68, 0.2);
+  color: var(--heading);
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: inset 0 0 0 rgba(200, 16, 46, 0);
+  border-radius: 4px;
+}
+
+.foxy-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(circle at center, rgba(200, 16, 46, 0.15) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+}
+
+.foxy-cta:hover {
+  background: rgba(18, 18, 20, 0.8);
+  border-color: var(--vulpine-red);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(200, 16, 46, 0.4), inset 0 0 15px rgba(200, 16, 46, 0.2);
+  transform: translateY(-2px);
+}
+
+.foxy-cta:hover::before {
+  opacity: 1;
+}
+
+.cta-core {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+}
+
+.cta-bracket {
+  color: var(--vulpine-red);
+  font-size: 1.2rem;
+  font-weight: 300;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+  z-index: 1;
+}
+
+.cta-bracket.left { margin-right: 1.2rem; transform: translateX(10px); opacity: 0; }
+.cta-bracket.right { margin-left: 1.2rem; transform: translateX(-10px); opacity: 0; }
+
+.foxy-cta:hover .cta-bracket.left { transform: translateX(0); opacity: 1; }
+.foxy-cta:hover .cta-bracket.right { transform: translateX(0); opacity: 1; }
+
+.cta-text {
+  position: relative;
+  z-index: 2;
+  transition: text-shadow 0.3s ease;
+}
+
+.foxy-cta:hover .cta-text {
+  text-shadow: 0 0 8px rgba(255, 46, 68, 0.6);
+}
+
+.cta-laser-line {
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--vulpine-red), #fff);
+  transition: left 0s;
+  z-index: 3;
+}
+
+.foxy-cta:hover .cta-laser-line {
+  left: 100%;
+  transition: left 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Light Mode Overrides */
+body.vulpine-light .foxy-cta {
+  background: rgba(229, 231, 235, 0.6);
+  border-color: rgba(200, 16, 46, 0.3);
+  color: var(--heading);
+}
+
+body.vulpine-light .foxy-cta:hover {
+  background: #fff;
+  border-color: var(--vulpine-red);
+}

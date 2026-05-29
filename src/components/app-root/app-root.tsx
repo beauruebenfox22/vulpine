@@ -112,8 +112,11 @@ export class AppRoot {
             <Route path="/work-with-us">
               <app-work-with-us />
             </Route>
-            <Route path="/case-studies">
+            <Route path={match("/case-studies", { exact: true })}>
               <app-case-studies />
+            </Route>
+            <Route path="/case-studies/craft-and-berry">
+              <app-cs-craft-and-berry />
             </Route>
             <Route path="/contact">
               <app-contact />

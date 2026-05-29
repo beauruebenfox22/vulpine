@@ -15,6 +15,8 @@ export namespace Components {
     }
     interface AppContact {
     }
+    interface AppCsCraftAndBerry {
+    }
     interface AppHome {
     }
     interface AppRoot {
@@ -27,6 +29,9 @@ export namespace Components {
     interface FoxyBusinessCard {
     }
     interface FoxyConstellation {
+    }
+    interface FoxyCta {
+        "url": string;
     }
     interface FoxyDebateTakeover {
         "active": boolean;
@@ -98,6 +103,12 @@ declare global {
         prototype: HTMLAppContactElement;
         new (): HTMLAppContactElement;
     };
+    interface HTMLAppCsCraftAndBerryElement extends Components.AppCsCraftAndBerry, HTMLStencilElement {
+    }
+    var HTMLAppCsCraftAndBerryElement: {
+        prototype: HTMLAppCsCraftAndBerryElement;
+        new (): HTMLAppCsCraftAndBerryElement;
+    };
     interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
     }
     var HTMLAppHomeElement: {
@@ -133,6 +144,12 @@ declare global {
     var HTMLFoxyConstellationElement: {
         prototype: HTMLFoxyConstellationElement;
         new (): HTMLFoxyConstellationElement;
+    };
+    interface HTMLFoxyCtaElement extends Components.FoxyCta, HTMLStencilElement {
+    }
+    var HTMLFoxyCtaElement: {
+        prototype: HTMLFoxyCtaElement;
+        new (): HTMLFoxyCtaElement;
     };
     interface HTMLFoxyDebateTakeoverElementEventMap {
         "debateClose": void;
@@ -239,12 +256,14 @@ declare global {
         "app-blog": HTMLAppBlogElement;
         "app-case-studies": HTMLAppCaseStudiesElement;
         "app-contact": HTMLAppContactElement;
+        "app-cs-craft-and-berry": HTMLAppCsCraftAndBerryElement;
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
         "app-services": HTMLAppServicesElement;
         "app-work-with-us": HTMLAppWorkWithUsElement;
         "foxy-business-card": HTMLFoxyBusinessCardElement;
         "foxy-constellation": HTMLFoxyConstellationElement;
+        "foxy-cta": HTMLFoxyCtaElement;
         "foxy-debate-takeover": HTMLFoxyDebateTakeoverElement;
         "foxy-estimate": HTMLFoxyEstimateElement;
         "foxy-footer": HTMLFoxyFooterElement;
@@ -266,6 +285,8 @@ declare namespace LocalJSX {
     }
     interface AppContact {
     }
+    interface AppCsCraftAndBerry {
+    }
     interface AppHome {
     }
     interface AppRoot {
@@ -278,6 +299,9 @@ declare namespace LocalJSX {
     interface FoxyBusinessCard {
     }
     interface FoxyConstellation {
+    }
+    interface FoxyCta {
+        "url"?: string;
     }
     interface FoxyDebateTakeover {
         "active"?: boolean;
@@ -317,12 +341,14 @@ declare namespace LocalJSX {
         "app-blog": AppBlog;
         "app-case-studies": AppCaseStudies;
         "app-contact": AppContact;
+        "app-cs-craft-and-berry": AppCsCraftAndBerry;
         "app-home": AppHome;
         "app-root": AppRoot;
         "app-services": AppServices;
         "app-work-with-us": AppWorkWithUs;
         "foxy-business-card": FoxyBusinessCard;
         "foxy-constellation": FoxyConstellation;
+        "foxy-cta": FoxyCta;
         "foxy-debate-takeover": FoxyDebateTakeover;
         "foxy-estimate": FoxyEstimate;
         "foxy-footer": FoxyFooter;
@@ -342,12 +368,14 @@ declare module "@stencil/core" {
             "app-blog": LocalJSX.AppBlog & JSXBase.HTMLAttributes<HTMLAppBlogElement>;
             "app-case-studies": LocalJSX.AppCaseStudies & JSXBase.HTMLAttributes<HTMLAppCaseStudiesElement>;
             "app-contact": LocalJSX.AppContact & JSXBase.HTMLAttributes<HTMLAppContactElement>;
+            "app-cs-craft-and-berry": LocalJSX.AppCsCraftAndBerry & JSXBase.HTMLAttributes<HTMLAppCsCraftAndBerryElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-services": LocalJSX.AppServices & JSXBase.HTMLAttributes<HTMLAppServicesElement>;
             "app-work-with-us": LocalJSX.AppWorkWithUs & JSXBase.HTMLAttributes<HTMLAppWorkWithUsElement>;
             "foxy-business-card": LocalJSX.FoxyBusinessCard & JSXBase.HTMLAttributes<HTMLFoxyBusinessCardElement>;
             "foxy-constellation": LocalJSX.FoxyConstellation & JSXBase.HTMLAttributes<HTMLFoxyConstellationElement>;
+            "foxy-cta": LocalJSX.FoxyCta & JSXBase.HTMLAttributes<HTMLFoxyCtaElement>;
             "foxy-debate-takeover": LocalJSX.FoxyDebateTakeover & JSXBase.HTMLAttributes<HTMLFoxyDebateTakeoverElement>;
             "foxy-estimate": LocalJSX.FoxyEstimate & JSXBase.HTMLAttributes<HTMLFoxyEstimateElement>;
             "foxy-footer": LocalJSX.FoxyFooter & JSXBase.HTMLAttributes<HTMLFoxyFooterElement>;

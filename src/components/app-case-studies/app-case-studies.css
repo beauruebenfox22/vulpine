@@ -65,6 +65,8 @@
   background: var(--base-secondary);
   border: 1px solid var(--border);
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -72,9 +74,11 @@
 .cs-card.span-tall {
   grid-row: span 2;
 }
+
 .cs-card.span-wide {
   grid-column: span 2;
 }
+
 @media (max-width: 768px) {
   .cs-card.span-wide {
     grid-column: span 1;
@@ -90,15 +94,14 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  filter: grayscale(100%) contrast(1.2);
-  transition: transform 0.6s ease, filter 0.6s ease;
+  transition: transform 0.6s ease;
 }
 
 /* Overlay Layer */
 .cs-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -121,7 +124,8 @@
   font-family: 'Outfit', sans-serif;
   font-size: 2rem;
   font-weight: 700;
-  color: #fff; /* Always white regardless of theme for contrast against image */
+  color: #fff;
+  /* Always white regardless of theme for contrast against image */
   margin: 0;
   transform: translateY(10px);
   transition: transform 0.4s ease;
@@ -157,7 +161,6 @@
 
 .cs-card:hover .cs-card-image {
   transform: scale(1.05);
-  filter: grayscale(0%) contrast(1.1);
 }
 
 .cs-card:hover .cs-project-title {
@@ -183,4 +186,60 @@
   font-weight: 800;
   color: var(--heading);
   margin-bottom: 2rem;
+}
+
+.cs-cta a {
+  color: var(--red-core);
+}
+
+/* Procedural Grid Texture for Cards (Replaces Imagery) */
+.css-grid-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
+  background-position: center center;
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Vector Icons Display */
+.cs-vector-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  opacity: 0.4;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.cs-vector-icon {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+.cs-card:hover .cs-vector-container {
+  transform: translate(-50%, -55%) scale(1.1);
+  opacity: 1;
+}
+
+/* Dynamic Border Colors on Hover */
+.cs-card.type-ai:hover {
+  border-color: var(--red-core);
+  box-shadow: 0 10px 30px rgba(200, 16, 46, 0.2);
+}
+
+.cs-card.type-ecommerce:hover {
+  border-color: #27c93f;
+  box-shadow: 0 10px 30px rgba(39, 201, 63, 0.15);
 }
