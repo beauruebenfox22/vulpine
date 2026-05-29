@@ -76,6 +76,11 @@ export class FoxyDebateTakeover {
       .map(a => ({ name: a.name, personality: a.personality }));
 
     try {
+      let token = '';
+      if (typeof window !== 'undefined' && (window as any).grecaptcha) {
+        token = await (window as any).grecaptcha.execute('6Le3mwItAAAAAEXoBh-VDpPS1OkKYCoihCmGl6O8', { action: 'orchestrator' });
+      }
+
       const res = await fetch('/api/orchestrator', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -87,7 +92,8 @@ export class FoxyDebateTakeover {
           transcript: this.transcripts,
           isFinalRound,
           manipulationEnabled: this.manipulationEnabled,
-          judgesProfiles
+          judgesProfiles,
+          token
         })
       });
 
@@ -112,10 +118,18 @@ export class FoxyDebateTakeover {
           this.transcripts = [...this.transcripts, { agentName: agent.name, role: agent.stance, message: data.response }];
         }
       } else {
-        this.transcripts = [...this.transcripts, { agentName: agent.name, role: agent.stance, message: "[ CONNECTION LOST - EDGE TIMEOUT ]" }];
+        const errorData = await res.json().catch(() => ({}));
+        const errMsg = errorData.error ? `[ ERROR: ${errorData.error} ]` : "[ CONNECTION LOST - EDGE TIMEOUT ]";
+        this.transcripts = [...this.transcripts, { agentName: agent.name, role: agent.stance, message: errMsg }];
+        throw new Error(errMsg);
       }
     } catch (e) {
+      if (e.message && e.message.includes("ERROR:")) {
+        // We already pushed the transcript message
+        throw e; // propagate up to stop debate loop
+      }
       this.transcripts = [...this.transcripts, { agentName: agent.name, role: agent.stance, message: "[ ERROR - ORCHESTRATOR FAILED ]" }];
+      throw e;
     }
     
     this.scrollToBottom();
@@ -126,10 +140,15 @@ export class FoxyDebateTakeover {
     this.activeAgentIndex = 999; 
     
     try {
+      let token = '';
+      if (typeof window !== 'undefined' && (window as any).grecaptcha) {
+        token = await (window as any).grecaptcha.execute('6Le3mwItAAAAAEXoBh-VDpPS1OkKYCoihCmGl6O8', { action: 'orchestrator' });
+      }
+
       const summaryRes = await fetch('/api/orchestrator-summarizer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ transcript: this.transcripts, topic: this.topic })
+        body: JSON.stringify({ transcript: this.transcripts, topic: this.topic, token })
       });
       
       if (summaryRes.ok) {
@@ -140,10 +159,16 @@ export class FoxyDebateTakeover {
           message: `ROUND ${roundNum} SUMMARY:\n${data.summary}` 
         }];
       } else {
-        this.transcripts = [...this.transcripts, { agentName: 'SYSTEM [MIDDLEMAN]', role: 'judge', message: "[ SUMMARIZATION FAILED ]" }];
+        const errorData = await summaryRes.json().catch(() => ({}));
+        const errMsg = errorData.error ? `[ ERROR: ${errorData.error} ]` : "[ SUMMARIZATION FAILED ]";
+        this.transcripts = [...this.transcripts, { agentName: 'SYSTEM [MIDDLEMAN]', role: 'judge', message: errMsg }];
+        throw new Error(errMsg);
       }
     } catch (e) {
-      this.transcripts = [...this.transcripts, { agentName: 'SYSTEM [MIDDLEMAN]', role: 'judge', message: "[ SUMMARIZATION FAILED ]" }];
+      if (!e.message || !e.message.includes("ERROR:")) {
+        this.transcripts = [...this.transcripts, { agentName: 'SYSTEM [MIDDLEMAN]', role: 'judge', message: "[ SUMMARIZATION FAILED ]" }];
+      }
+      throw e;
     }
     this.scrollToBottom();
   };
@@ -166,37 +191,41 @@ export class FoxyDebateTakeover {
     const judges = this.agents.filter(a => a.stance === 'neutral');
 
     // Round 1
-    for (const agent of this.agents) {
-      await this.agentTurn(agent, false);
+    try {
+      for (const agent of this.agents) {
+        await this.agentTurn(agent, false);
+        await new Promise(r => setTimeout(r, 4000));
+      }
+      await this.runSummarizer(1);
       await new Promise(r => setTimeout(r, 4000));
-    }
-    await this.runSummarizer(1);
-    await new Promise(r => setTimeout(r, 4000));
 
-    // Round 2
-    this.transcripts = [...this.transcripts, { agentName: 'SYSTEM', role: 'judge', message: `--- COMMENCING ROUND 2 ---` }];
-    for (const agent of this.agents) {
-      await this.agentTurn(agent, false);
+      // Round 2
+      this.transcripts = [...this.transcripts, { agentName: 'SYSTEM', role: 'judge', message: `--- COMMENCING ROUND 2 ---` }];
+      for (const agent of this.agents) {
+        await this.agentTurn(agent, false);
+        await new Promise(r => setTimeout(r, 4000));
+      }
+      await this.runSummarizer(2);
       await new Promise(r => setTimeout(r, 4000));
-    }
-    await this.runSummarizer(2);
-    await new Promise(r => setTimeout(r, 4000));
 
-    // Round 3 (Final)
-    this.transcripts = [...this.transcripts, { agentName: 'SYSTEM', role: 'judge', message: `--- FINAL ROUND (VERDICTS) ---` }];
-    for (const debater of debaters) {
-      await this.agentTurn(debater, false);
-      await new Promise(r => setTimeout(r, 4000));
-    }
+      // Round 3 (Final)
+      this.transcripts = [...this.transcripts, { agentName: 'SYSTEM', role: 'judge', message: `--- FINAL ROUND (VERDICTS) ---` }];
+      for (const debater of debaters) {
+        await this.agentTurn(debater, false);
+        await new Promise(r => setTimeout(r, 4000));
+      }
 
-    for (const judge of judges) {
-      await this.agentTurn(judge, true);
-      await new Promise(r => setTimeout(r, 4000));
+      for (const judge of judges) {
+        await this.agentTurn(judge, true);
+        await new Promise(r => setTimeout(r, 4000));
+      }
+      triggerToast('Debate concluded.', 'info');
+    } catch (e) {
+      triggerToast('Debate aborted due to connection or security error.', 'alert');
     }
 
     this.isDebating = false;
     this.activeAgentIndex = null;
-    triggerToast('Debate concluded.', 'info');
   };
 
   private scrollToBottom() {

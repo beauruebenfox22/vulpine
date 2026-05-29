@@ -1,4 +1,5 @@
 import { Component, State, h } from '@stencil/core';
+import { triggerToast } from '../../utils/toast';
 
 declare var grecaptcha: any;
 
@@ -14,10 +15,15 @@ export class FoxyEstimate {
   @State() estimateResult: string | null = null;
   @State() error: string | null = null;
   @State() isLimitReached: boolean = false;
+  @State() isModalOpen: boolean = false;
 
   componentWillLoad() {
     if (typeof window !== 'undefined') {
       this.isLimitReached = sessionStorage.getItem('vulpine_estimate_used') === 'true';
+      const storedEstimate = sessionStorage.getItem('vulpine_estimate_result');
+      if (storedEstimate) {
+        this.estimateResult = storedEstimate;
+      }
     }
   }
 
@@ -60,6 +66,7 @@ export class FoxyEstimate {
       // Enforce the frontend session lock after a successful estimate
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('vulpine_estimate_used', 'true');
+        sessionStorage.setItem('vulpine_estimate_result', this.estimateResult);
         this.isLimitReached = true;
       }
     } catch (err) {
@@ -111,13 +118,19 @@ export class FoxyEstimate {
           disabled={this.isEstimating || this.isLimitReached}
         ></textarea>
 
-        <button
-          class={{ 'estimate-submit-btn': true, 'is-loading': this.isEstimating, 'is-locked': this.isLimitReached }}
-          onClick={() => this.generateEstimate()}
-          disabled={this.isEstimating || this.projectDescription.trim().length === 0 || this.isLimitReached}
-        >
-          {this.isLimitReached ? '[ SYSTEM LIMIT REACHED. CONTACT OPERATOR. ]' : (this.isEstimating ? 'ANALYZING SCOPE...' : 'GENERATE ESTIMATE')}
-        </button>
+        {this.isLimitReached ? (
+          <button class="estimate-submit-btn" onClick={() => this.isModalOpen = true}>
+            GET IN TOUCH
+          </button>
+        ) : (
+          <button
+            class={{ 'estimate-submit-btn': true, 'is-loading': this.isEstimating }}
+            onClick={() => this.generateEstimate()}
+            disabled={this.isEstimating || this.projectDescription.trim().length === 0}
+          >
+            {this.isEstimating ? 'ANALYZING SCOPE...' : 'GENERATE ESTIMATE'}
+          </button>
+        )}
 
         {this.error && (
           <div class="estimate-error">
@@ -133,6 +146,14 @@ export class FoxyEstimate {
             </div>
           </div>
         )}
+
+        <foxy-modal 
+          isOpen={this.isModalOpen} 
+          modalTitle="SECURE TRANSMISSION"
+          aiOutput={this.estimateResult || ''}
+          onModalClose={() => this.isModalOpen = false}
+        >
+        </foxy-modal>
       </div>
     );
   }
