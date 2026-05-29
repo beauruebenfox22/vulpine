@@ -32,11 +32,48 @@ export default async (request: Request, context: Context) => {
   }
 
   try {
-    const { projectDescription } = await request.json();
+    const { projectDescription, token } = await request.json();
 
     if (!projectDescription) {
       return new Response(JSON.stringify({ error: "Project description is required." }), {
         status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    if (!token) {
+      return new Response(JSON.stringify({ error: "Security token is missing. Please refresh." }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    const recaptchaSecret = Deno.env.get("RECAPTCHA_SECRET_KEY");
+    if (!recaptchaSecret) {
+      console.error("RECAPTCHA_SECRET_KEY is not set.");
+      return new Response(JSON.stringify({ error: "Server misconfiguration." }), {
+        status: 500,
+        headers: { "Content-Type": "application/json" }
+      });
+    }
+
+    // Verify reCAPTCHA token
+    const verifyParams = new URLSearchParams();
+    verifyParams.append('secret', recaptchaSecret);
+    verifyParams.append('response', token);
+    
+    const verifyResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      body: verifyParams
+    });
+    
+    const verifyData = await verifyResponse.json();
+    
+    // We enforce a strict score threshold (0.5) to block bots.
+    if (!verifyData.success || verifyData.score < 0.5) {
+      console.warn(`ReCaptcha failed. Score: ${verifyData.score}`);
+      return new Response(JSON.stringify({ error: "Automated traffic detected. Request blocked." }), {
+        status: 403,
         headers: { "Content-Type": "application/json" }
       });
     }

@@ -1,6 +1,7 @@
 import { Component, Prop, State, Event, EventEmitter, Method, h } from '@stencil/core';
 import { Router } from "../../";
 import themeStore from '../../store/theme';
+import { triggerToast } from '../../utils/toast';
 
 
 @Component({
@@ -60,20 +61,36 @@ export class FoxyNav {
     this.debating = true;
     setTimeout(() => {
       this.debating = false;
-      alert(`Debate on "${this.debateTopic}" with ${this.debateAgents} Gemini Agents completed!`);
+      triggerToast(`Debate on "${this.debateTopic}" with ${this.debateAgents} Gemini Agents completed!`, 'success');
     }, 3500);
   };
 
   private handleEscalate = (e: Event) => {
     e.preventDefault();
+    e.stopPropagation();
+
     if (!this.contactName.trim()) {
-      alert("Please enter a name.");
+      triggerToast("Please enter a name.", 'alert');
       return;
     }
-    alert(`Escalation request sent for ${this.contactName}. Initiating connection protocol...`);
-    this.contactName = '';
-    this.contactDetails = '';
-    this.handleClose();
+
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
+    })
+      .then(() => {
+        triggerToast(`Escalation request sent for ${this.contactName}. Initiating connection protocol...`, 'success');
+        this.contactName = '';
+        this.contactDetails = '';
+        this.handleClose();
+      })
+      .catch((error) => {
+        triggerToast(error.toString(), 'alert');
+      });
   };
 
   render() {
@@ -141,7 +158,7 @@ export class FoxyNav {
                 <a
                   href="#"
                   class={`directory-item ${isPathActive('/case-studies') ? 'highlight' : ''}`}
-                  onClick={(e) => { e.preventDefault(); alert("Gemini Case Studies Clicked"); this.handleClose(); }}
+                  onClick={(e) => { e.preventDefault(); triggerToast("Gemini Case Studies Clicked", 'info'); this.handleClose(); }}
                   onMouseEnter={() => this.handleDesktopHover(null)}
                 >
                   <span class="directory-num">03 //</span> CASE STUDIES
@@ -314,10 +331,13 @@ export class FoxyNav {
                       Tell me about the logic layer or Shopify complexity you need solved.
                     </p>
 
-                    <form onSubmit={this.handleEscalate} class="escalation-form">
+                    <form name="escalate" method="POST" data-netlify="true" data-netlify-recaptcha="true" onSubmit={this.handleEscalate} class="escalation-form">
+                      <input type="hidden" name="form-name" value="escalate" />
+                      
                       <div class="form-group-field">
                         <input
                           type="text"
+                          name="name"
                           placeholder="[ NAME ]"
                           value={this.contactName}
                           onInput={(e: any) => this.contactName = e.target.value}
@@ -326,6 +346,7 @@ export class FoxyNav {
                       </div>
                       <div class="form-group-field">
                         <textarea
+                          name="details"
                           placeholder="[ PROJECT DETAILS (TEXTAREA) ]"
                           rows={4}
                           value={this.contactDetails}
@@ -333,6 +354,9 @@ export class FoxyNav {
                           required
                         ></textarea>
                       </div>
+                      
+                      <div data-netlify-recaptcha="true" class="recaptcha-wrapper"></div>
+                      
                       <button type="submit" class="escalation-submit-btn">
                         [ ESCALATE PROJECT ]
                       </button>

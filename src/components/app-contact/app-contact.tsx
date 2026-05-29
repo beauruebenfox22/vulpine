@@ -1,5 +1,6 @@
 import { Component, State, h } from '@stencil/core';
 import { setSEO } from '../../utils/seo';
+import { triggerToast } from '../../utils/toast';
 
 @Component({
   tag: 'app-contact',
@@ -25,11 +26,29 @@ export class AppContact {
 
   private handleSubmit = (e: Event) => {
     e.preventDefault();
+    e.stopPropagation();
     this.isSubmitting = true;
-    setTimeout(() => {
-      this.isSubmitting = false;
-      alert('Transmission successful. Vulpine logic layer activated.');
-    }, 1500);
+    
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(formData as any).toString(),
+    })
+      .then(() => {
+        this.isSubmitting = false;
+        triggerToast('Transmission successful. Vulpine logic layer activated.', 'success');
+        this.formName = '';
+        this.formEmail = '';
+        this.formSite = '';
+        this.formMessage = '';
+      })
+      .catch((error) => {
+        this.isSubmitting = false;
+        triggerToast(error.toString(), 'alert');
+      });
   };
 
   render() {
@@ -138,20 +157,22 @@ export class AppContact {
                 </div>
               </div>
 
-              <form class="contact-form" onSubmit={this.handleSubmit}>
+              <form class="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" onSubmit={this.handleSubmit}>
+                <input type="hidden" name="form-name" value="contact" />
+                
                 <div class="input-group">
                   <label>OPERATOR NAME</label>
-                  <input type="text" value={this.formName} onInput={(e: any) => this.formName = e.target.value} required placeholder="John Doe" />
+                  <input type="text" name="name" value={this.formName} onInput={(e: any) => this.formName = e.target.value} required placeholder="John Doe" />
                 </div>
 
                 <div class="input-group">
                   <label>RETURN COMM-LINK (EMAIL)</label>
-                  <input type="email" value={this.formEmail} onInput={(e: any) => this.formEmail = e.target.value} required placeholder="john@company.com" />
+                  <input type="email" name="email" value={this.formEmail} onInput={(e: any) => this.formEmail = e.target.value} required placeholder="john@company.com" />
                 </div>
 
                 <div class="input-group">
                   <label>CURRENT NODE (WEBSITE URL) <span class="optional">- OPTIONAL</span></label>
-                  <input type="url" value={this.formSite} onInput={(e: any) => this.formSite = e.target.value} placeholder="https://" />
+                  <input type="url" name="url" value={this.formSite} onInput={(e: any) => this.formSite = e.target.value} placeholder="https://" />
                 </div>
 
                 <div class="input-group">
@@ -175,8 +196,10 @@ export class AppContact {
 
                 <div class="input-group">
                   <label>TRANSMISSION PAYLOAD</label>
-                  <textarea rows={5} value={this.formMessage} onInput={(e: any) => this.formMessage = e.target.value} required placeholder="Describe your objective..."></textarea>
+                  <textarea name="message" rows={5} value={this.formMessage} onInput={(e: any) => this.formMessage = e.target.value} required placeholder="Describe your objective..."></textarea>
                 </div>
+                
+                <div data-netlify-recaptcha="true" class="recaptcha-wrapper"></div>
 
                 <button type="submit" class="transmit-btn" disabled={this.isSubmitting}>
                   {this.isSubmitting ? '[ INITIATING HANDSHAKE... ]' : '[ TRANSMIT DATA ]'}

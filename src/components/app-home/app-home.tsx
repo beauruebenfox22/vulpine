@@ -135,7 +135,7 @@ export class AppHome {
                   We don’t do AI buzzword bingo. We build the actual tech. From fine-tuned models and agentic orchestration to rapid-fire traditional software, Vulpine has the raw machinery to ship what others just PowerPoint about. Less vibing, more velocity.
                 </p>
 
-                <a href="/services/ai" class="foxy-cta-button" onClick={(e) => { e.preventDefault(); alert("Explore Gemini Solutions Clicked"); }}>
+                <a href="/services/ai" class="foxy-cta-button">
                   [ Deploy the tech... ]
                 </a>
               </div>
@@ -175,7 +175,7 @@ export class AppHome {
                   Our roots. Our playground. And hell, we make it look good. Shopify has never had this much sex appeal. From unhinged custom themes to show-stopping features that actually convert, we build bulletproof e-com architecture that lasts. If you want a basic template, go elsewhere. If you want to dominate, you need Vulpine.
                 </p>
 
-                <a href="#" class="foxy-cta-button" onClick={(e) => { e.preventDefault(); alert("Build Stores Clicked"); }}>
+                <a href="/services/shopify" class="foxy-cta-button">
                   [ See the appeal... ]
                 </a>
               </div>
