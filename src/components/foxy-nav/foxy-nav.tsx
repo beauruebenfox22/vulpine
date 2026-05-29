@@ -191,6 +191,28 @@ export class FoxyNav {
                   <span class="directory-num">07 //</span> BLOG
                 </a>
 
+                {/* MOBILE FLOATING THEME TOGGLE & ORCHESTRATION TRIGGER */}
+                <div class="nav-theme-toggle-mobile">
+                  <button
+                    class={`theme-btn ${themeStore.mode === 'dark' ? 'is-active' : ''}`}
+                    onClick={(e) => this.toggleTheme('dark', e)}
+                  >
+                    DARK
+                  </button>
+                  <button
+                    class={`theme-btn ${themeStore.mode === 'light' ? 'is-active' : ''}`}
+                    onClick={(e) => this.toggleTheme('light', e)}
+                  >
+                    LIGHT
+                  </button>
+                  <button
+                    class="theme-btn orchestration-trigger-btn"
+                    onClick={(e) => { e.preventDefault(); this.openDebate.emit(); this.handleClose(); }}
+                  >
+                    ORCHESTRATE
+                  </button>
+                </div>
+
               </nav>
             </div>
           </div>
@@ -408,27 +430,7 @@ export class FoxyNav {
 
         </div>
 
-        {/* MOBILE FLOATING THEME TOGGLE & ORCHESTRATION TRIGGER */}
-        <div class="nav-theme-toggle-mobile">
-          <button
-            class={`theme-btn ${themeStore.mode === 'dark' ? 'is-active' : ''}`}
-            onClick={(e) => this.toggleTheme('dark', e)}
-          >
-            DARK
-          </button>
-          <button
-            class={`theme-btn ${themeStore.mode === 'light' ? 'is-active' : ''}`}
-            onClick={(e) => this.toggleTheme('light', e)}
-          >
-            LIGHT
-          </button>
-          <button
-            class="theme-btn orchestration-trigger-btn"
-            onClick={(e) => { e.preventDefault(); this.openDebate.emit(); this.handleClose(); }}
-          >
-            ORCHESTRATE
-          </button>
-        </div>
+
 
       </div>
     );
