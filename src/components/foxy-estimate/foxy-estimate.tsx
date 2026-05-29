@@ -7,6 +7,7 @@ declare var grecaptcha: any;
   styleUrl: 'foxy-estimate.css',
   shadow: false,
 })
+
 export class FoxyEstimate {
   @State() projectDescription: string = '';
   @State() isEstimating: boolean = false;
@@ -42,7 +43,7 @@ export class FoxyEstimate {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           projectDescription: this.projectDescription,
           token
         })
@@ -55,7 +56,7 @@ export class FoxyEstimate {
       }
 
       this.estimateResult = data.estimate;
-      
+
       // Enforce the frontend session lock after a successful estimate
       if (typeof window !== 'undefined') {
         sessionStorage.setItem('vulpine_estimate_used', 'true');
@@ -97,20 +98,20 @@ export class FoxyEstimate {
           <div class="pulse-indicator"></div>
           <h3>AI ESTIMATE ENGINE</h3>
         </div>
-        
+
         <p class="estimate-instructions">
           Describe your problem, idea, or desired service below. Our AI uses current Vulpine metrics to provide an instant high-level cost and time scope.
         </p>
 
-        <textarea 
-          class="estimate-input" 
+        <textarea
+          class="estimate-input"
           placeholder="e.g. I need a custom Shopify storefront with an AI product recommendation engine integrated via API..."
           value={this.projectDescription}
           onInput={this.handleInput}
           disabled={this.isEstimating || this.isLimitReached}
         ></textarea>
 
-        <button 
+        <button
           class={{ 'estimate-submit-btn': true, 'is-loading': this.isEstimating, 'is-locked': this.isLimitReached }}
           onClick={() => this.generateEstimate()}
           disabled={this.isEstimating || this.projectDescription.trim().length === 0 || this.isLimitReached}
