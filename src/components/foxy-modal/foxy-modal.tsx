@@ -39,10 +39,8 @@ export class FoxyModal {
   }
 
   render() {
-    if (!this.isOpen) return null;
-
     return (
-      <div class="foxy-modal-overlay" onClick={this.handleClose}>
+      <div class={{ 'foxy-modal-overlay': true, 'is-open': this.isOpen }} onClick={this.handleClose}>
         <div class="foxy-modal-container" onClick={this.stopPropagation}>
           <div class="foxy-modal-header">
             <h4>{this.modalTitle}</h4>
