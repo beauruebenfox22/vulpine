@@ -11,6 +11,7 @@ import { initThemeStore } from '../../store/theme';
 export class AppRoot {
   @State() menuOpen: boolean = false;
   @State() drilldownActive: boolean = false;
+  @State() debateOpen: boolean = false;
 
   componentWillLoad() {
     initThemeStore();
@@ -40,6 +41,10 @@ export class AppRoot {
   private closeMenu = () => {
     this.menuOpen = false;
     this.drilldownActive = false; // Reset drilldown state when completely closing
+  };
+
+  private openDebate = () => {
+    this.debateOpen = true;
   };
 
   render() {
@@ -86,7 +91,14 @@ export class AppRoot {
           active={this.menuOpen}
           onMenuClose={this.closeMenu}
           onDrilldownChange={this.handleDrilldownChange}
+          onOpenDebate={this.openDebate}
         ></foxy-nav>
+
+        {/* MULTI-AGENT DEBATE TAKEOVER */}
+        <foxy-debate-takeover
+          active={this.debateOpen}
+          onDebateClose={() => this.debateOpen = false}
+        ></foxy-debate-takeover>
 
         {/* MAIN ROUTER CONTENT VIEWPORT */}
         <main class="vulpine-main">
@@ -99,6 +111,9 @@ export class AppRoot {
             </Route>
             <Route path="/work-with-us">
               <app-work-with-us />
+            </Route>
+            <Route path="/case-studies">
+              <app-case-studies />
             </Route>
             <Route path="/contact">
               <app-contact />

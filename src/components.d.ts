@@ -11,6 +11,8 @@ export namespace Components {
     interface AppBlog {
         "initialSlug": string;
     }
+    interface AppCaseStudies {
+    }
     interface AppContact {
     }
     interface AppHome {
@@ -25,6 +27,9 @@ export namespace Components {
     interface FoxyBusinessCard {
     }
     interface FoxyConstellation {
+    }
+    interface FoxyDebateTakeover {
+        "active": boolean;
     }
     interface FoxyEstimate {
     }
@@ -52,6 +57,10 @@ export namespace Components {
     interface FoxyToastContainer {
     }
 }
+export interface FoxyDebateTakeoverCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFoxyDebateTakeoverElement;
+}
 export interface FoxyJournalRendererCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFoxyJournalRendererElement;
@@ -76,6 +85,12 @@ declare global {
     var HTMLAppBlogElement: {
         prototype: HTMLAppBlogElement;
         new (): HTMLAppBlogElement;
+    };
+    interface HTMLAppCaseStudiesElement extends Components.AppCaseStudies, HTMLStencilElement {
+    }
+    var HTMLAppCaseStudiesElement: {
+        prototype: HTMLAppCaseStudiesElement;
+        new (): HTMLAppCaseStudiesElement;
     };
     interface HTMLAppContactElement extends Components.AppContact, HTMLStencilElement {
     }
@@ -118,6 +133,23 @@ declare global {
     var HTMLFoxyConstellationElement: {
         prototype: HTMLFoxyConstellationElement;
         new (): HTMLFoxyConstellationElement;
+    };
+    interface HTMLFoxyDebateTakeoverElementEventMap {
+        "debateClose": void;
+    }
+    interface HTMLFoxyDebateTakeoverElement extends Components.FoxyDebateTakeover, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFoxyDebateTakeoverElementEventMap>(type: K, listener: (this: HTMLFoxyDebateTakeoverElement, ev: FoxyDebateTakeoverCustomEvent<HTMLFoxyDebateTakeoverElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFoxyDebateTakeoverElementEventMap>(type: K, listener: (this: HTMLFoxyDebateTakeoverElement, ev: FoxyDebateTakeoverCustomEvent<HTMLFoxyDebateTakeoverElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLFoxyDebateTakeoverElement: {
+        prototype: HTMLFoxyDebateTakeoverElement;
+        new (): HTMLFoxyDebateTakeoverElement;
     };
     interface HTMLFoxyEstimateElement extends Components.FoxyEstimate, HTMLStencilElement {
     }
@@ -163,6 +195,7 @@ declare global {
     interface HTMLFoxyNavElementEventMap {
         "menuClose": void;
         "drilldownChange": boolean;
+        "openDebate": void;
     }
     interface HTMLFoxyNavElement extends Components.FoxyNav, HTMLStencilElement {
         addEventListener<K extends keyof HTMLFoxyNavElementEventMap>(type: K, listener: (this: HTMLFoxyNavElement, ev: FoxyNavCustomEvent<HTMLFoxyNavElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
@@ -204,6 +237,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-about": HTMLAppAboutElement;
         "app-blog": HTMLAppBlogElement;
+        "app-case-studies": HTMLAppCaseStudiesElement;
         "app-contact": HTMLAppContactElement;
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
@@ -211,6 +245,7 @@ declare global {
         "app-work-with-us": HTMLAppWorkWithUsElement;
         "foxy-business-card": HTMLFoxyBusinessCardElement;
         "foxy-constellation": HTMLFoxyConstellationElement;
+        "foxy-debate-takeover": HTMLFoxyDebateTakeoverElement;
         "foxy-estimate": HTMLFoxyEstimateElement;
         "foxy-footer": HTMLFoxyFooterElement;
         "foxy-hero": HTMLFoxyHeroElement;
@@ -227,6 +262,8 @@ declare namespace LocalJSX {
     interface AppBlog {
         "initialSlug"?: string;
     }
+    interface AppCaseStudies {
+    }
     interface AppContact {
     }
     interface AppHome {
@@ -241,6 +278,10 @@ declare namespace LocalJSX {
     interface FoxyBusinessCard {
     }
     interface FoxyConstellation {
+    }
+    interface FoxyDebateTakeover {
+        "active"?: boolean;
+        "onDebateClose"?: (event: FoxyDebateTakeoverCustomEvent<void>) => void;
     }
     interface FoxyEstimate {
     }
@@ -261,6 +302,7 @@ declare namespace LocalJSX {
         "active"?: boolean;
         "onDrilldownChange"?: (event: FoxyNavCustomEvent<boolean>) => void;
         "onMenuClose"?: (event: FoxyNavCustomEvent<void>) => void;
+        "onOpenDebate"?: (event: FoxyNavCustomEvent<void>) => void;
     }
     interface FoxyToast {
         "message"?: string;
@@ -273,6 +315,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "app-about": AppAbout;
         "app-blog": AppBlog;
+        "app-case-studies": AppCaseStudies;
         "app-contact": AppContact;
         "app-home": AppHome;
         "app-root": AppRoot;
@@ -280,6 +323,7 @@ declare namespace LocalJSX {
         "app-work-with-us": AppWorkWithUs;
         "foxy-business-card": FoxyBusinessCard;
         "foxy-constellation": FoxyConstellation;
+        "foxy-debate-takeover": FoxyDebateTakeover;
         "foxy-estimate": FoxyEstimate;
         "foxy-footer": FoxyFooter;
         "foxy-hero": FoxyHero;
@@ -296,6 +340,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-about": LocalJSX.AppAbout & JSXBase.HTMLAttributes<HTMLAppAboutElement>;
             "app-blog": LocalJSX.AppBlog & JSXBase.HTMLAttributes<HTMLAppBlogElement>;
+            "app-case-studies": LocalJSX.AppCaseStudies & JSXBase.HTMLAttributes<HTMLAppCaseStudiesElement>;
             "app-contact": LocalJSX.AppContact & JSXBase.HTMLAttributes<HTMLAppContactElement>;
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
@@ -303,6 +348,7 @@ declare module "@stencil/core" {
             "app-work-with-us": LocalJSX.AppWorkWithUs & JSXBase.HTMLAttributes<HTMLAppWorkWithUsElement>;
             "foxy-business-card": LocalJSX.FoxyBusinessCard & JSXBase.HTMLAttributes<HTMLFoxyBusinessCardElement>;
             "foxy-constellation": LocalJSX.FoxyConstellation & JSXBase.HTMLAttributes<HTMLFoxyConstellationElement>;
+            "foxy-debate-takeover": LocalJSX.FoxyDebateTakeover & JSXBase.HTMLAttributes<HTMLFoxyDebateTakeoverElement>;
             "foxy-estimate": LocalJSX.FoxyEstimate & JSXBase.HTMLAttributes<HTMLFoxyEstimateElement>;
             "foxy-footer": LocalJSX.FoxyFooter & JSXBase.HTMLAttributes<HTMLFoxyFooterElement>;
             "foxy-hero": LocalJSX.FoxyHero & JSXBase.HTMLAttributes<HTMLFoxyHeroElement>;
