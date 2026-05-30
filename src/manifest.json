@@ -1,6 +1,6 @@
 {
-  "name": "Stencil Starter",
-  "short_name": "Stencil",
+  "name": "Vulpine Digital",
+  "short_name": "Vulpine",
   "start_url": "/",
   "display": "standalone",
   "icons": [
@@ -10,6 +10,6 @@
       "type": "image/svg"
     }
   ],
-  "background_color": "#16161d",
-  "theme_color": "#16161d"
+  "background_color": "#080808",
+  "theme_color": "#080808"
 }
