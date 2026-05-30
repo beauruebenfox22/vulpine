@@ -22,6 +22,13 @@ export class FoxyModal {
   private handleLeadSubmit = (e: Event) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
+    
+    // Explicitly guarantee the fields are populated in the payload, 
+    // bypassing any VDOM or shadow DOM quirks with FormData
+    formData.set("name", this.formName);
+    formData.set("email", this.formEmail);
+    formData.set("ai-output", this.aiOutput);
+
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -58,7 +65,7 @@ export class FoxyModal {
             <slot></slot>
             <form class="capture-form" name="estimate-lead" method="POST" data-netlify="true" data-netlify-recaptcha="true" onSubmit={this.handleLeadSubmit}>
               <input type="hidden" name="form-name" value="estimate-lead" />
-              <textarea name="ai-output" style={{ display: 'none' }} value={this.aiOutput}></textarea>
+              <input type="hidden" name="ai-output" value={this.aiOutput} />
               
               <div class="capture-form-group">
                 <label htmlFor="name">IDENTIFIER (NAME)</label>
