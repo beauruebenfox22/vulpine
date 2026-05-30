@@ -1,4 +1,4 @@
-import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Event, EventEmitter, State } from '@stencil/core';
 import { triggerToast } from '../../utils/toast';
 
 @Component({
@@ -11,6 +11,9 @@ export class FoxyModal {
   @Prop() modalTitle: string = '';
   @Prop() aiOutput: string = '';
   @Event() modalClose: EventEmitter<void>;
+
+  @State() formName: string = '';
+  @State() formEmail: string = '';
 
   private handleClose = () => {
     this.modalClose.emit();
@@ -59,11 +62,11 @@ export class FoxyModal {
               
               <div class="capture-form-group">
                 <label htmlFor="name">IDENTIFIER (NAME)</label>
-                <input type="text" id="name" name="name" required placeholder="Enter your name" autocomplete="name" tabIndex={1} />
+                <input type="text" id="name" name="name" required placeholder="Enter your name" autocomplete="name" tabIndex={1} value={this.formName} onInput={(e: any) => this.formName = e.target.value} />
               </div>
               <div class="capture-form-group">
                 <label htmlFor="email">CONTACT LINK (EMAIL)</label>
-                <input type="email" id="email" name="email" required placeholder="Enter your email address" autocomplete="email" tabIndex={2} />
+                <input type="email" id="email" name="email" required placeholder="Enter your email address" autocomplete="email" tabIndex={2} value={this.formEmail} onInput={(e: any) => this.formEmail = e.target.value} />
               </div>
               
               <div data-netlify-recaptcha="true" class="recaptcha-wrapper" style={{ marginTop: '1rem' }}></div>
