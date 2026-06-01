@@ -39,6 +39,32 @@
 
   <app-root></app-root>
 
+  <!-- 
+    NETLIFY DUMMY FORMS
+    Since Stencil dynamically renders the DOM using Web Components, Netlify's 
+    crawler occasionally fails to map the fields of conditionally rendered forms.
+    These hidden forms guarantee Netlify registers the exact schema for all forms.
+  -->
+  <form name="estimate-lead" data-netlify="true" data-netlify-recaptcha="true" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <textarea name="ai-output"></textarea>
+  </form>
+
+  <form name="contact" data-netlify="true" data-netlify-recaptcha="true" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="url" name="url" />
+    <input type="radio" name="track" value="ai" />
+    <input type="radio" name="track" value="shopify" />
+    <textarea name="message"></textarea>
+  </form>
+
+  <form name="escalate" data-netlify="true" data-netlify-recaptcha="true" hidden>
+    <input type="text" name="name" />
+    <textarea name="details"></textarea>
+  </form>
+
 </body>
 
 </html>
