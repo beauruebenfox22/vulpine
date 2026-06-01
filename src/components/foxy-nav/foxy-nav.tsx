@@ -314,7 +314,7 @@ export class FoxyNav {
                       Tell me about the logic layer or Shopify complexity you need solved.
                     </p>
 
-                    <form name="escalate" method="POST" data-netlify="true" data-netlify-recaptcha="true" onSubmit={this.handleEscalate} class="escalation-form">
+                    <form name="escalate" method="POST" data-netlify="true" onSubmit={this.handleEscalate} class="escalation-form">
                       <input type="hidden" name="form-name" value="escalate" />
 
                       <div class="form-group-field">
@@ -338,7 +338,7 @@ export class FoxyNav {
                         ></textarea>
                       </div>
 
-                      <div data-netlify-recaptcha="true" class="recaptcha-wrapper"></div>
+
 
                       <button type="submit" class="escalation-submit-btn">
                         [ ESCALATE PROJECT ]

@@ -26,13 +26,14 @@ export class FoxyModal {
 
     console.log('[Foxy Modal] --- Form Submission Started ---');
     console.log('[Foxy Modal] Form Node:', form);
-    
+
     console.log('[Foxy Modal] FormData Entries:');
     formData.forEach((value, key) => {
       console.log(`  ${key}:`, value);
     });
 
     const payloadString = new URLSearchParams(formData as any).toString();
+
     console.log('[Foxy Modal] Final Payload String:', payloadString);
 
     fetch("/", {
@@ -40,13 +41,13 @@ export class FoxyModal {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: payloadString
     })
-    .then(() => {
-       this.handleClose();
-       triggerToast('Estimate secured and sent to Vulpine successfully!', 'success');
-    })
-    .catch((error) => {
-       triggerToast(error.toString(), 'alert');
-    });
+      .then(() => {
+        this.handleClose();
+        triggerToast('Estimate secured and sent to Vulpine successfully!', 'success');
+      })
+      .catch((error) => {
+        triggerToast(error.toString(), 'alert');
+      });
   }
 
   // Prevent clicks inside the modal from bubbling up to the overlay
@@ -69,10 +70,10 @@ export class FoxyModal {
           </div>
           <div class="foxy-modal-content">
             <slot></slot>
-            <form class="capture-form" name="estimate-lead" method="POST" data-netlify="true" data-netlify-recaptcha="true" onSubmit={this.handleLeadSubmit}>
+            <form class="capture-form" name="estimate-lead" method="POST" data-netlify="true" onSubmit={this.handleLeadSubmit}>
               <input type="hidden" name="form-name" value="estimate-lead" />
               <input type="hidden" name="ai-output" value={this.aiOutput} />
-              
+
               <div class="capture-form-group">
                 <label htmlFor="name">IDENTIFIER (NAME)</label>
                 <input type="text" id="name" name="name" required placeholder="Enter your name" autocomplete="name" tabIndex={1} value={this.formName} onInput={(e: any) => this.formName = e.target.value} />
@@ -81,8 +82,8 @@ export class FoxyModal {
                 <label htmlFor="email">CONTACT LINK (EMAIL)</label>
                 <input type="email" id="email" name="email" required placeholder="Enter your email address" autocomplete="email" tabIndex={2} value={this.formEmail} onInput={(e: any) => this.formEmail = e.target.value} />
               </div>
-              
-              <div data-netlify-recaptcha="true" class="recaptcha-wrapper" style={{ marginTop: '1rem' }}></div>
+
+
 
               <button type="submit" class="capture-submit-btn">INITIATE HANDSHAKE</button>
             </form>

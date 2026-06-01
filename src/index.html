@@ -45,13 +45,13 @@
     crawler occasionally fails to map the fields of conditionally rendered forms.
     These hidden forms guarantee Netlify registers the exact schema for all forms.
   -->
-  <form name="estimate-lead" data-netlify="true" data-netlify-recaptcha="true" hidden>
+  <form name="estimate-lead" data-netlify="true" hidden>
     <input type="text" name="name" />
     <input type="email" name="email" />
     <textarea name="ai-output"></textarea>
   </form>
 
-  <form name="contact" data-netlify="true" data-netlify-recaptcha="true" hidden>
+  <form name="contact" data-netlify="true" hidden>
     <input type="text" name="name" />
     <input type="email" name="email" />
     <input type="url" name="url" />
@@ -60,7 +60,7 @@
     <textarea name="message"></textarea>
   </form>
 
-  <form name="escalate" data-netlify="true" data-netlify-recaptcha="true" hidden>
+  <form name="escalate" data-netlify="true" hidden>
     <input type="text" name="name" />
     <textarea name="details"></textarea>
   </form>
