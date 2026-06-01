@@ -168,7 +168,7 @@ export class AppContact {
                 </div>
               </div>
 
-              <form class="contact-form" name="contact" method="POST" data-netlify="true" data-netlify-recaptcha="true" onSubmit={this.handleSubmit}>
+              <form class="contact-form" name="contact" method="POST" data-netlify="true" onSubmit={this.handleSubmit}>
                 <input type="hidden" name="form-name" value="contact" />
                 
                 <div class="input-group">
@@ -210,7 +210,7 @@ export class AppContact {
                   <textarea name="message" rows={5} value={this.formMessage} onInput={(e: any) => this.formMessage = e.target.value} required placeholder="Describe your objective..."></textarea>
                 </div>
                 
-                <div data-netlify-recaptcha="true" class="recaptcha-wrapper"></div>
+
 
                 <button type="submit" class="transmit-btn" disabled={this.isSubmitting}>
                   {this.isSubmitting ? '[ INITIATING HANDSHAKE... ]' : '[ TRANSMIT DATA ]'}
