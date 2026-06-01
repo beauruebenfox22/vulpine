@@ -21,18 +21,24 @@ export class FoxyModal {
 
   private handleLeadSubmit = (e: Event) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    console.log('[Foxy Modal] --- Form Submission Started ---');
+    console.log('[Foxy Modal] Form Node:', form);
     
-    // Explicitly guarantee the fields are populated in the payload, 
-    // bypassing any VDOM or shadow DOM quirks with FormData
-    formData.set("name", this.formName);
-    formData.set("email", this.formEmail);
-    formData.set("ai-output", this.aiOutput);
+    console.log('[Foxy Modal] FormData Entries:');
+    formData.forEach((value, key) => {
+      console.log(`  ${key}:`, value);
+    });
+
+    const payloadString = new URLSearchParams(formData as any).toString();
+    console.log('[Foxy Modal] Final Payload String:', payloadString);
 
     fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData as any).toString()
+      body: payloadString
     })
     .then(() => {
        this.handleClose();
