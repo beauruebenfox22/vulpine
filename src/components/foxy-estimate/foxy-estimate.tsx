@@ -84,6 +84,21 @@ export class FoxyEstimate {
     return text.split('\n').map((line, i) => {
       const trimmed = line.trim();
       if (trimmed === '') return <br key={i} />;
+      if (trimmed.includes('[Initiate Vulpine Concierge](foxy://open-concierge)')) {
+        const parts = trimmed.split('[Initiate Vulpine Concierge](foxy://open-concierge)');
+        return (
+          <p key={i}>
+            <span innerHTML={parts[0].replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')} />
+            <button class="estimate-submit-btn" onClick={() => {
+              this.isModalOpen = false;
+              if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('foxy-open-concierge'));
+            }} style={{ marginTop: '1.5rem', display: 'block', width: '100%' }}>
+              INITIATE VULPINE CONCIERGE
+            </button>
+            {parts[1] && <span innerHTML={parts[1].replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')} />}
+          </p>
+        );
+      }
       if (trimmed.startsWith('### ')) {
         return <h5 key={i} class="result-subheading" innerHTML={trimmed.substring(4).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />;
       }

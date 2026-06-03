@@ -24,17 +24,7 @@ export class FoxyModal {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
-    console.log('[Foxy Modal] --- Form Submission Started ---');
-    console.log('[Foxy Modal] Form Node:', form);
-
-    console.log('[Foxy Modal] FormData Entries:');
-    formData.forEach((value, key) => {
-      console.log(`  ${key}:`, value);
-    });
-
     const payloadString = new URLSearchParams(formData as any).toString();
-
-    console.log('[Foxy Modal] Final Payload String:', payloadString);
 
     fetch("/", {
       method: "POST",

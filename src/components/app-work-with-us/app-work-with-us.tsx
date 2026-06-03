@@ -1,4 +1,4 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, State, Build } from '@stencil/core';
 
 @Component({
   tag: 'app-work-with-us',
@@ -6,6 +6,21 @@ import { Component, h } from '@stencil/core';
   shadow: false,
 })
 export class AppWorkWithUs {
+
+  @State() isWidgetVisible: boolean = false;
+
+  private toggleConcierge = () => {
+    if (Build.isBrowser) {
+      window.dispatchEvent(new CustomEvent('foxy-open-concierge'));
+    }
+  };
+
+  private togglePricing = () => {
+    if (Build.isBrowser) {
+      window.dispatchEvent(new CustomEvent('foxy-open-pricing'));
+    }
+  };
+
   render() {
     return (
       <div class="mission-control-wrapper">
@@ -136,6 +151,16 @@ export class AppWorkWithUs {
           </article>
 
         </main>
+
+        {/* ACTION TRIGGERS */}
+        <div class="booking-trigger-wrapper" style={{ display: 'flex', justifyContent: 'center', gap: '2rem', marginTop: '4rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+          <button class="modal-trigger-btn" onClick={this.togglePricing}>
+            [ VIEW PRICING & TERMS ]
+          </button>
+          <button class="modal-trigger-btn" onClick={this.toggleConcierge}>
+            [ INITIATE BOOKING ]
+          </button>
+        </div>
       </div>
     );
   }

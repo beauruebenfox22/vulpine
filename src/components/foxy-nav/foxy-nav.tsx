@@ -362,24 +362,24 @@ export class FoxyNav {
                 </div>
 
                 <div class="takeover-link-grid">
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'gemini-orchestration'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'agentic-engineering'); }}>
                     <span class="item-num">02.A</span>
-                    <span class="item-label">GEMINI_ORCHESTRATION</span>
+                    <span class="item-label">AGENTIC ENGINEERING</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'autonomous-agents'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'multi-agent-orchestration'); }}>
                     <span class="item-num">02.B</span>
-                    <span class="item-label">AUTONOMOUS_AGENTS</span>
+                    <span class="item-label">MULTI-AGENT ORCHESTRATION</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'secure-sdk-bridges'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'token-architecture-efficiency'); }}>
                     <span class="item-num">02.C</span>
-                    <span class="item-label">SECURE_SDK_BRIDGES</span>
+                    <span class="item-label">TOKEN ARCHITECTURE</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'logic-layer-integration'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'llm-fine-tuning-rag'); }}>
                     <span class="item-num">02.D</span>
-                    <span class="item-label">LOGIC_LAYER_INTEGRATION</span>
+                    <span class="item-label">LLM FINE-TUNING & RAG</span>
                     <span class="item-arrow">→</span>
                   </a>
 
@@ -398,24 +398,24 @@ export class FoxyNav {
                 </div>
 
                 <div class="takeover-link-grid">
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'headless-architecture'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'headless-shopify'); }}>
                     <span class="item-num">03.A</span>
-                    <span class="item-label">HEADLESS_ARCHITECTURE</span>
+                    <span class="item-label">HEADLESS SHOPIFY</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'platform-re-engineering'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'checkout-extensibility'); }}>
                     <span class="item-num">03.B</span>
-                    <span class="item-label">PLATFORM_RE-ENGINEERING</span>
+                    <span class="item-label">CHECKOUT EXTENSIBILITY</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'custom-app-development'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'build-migrate'); }}>
                     <span class="item-num">03.C</span>
-                    <span class="item-label">CUSTOM_APP_DEVELOPMENT</span>
+                    <span class="item-label">BUILD & MIGRATE</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'extensibility-engines'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('shopify', 'custom-apps'); }}>
                     <span class="item-num">03.D</span>
-                    <span class="item-label">EXTENSIBILITY_ENGINES</span>
+                    <span class="item-label">CUSTOM APPLICATIONS</span>
                     <span class="item-arrow">→</span>
                   </a>
 

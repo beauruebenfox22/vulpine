@@ -32,16 +32,7 @@ export class AppContact {
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
 
-    console.log('[App Contact] --- Form Submission Started ---');
-    console.log('[App Contact] Form Node:', form);
-    
-    console.log('[App Contact] FormData Entries:');
-    formData.forEach((value, key) => {
-      console.log(`  ${key}:`, value);
-    });
-
     const payloadString = new URLSearchParams(formData as any).toString();
-    console.log('[App Contact] Final Payload String:', payloadString);
 
     fetch("/", {
       method: "POST",
