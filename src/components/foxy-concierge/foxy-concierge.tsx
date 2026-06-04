@@ -58,12 +58,12 @@ export class FoxyConcierge {
       const locked = sessionStorage.getItem('vulpine_booking_locked');
       const bDate = sessionStorage.getItem('vulpine_booked_date');
       const bTime = sessionStorage.getItem('vulpine_booked_time');
-      
+
       if (locked === 'true') {
         this.isLocked = true;
         this.bookedDate = bDate || '';
         this.bookedTime = bTime || '';
-      } else {
+      } else if (this.isOpen && this.chatHistory.length === 0) {
         this.fetchAvailability();
       }
     }
@@ -72,25 +72,23 @@ export class FoxyConcierge {
   private async fetchAvailability() {
     this.isThinking = true;
     this.chatHistory = [{ id: 'loading', sender: 'ai', text: 'Scanning calendar...' }];
-    
+
     try {
       const res = await fetch('/api/booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'CHECK_AVAILABILITY' })
       });
-      
+
       const data = await res.json();
       this.chatHistory = []; // clear loading
-
       const rawText = data.text || '';
       const newMessages: ChatMessage[] = [{ id: `ai-text-${Date.now()}`, sender: 'ai' as 'ai', text: rawText, isSlot: false }];
       this.chatHistory = [...this.chatHistory, ...newMessages];
     } catch (e) {
-      console.error(e);
       this.chatHistory = [{ id: 'err', sender: 'ai' as 'ai', text: 'System Error: Unable to reach scheduling core.', isSlot: false }];
     }
-    
+
     this.isThinking = false;
   }
 
@@ -134,9 +132,9 @@ export class FoxyConcierge {
       });
 
       if (!res.ok) throw new Error("Failed to chat");
-      
+
       const data = await res.json();
-      
+
       this.chatHistory = [
         ...this.chatHistory,
         { id: Date.now().toString(), sender: 'ai', text: data.text }
@@ -151,20 +149,19 @@ export class FoxyConcierge {
           sessionStorage.setItem('vulpine_booked_date', data.date);
           sessionStorage.setItem('vulpine_booked_time', data.time);
         }
-        
+
         triggerToast('Transmission Secured to Google Calendar', 'success');
         this.isBookingComplete = true;
       }
 
     } catch (err) {
-      console.error(err);
       triggerToast('Transmission Failed', 'alert');
       this.chatHistory = [
         ...this.chatHistory,
         { id: Date.now().toString(), sender: 'ai', text: 'Error: Failed to process message. Please try again.' }
       ];
     }
-    
+
     this.isThinking = false;
   };
 
@@ -179,7 +176,7 @@ export class FoxyConcierge {
     return (
       <div class={overlayClasses}>
         <div class="concierge-container">
-          
+
           {/* HEADER */}
           <div class="concierge-header">
             <div class="header-title">
@@ -196,7 +193,7 @@ export class FoxyConcierge {
 
           {/* TWO-PANE LAYOUT */}
           <div class="concierge-body">
-            
+
             {/* LEFT PANE: CHAT UI */}
             <div class="chat-pane">
               {this.isLocked ? (
@@ -244,9 +241,9 @@ export class FoxyConcierge {
                   {!this.isBookingComplete && (
                     <div class="chat-input-area">
                       <form class="chat-input-form" onSubmit={(e) => this.handleChatSubmit(e)}>
-                        <input 
-                          type="text" 
-                          placeholder={this.isThinking ? "VULPINE IS PROCESSING..." : "REPLY TO VULPINE..."} 
+                        <input
+                          type="text"
+                          placeholder={this.isThinking ? "VULPINE IS PROCESSING..." : "REPLY TO VULPINE..."}
                           value={this.chatInput}
                           disabled={this.isThinking}
                           onInput={(e: any) => this.chatInput = e.target.value}
@@ -268,7 +265,7 @@ export class FoxyConcierge {
             <div class="manifest-pane">
               <h4 class="manifest-title">BOOKING MANIFEST</h4>
               <div class="manifest-list">
-                
+
                 <div class="manifest-item">
                   <span class="manifest-label">STATUS</span>
                   <span class={`manifest-value ${this.isLocked ? 'status-locked' : 'status-pending'}`}>
