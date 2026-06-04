@@ -17,7 +17,8 @@
     "jest-cli": "^29.7.0",
     "netlify-cli": "^26.0.2",
     "puppeteer": "^21.11.0",
-    "stencil-router-v2": "^0.6.0"
+    "stencil-router-v2": "^0.6.0",
+    "workbox-build": "^4.3.1"
   },
   "license": "MIT",
   "dependencies": {

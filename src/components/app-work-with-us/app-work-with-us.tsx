@@ -1,4 +1,5 @@
 import { Component, h, State, Build } from '@stencil/core';
+import { setSEO } from '../../utils/seo';
 
 @Component({
   tag: 'app-work-with-us',
@@ -8,6 +9,15 @@ import { Component, h, State, Build } from '@stencil/core';
 export class AppWorkWithUs {
 
   @State() isWidgetVisible: boolean = false;
+
+
+  componentWillLoad() {
+    setSEO({
+      title: 'Work With Us | Select Your Custom Engagement Engine',
+      description: 'Initialize your terms. Configure linear development sprints, milestone-locked custom builds, or high-capacity architectural bandwidth retainers.',
+      url: 'https://vulpine.digital/work-with-us'
+    });
+  };
 
   private toggleConcierge = () => {
     if (Build.isBrowser) {
@@ -24,16 +34,16 @@ export class AppWorkWithUs {
   render() {
     return (
       <div class="mission-control-wrapper">
-        
+
         {/* Reusable Hero Component */}
-        <foxy-hero 
+        <foxy-hero
           headline="WORK WITH US"
-          subheadline="We operate where logic layers meet commerce. Fully embedded, specialized remote, or on-site accelerators."
+          subheadline="Two domains: Applied AI and Unhinged Shopify. Two areas of absolute exceptionalism. We build lean, move fast, bring the technical sex appeal, and we do not disappoint. No agency bloat — just production-grade engineering."
         ></foxy-hero>
 
         {/* Dashboard Grid */}
         <main class="dashboard-grid">
-          
+
           {/* Widget 1: Vectors of Engagement */}
           <article class="dashboard-widget widget-vectors">
             <div class="widget-header">
@@ -77,9 +87,9 @@ export class AppWorkWithUs {
             <div class="widget-body">
               <div class="pricing-animation">
                 <div class="bar-chart">
-                  <div class="bar" style={{"--fill": "40%"}}></div>
-                  <div class="bar" style={{"--fill": "40%"}}></div>
-                  <div class="bar" style={{"--fill": "20%"}}></div>
+                  <div class="bar" style={{ "--fill": "40%" }}></div>
+                  <div class="bar" style={{ "--fill": "40%" }}></div>
+                  <div class="bar" style={{ "--fill": "20%" }}></div>
                 </div>
               </div>
               <ul class="data-list">
@@ -100,7 +110,7 @@ export class AppWorkWithUs {
           <article class="dashboard-widget widget-demographics">
             <div class="widget-header">
               <span class="widget-id">SYS.03</span>
-              <h3>TARGET PROFILES</h3>
+              <h3>ENGAGEMENT THRESHOLD</h3>
             </div>
             <div class="widget-body">
               <div class="radar-animation">
@@ -112,11 +122,12 @@ export class AppWorkWithUs {
                   <line x1="0" y1="50" x2="100" y2="50" class="radar-axis" />
                   <path d="M 50 50 L 95 50 A 45 45 0 0 0 50 5 L 50 50" class="radar-sweep" />
                   <circle cx="70" cy="30" r="3" class="radar-blip" />
-                  <circle cx="35" cy="65" r="3" class="radar-blip" style={{"animation-delay": "1s"}} />
+                  <circle cx="35" cy="65" r="3" class="radar-blip" style={{ "animation-delay": "1s" }} />
                 </svg>
               </div>
+              <h3>NOT FOR EVERYONE.</h3>
               <p class="widget-text">
-                We partner with upstarts, SME merchants, and bold business owners. We want clients willing to take risks, break conventions, and innovate relentlessly.
+                Vulpine operates on a strict alignment model. We only partner with business owners and entrepreneurs who command their own execution. We have zero interest in standard, safe, or slow. If you possess a high-stakes vision for your Shopify stack or AI ecosystem and want it brought to life with elite velocity—let’s talk. Everyone else can queue.
               </p>
             </div>
           </article>
@@ -130,20 +141,21 @@ export class AppWorkWithUs {
             <div class="widget-body">
               <div class="core-animation">
                 <div class="hex-core">
-                   <div class="hex-pulse"></div>
+                  <div class="hex-pulse"></div>
                 </div>
               </div>
+              <h3>DEVIANT BY DESIGN.</h3>
               <p class="widget-text">
-                We specialize in the unconventional. While others build bloat, we use narrow, specialized tech like Stencil and Gemini to defy industry norms. AI-first, Client-first.
+                We build what others can’t, using tools they don't understand. While legacy agencies choke your infrastructure with bloated, sluggish frameworks, Vulpine bypasses the noise. By deploying native Stencil Web Components and hyper-optimized Gemini agent architectures on the edge, we deliver unhinged performance numbers and autonomous intelligence. Less boilerplate, more execution.
               </p>
             </div>
           </article>
 
           {/* Widget 5: AI Estimator (Master Console) */}
           <article class="dashboard-widget widget-estimator">
-             <div class="widget-header">
+            <div class="widget-header">
               <span class="widget-id">SYS.MASTER</span>
-              <h3>AI ESTIMATOR CONSOLE</h3>
+              <h3>VULPINE ENGINE CORE</h3>
             </div>
             <div class="widget-body estimator-body">
               <foxy-estimate></foxy-estimate>

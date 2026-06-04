@@ -135,7 +135,7 @@ export class AppHome {
                   We don’t do AI buzzword bingo. We build the actual tech. From fine-tuned models and agentic orchestration to rapid-fire traditional software, Vulpine has the raw machinery to ship what others just PowerPoint about. Less vibing, more velocity.
                 </p>
 
-                <a href="/services/ai" class="foxy-cta-button">
+                <a href="/services/applied-ai" class="foxy-cta-button">
                   [ Deploy the tech... ]
                 </a>
               </div>

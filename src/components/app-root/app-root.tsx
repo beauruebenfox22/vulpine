@@ -60,12 +60,14 @@ export class AppRoot {
   render() {
     const isShopifyRoute = Router.activePath && Router.activePath.includes('/services/shopify');
     const isHomeRoute = Router.activePath === '/';
+    const isServiceRoute = Router.activePath && Router.activePath.includes('/services/');
+    const isHeaderTransparent = isHomeRoute || this.menuOpen;
 
     return (
       <div class={{ 'vulpine-app': true, 'menu-open': this.menuOpen, 'theme-shopify': isShopifyRoute }}>
 
         {/* BRAND OVERLAY HEADER */}
-        <header class={{ 'vulpine-nav-header': true, 'is-home': isHomeRoute }}>
+        <header class={{ 'vulpine-nav-header': true, 'is-transparent': isHeaderTransparent }}>
           <div class="nav-brand" onClick={this.handleBrandClick} role="button" tabIndex={0}>
             <foxy-logo size="small"></foxy-logo>
             <span class="brand-text">VULPINE</span>
@@ -150,11 +152,13 @@ export class AppRoot {
           </Router.Switch>
         </main>
 
-        <footer class="foxy-footer">
-          <p class="foxy-footer-text">
-            Copyright © {new Date().getFullYear()} Vulpine Digital. All rights reserved.
-          </p>
-        </footer>
+        {!isServiceRoute && (
+          <footer class="foxy-footer">
+            <p class="foxy-footer-text">
+              Copyright © {new Date().getFullYear()} Vulpine Digital. All rights reserved.
+            </p>
+          </footer>
+        )}
 
         {/* GLOBAL NOTIFICATION SYSTEM */}
         <foxy-toast-container></foxy-toast-container>

@@ -22,7 +22,7 @@ export namespace Components {
     interface AppRoot {
     }
     interface AppServices {
-        "serviceType": 'ai' | 'shopify';
+        "serviceType": 'applied-ai' | 'shopify';
     }
     interface AppWorkWithUs {
     }
@@ -369,7 +369,7 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface AppServices {
-        "serviceType"?: 'ai' | 'shopify';
+        "serviceType"?: 'applied-ai' | 'shopify';
     }
     interface AppWorkWithUs {
     }

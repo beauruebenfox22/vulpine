@@ -48,7 +48,7 @@ body.modal-open .vulpine-nav-header {
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-.vulpine-nav-header.is-home {
+.vulpine-nav-header.is-transparent {
   background: transparent;
   border-bottom: 1px solid transparent;
 }

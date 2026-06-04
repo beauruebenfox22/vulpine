@@ -6,8 +6,15 @@
   "icons": [
     {
       "src": "assets/icon/fav-svg.svg",
-      "sizes": "192x192",
-      "type": "image/svg"
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/logo-no-bg.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "background_color": "#080808",

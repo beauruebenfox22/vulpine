@@ -1,5 +1,6 @@
 import { Component, Prop, State, Watch, h } from '@stencil/core';
 import { Router } from "../../";
+import { setSEO } from '../../utils/seo';
 
 interface SubService {
   id: string;
@@ -16,78 +17,99 @@ interface SubService {
   shadow: false,
 })
 export class AppServices {
-  @Prop() serviceType: 'ai' | 'shopify' = 'ai';
+  @Prop() serviceType: 'applied-ai' | 'shopify' = 'applied-ai';
 
   @State() activeSectionIndex: number = 0;
 
   private wrapperRef?: HTMLDivElement;
+
+  @Watch('serviceType')
+  watchServiceType() {
+    this.updateSEO();
+  }
+
+  private updateSEO() {
+    if (this.serviceType === 'applied-ai') {
+      setSEO({
+        title: 'Applied AI Systems & Agentic Engineering | Vulpine',
+        description: 'Production-grade AI integration. We deploy autonomous multi-agent orchestration, token optimization proxies, and deterministic LLM fine-tuning.',
+        url: 'https://vulpine.digital/applied-ai'
+      });
+    } else {
+      setSEO({
+        title: 'Unhinged Shopify Engineering | Headless & Custom Apps',
+        description: 'Platform dominance. Performance-engineered headless Stencil frontends, custom Remix applications, and enterprise Checkout Extensibility functions.',
+        url: 'https://vulpine.digital/shopify'
+      });
+    }
+  }
 
   private aiServices: SubService[] = [
     {
       id: 'agentic-engineering',
       num: '01',
       title: 'AGENTIC ENGINEERING',
-      description: 'Deploying highly coordinated LLM orchestration architectures that integrate deep reasoning and structured outputs seamlessly into your existing product logic.',
-      bentoChips: ['01 / AGENT ARCHITECTURE', '02 / SECURE INFERENCE', '03 / CUSTOM DATA PIPELINES'],
+      description: 'We pair senior human engineering with highly optimized, agentic development workflows to aggressively compress traditional build times. We leverage AI to automate syntax and boilerplate execution, so we can focus on robust high-level system logic, security and performance.',
+      bentoChips: ['01 / WEB DEVELOPMENT', '02 / SaaS DEVELOPMENT', '03 / CUSTOM SOFTWARE DEVELOPMENT'],
       visualType: 'network-matrix',
     },
     {
-      id: 'multi-agent-orchestration',
+      id: 'agentic-systems',
       num: '02',
-      title: 'MULTI-AGENT ORCHESTRATION',
-      description: 'Architecting self-correcting agent chains and multi-agent systems designed to run asynchronous operations, background research, and recursive code synthesis.',
-      bentoChips: ['01 / RECURSIVE LOOPS', '02 / HUMAN-IN-THE-LOOP', '03 / BEHAVIORAL LOGS'],
+      title: 'AGENTIC SYSTEMS',
+      description: 'We build custom AI agents and multi-agent orchestration pipelines that execute real-world operations independently. We move beyond basic chatbot widgets into stateful, task-oriented software programs. By linking specialized agents together in self-correcting recursive loops, we construct autonomous systems that can research, analyze, write code, and synthesize data directly inside your product runtime.',
+      bentoChips: ['01 / STATEFUL ORCHESTRATION', '02 / MULTI-AGENT COLLABORATION', '03 / HUMAN INTERCEPTION GATEWAYS'],
       visualType: 'agent-flow',
     },
     {
       id: 'token-architecture-efficiency',
       num: '03',
-      title: 'TOKEN ARCHITECTURE & EFFICIENCY',
-      description: 'Building encrypted interfaces and API gateways that guarantee high-throughput, low-latency token transfers while preserving corporate data boundary compliance.',
-      bentoChips: ['01 / ZERO-TRUST API', '02 / TOKEN SHIELDING', '03 / SECURE MEMORY'],
+      title: 'TOKEN ARCHITECTURE',
+      description: 'Unoptimized AI systems run up ruinous API overhead. We construct dedicated middleman infrastructure, API proxy layers, and dynamic routing gateways designed to radically slash token burn and model latency. Rather than relying on basic prompt tweaks, we implement code-level architectural constraints that intercept, parse, and optimize your data streams before they ever touch an LLM runtime.',
+      bentoChips: ['01 / ASYMMETRIC GATEWAYS', '02 / SEMANTIC COMPRESSION', '03 / RUNTIME DEFLECTION'],
       visualType: 'secure-bridge',
     },
     {
       id: 'llm-fine-tuning-rag',
       num: '04',
-      title: 'LLM FINE-TUNING & RAG',
-      description: 'Integrating powerful reasoning engines deep into your core business rules. Creating robust, predictable layers where LLM flexibility meets transactional safety.',
-      bentoChips: ['01 / DETECT & COPE', '02 / TRANSACTION SHIELD', '03 / STATE MACHINE'],
+      title: 'FINE-TUNING & RAG',
+      description: 'AI models are broad, chatty, and blind to your unique business rules. We build production-ready Retrieval-Augmented Generation (RAG) pipelines and execute custom, narrow-band model fine-tuning. This forces standard foundational LLMs into highly disciplined, deterministic business tools. Creating robust, predictable software, where fluid linguistic intelligence meets solid transactional safety.',
+      bentoChips: ['01 / VECTOR CONTEXT RETRIEVAL', '02 / SYNTAX DETERMINISM', '03 / STATE MACHINE ENFORCEMENT'],
       visualType: 'logic-state',
     },
   ];
 
   private shopifyServices: SubService[] = [
     {
-      id: 'headless-shopify',
+      id: 'build-migrate',
       num: '01',
-      title: 'HEADLESS SHOPIFY',
-      description: "Decoupling your storefront using premium custom stacks (Next.js, Remix, Stencil) coupled with Shopify's Storefront API for blazing-fast speed and unparalleled design freedom.",
-      bentoChips: ['01 / HYDROGEN & OXYGEN', '02 / GRAPHQL SPEED', '03 / JAMSTACK SCALING'],
-      visualType: 'headless-api',
+      title: 'BUILD & MIGRATE',
+      description: 'We build high-velocity native storefronts using optimized Liquid logic, completely untethered from bloated third-party page builders. Simultaneously, we orchestrate zero-downtime re-platforming and data migrations—safely cutting over complex legacy catalogs, customer instances, and transaction history into a pristine Shopify runtime.',
+      bentoChips: ['01 / OS 2.0 LIQUID THEMES', '02 / SCHEMA CONVERSION', '03 / ZERO-LOSS CUTOVER'],
+      visualType: 'dashboard-nodes',
     },
     {
       id: 'checkout-extensibility',
       num: '02',
-      title: 'CHECKOUT EXTENSIBILITY',
-      description: 'Migrating complex legacy catalog structures and monolithic setups into modern, clean, scalable architectures with zero-downtime database and schema conversions.',
-      bentoChips: ['01 / DATA DE-DUPLICATE', '02 / MASS CATALOG', '03 / HOT-SWAP DATA'],
+      title: 'CHECKOUT EXTENSION',
+      description: 'We upgrade legacy checkout modifications to Shopify’s modern, app-based extensibility framework with zero disruption to active transaction flow. By injecting lightweight custom UI components and optimizing background server-side scripts, we implement complex commercial logic at the most critical stage of your conversion funnel.',
+      bentoChips: ['01 / SHOPIFY FUNCTIONS', '02 / UI CONTAINER EXTENSIONS', '03 / SECURE PIXEL TRACKING'],
       visualType: 'database-split',
     },
     {
-      id: 'build-migrate',
+      id: 'headless-shopify',
       num: '03',
-      title: 'BUILD & MIGRATE',
-      description: 'Crafting bespoke Shopify App Store-compliant applications utilizing high-throughput webhooks, custom databases, and deeply integrated Admin APIs.',
-      bentoChips: ['01 / ROBUST WEBHOOKS', '02 / COMPLIANT ADMIN', '03 / SECURE OAUTH'],
-      visualType: 'dashboard-nodes',
+      title: 'HEADLESS SHOPIFY',
+      description: "Decoupling a storefront should streamline operations, not complicate them. We bypass the bloat of multi-CMS integrations by treating Shopify strictly as your core data repository. Layering an ultra-lean Stencil frontend directly over Shopify’s Storefront API, we construct hyper-optimized architectures that maximize security, customization and unhinged page velocity.",
+      bentoChips: ['01 / MONOLITH DECOUPLING', '02 / STENCIL FRONTEND', '03 / SINGLE REPOSITORY DATA'],
+      visualType: 'headless-api',
     },
     {
       id: 'custom-apps',
       num: '04',
       title: 'CUSTOM APPLICATIONS',
-      description: 'Leveraging Shopify Checkout Extensibility, custom app blocks, theme app extensions, and functions to mold checkout behaviors without performance degradation.',
-      bentoChips: ['01 / CHECKOUT BLOCKS', '02 / CUSTOM FUNCTIONS', '03 / SANDBOX SAFETY'],
+      description: 'We build tailored, high-throughput backend applications natively on the Shopify Remix framework. By engineering secure middleware layers that communicate flawlessly with the Shopify Admin API, we construct custom dashboards, automate complex multi-channel operational workflows, and handle heavy data processing without slowing down your stores performance.',
+      bentoChips: ['01 / SHOPIFY REMIX RUNTIME', '02 / HIGH-VOLUME WEBHOOK RESILIENCY', '03 / ADMIN API ABSTRACTION'],
       visualType: 'extensibility-blocks',
     },
   ];
@@ -101,7 +123,7 @@ export class AppServices {
   }
 
   componentWillLoad() {
-    // Initial configuration
+    this.updateSEO();
   }
 
   componentDidLoad() {
@@ -132,7 +154,7 @@ export class AppServices {
     const hash = window.location.hash;
     if (hash) {
       const targetId = hash.replace('#', '');
-      const services = this.serviceType === 'ai' ? this.aiServices : this.shopifyServices;
+      const services = this.serviceType === 'applied-ai' ? this.aiServices : this.shopifyServices;
       const index = services.findIndex(s => s.id === targetId);
       if (index !== -1) {
         this.scrollToSection(index);
@@ -160,8 +182,8 @@ export class AppServices {
   };
 
 
-  private handleBackToHome = () => {
-    Router.push('/');
+  private talkToExpert = () => {
+    Router.push('/contact');
   };
 
   private renderVisualEngine(type: string) {
@@ -355,9 +377,9 @@ export class AppServices {
   }
 
   render() {
-    const services = this.serviceType === 'ai' ? this.aiServices : this.shopifyServices;
-    const currentThemeClass = this.serviceType === 'ai' ? 'track-ai' : 'track-shopify';
-    const seoTitle = this.serviceType === 'ai'
+    const services = this.serviceType === 'applied-ai' ? this.aiServices : this.shopifyServices;
+    const currentThemeClass = this.serviceType === 'applied-ai' ? 'track-ai' : 'track-shopify';
+    const seoTitle = this.serviceType === 'applied-ai'
       ? 'Vulpine Digital Services - Autonomous AI Architecture'
       : 'Vulpine Digital Services - Shopify Commerce Systems';
 
@@ -419,8 +441,8 @@ export class AppServices {
 
                     {/* Dynamic Action Button in section footer */}
                     <div class="narrative-actions">
-                      <button class="cta-outline-btn" onClick={this.handleBackToHome}>
-                        [ CONTACT AN EXPERT ]
+                      <button class="cta-outline-btn" onClick={this.talkToExpert}>
+                        [ GIVE US A PING ]
                       </button>
                     </div>
                   </div>

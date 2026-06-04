@@ -120,16 +120,16 @@ export class FoxyEstimate {
       <div class="foxy-estimate-container">
         <div class="estimate-header">
           <div class="pulse-indicator"></div>
-          <h3>AI ESTIMATE ENGINE</h3>
+          <h3>VULPINE CORE: SALES & SCOPING</h3>
         </div>
 
         <p class="estimate-instructions">
-          Describe your problem, idea, or desired service below. Our AI uses current Vulpine metrics to provide an instant high-level cost and time scope.
+          Drop your project specifications, codebase bottlenecks, or e-com goals below. Vulpine will immediately map your requirements against our internal engineering metrics to generate a precise, zero-fluff cost and timeline estimation. No discovery meetings required.
         </p>
 
         <textarea
           class="estimate-input"
-          placeholder="e.g. I need a custom Shopify storefront with an AI product recommendation engine integrated via API..."
+          placeholder="e.g., I need a custom headless Shopify frontend with an edge-deployed multi-agent customer service ecosystem..."
           value={this.projectDescription}
           onInput={this.handleInput}
           disabled={this.isEstimating || this.isLimitReached}
@@ -145,7 +145,7 @@ export class FoxyEstimate {
             onClick={() => this.generateEstimate()}
             disabled={this.isEstimating || this.projectDescription.trim().length === 0}
           >
-            {this.isEstimating ? 'ANALYZING SCOPE...' : 'GENERATE ESTIMATE'}
+            {this.isEstimating ? 'ANALYZING SCOPE...' : 'RUN ESTIMATOR PROCESS'}
           </button>
         )}
 

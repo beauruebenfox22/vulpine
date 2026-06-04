@@ -1,4 +1,5 @@
 import { Component, State, h } from '@stencil/core';
+import { setSEO } from '../../utils/seo';
 
 @Component({
   tag: 'app-about',
@@ -25,7 +26,14 @@ export class AppAbout {
         this.isBooting = false;
       }, 3500); // 3.5s boot sequence
     }
-  }
+
+    setSEO({
+      title: 'The Blueprint | About Vulpine Custom Software House',
+      description: 'No agency overhead. No corporate discovery bloat. Read the manifesto behind our elite, direct-to-repository software engineering workflows.',
+      url: 'https://vulpine.digital/about'
+    });
+
+  };
 
   private setTech(tech: string) {
     this.activeTech = tech;
@@ -38,7 +46,7 @@ export class AppAbout {
   render() {
     return (
       <div class={`about-container ${this.isBooting ? 'is-booting' : ''}`}>
-        
+
         {/* BOOT SEQUENCE OVERLAY */}
         {this.isBooting && (
           <div class="boot-sequence">
@@ -53,7 +61,7 @@ export class AppAbout {
         )}
 
         <main class="about-bento-grid">
-          
+
           {/* SECTOR 1: ABOUT VULPINE */}
           <article class="bento-box box-vulpine">
             <div class="bento-header">
@@ -61,9 +69,9 @@ export class AppAbout {
               <h2>VULPINE DIRECTIVE</h2>
             </div>
             <div class="bento-content">
-              <h1 class="manifesto-headline">AI FIRST.<br/>NOT VIBE CODE.</h1>
+              <h1 class="manifesto-headline">AI FIRST.<br />NOT VIBE CODE.</h1>
               <p>
-                We are a hyper-specialized engineering consultancy. We don't build standard corporate brochures. We architect high-performance, AI-driven commerce systems that break conventions and redefine industry standards. 
+                Standard is our enemy. Vulpine delivers elite engineering for teams who have outgrown basic software. Whether we are building unhinged custom Shopify frontends that convert or deploying fine-tuned, trend-defying AI systems on the edge—we ship hardened code designed for maximum velocity.
               </p>
             </div>
           </article>
@@ -82,9 +90,10 @@ export class AppAbout {
                 <h3>RUBEN</h3>
                 <span class="operator-title">Lead Architect / Founder</span>
                 <ul class="accreditations">
-                  <li>&gt; Senior Shopify Engineer</li>
-                  <li>&gt; LLM Orchestration Specialist</li>
-                  <li>&gt; Python/JS Full-Stack</li>
+                  <li>&gt; Senior Engineer</li>
+                  <li>&gt; Applied AI Specialist</li>
+                  <li>&gt; Python / JS Full-Stack / Shopify / Edge Computing</li>
+                  <li>&gt; 10+ Years Experience</li>
                 </ul>
               </div>
             </div>
@@ -106,26 +115,34 @@ export class AppAbout {
               <div class="tech-display">
                 {this.activeTech === 'stencil' && (
                   <div class="tech-panel">
-                    <h4>STENCIL VS REACT</h4>
-                    <p>We buck the industry trend. React is bloated. Stencil compiles to raw, native Web Components operating in the Light DOM. The result? Unmatched performance metrics and blistering fast mobile rendering.</p>
+                    <h4>PURE PERFORMANCE</h4>
+                    <p>
+                      While the rest of the industry chokes on heavy JavaScript frameworks, we build light. Stencil compiles down to raw, native Web Components that run seamlessly in the Light DOM. No virtual DOM overhead, no unneeded bloat—just blistering mobile rendering and flawless web vitals built for scale.
+                    </p>
                   </div>
                 )}
                 {this.activeTech === 'shopify' && (
                   <div class="tech-panel">
-                    <h4>COMMERCE ENGINE</h4>
-                    <p>Whether it's deeply customized Liquid architectures or fully headless storefronts, Shopify is our foundation for scalable, high-volume transactions.</p>
+                    <h4>MONOLITHIC FOCUS</h4>
+                    <p>
+                      We don’t do general e-commerce. Shopify is the only platform we support, because it’s the only one capable of anchoring our high-end builds. We bypass basic templates to engineer custom themes and deep-tier architecture that turn the world's leading commerce engine into an unfair competitive advantage.
+                    </p>
                   </div>
                 )}
                 {this.activeTech === 'gemini' && (
                   <div class="tech-panel">
-                    <h4>GEMINI VS CLAUDE</h4>
-                    <p>We leverage Google's Gemini models and AI Studio for orchestration. The integration speed, system instruction compliance, and multi-modal capabilities make it our weapon of choice for embedded AI features.</p>
+                    <h4>ENTERPRISE COGNITION</h4>
+                    <p>
+                      We chose Google Gemini as our flagship model for a reason. Its massive context window, lightning-fast token processing, and robust SDK capabilities allow us to architect multi-agent systems and agentic code ecosystems that other models choke on. We build heavy-duty intelligence, not chat wrappers.
+                    </p>
                   </div>
                 )}
                 {this.activeTech === 'python' && (
                   <div class="tech-panel">
-                    <h4>MODERN BACKEND</h4>
-                    <p>Our LLM engineering relies on a robust, modern Python stack. Perfect for data parsing, semantic search, and bridging the gap between heavy commerce logic and language models.</p>
+                    <h4>RAW MACHINERY</h4>
+                    <p>
+                      Python is the undisputed engine of modern artificial intelligence. We use it to build our core backend infrastructure, custom middleware layers, and token efficiency algorithms. Combined with LangChain and Hugging Face, it allows us to ship rock-solid, production-ready AI products with zero operational lag.
+                    </p>
                   </div>
                 )}
               </div>
@@ -148,7 +165,7 @@ export class AppAbout {
                 </div>
                 <div class="log-json">
                   <pre>
-{`{
+                    {`{
   "client": "${this.reviews[this.activeReview].user}",
   "telemetry_data": "${this.reviews[this.activeReview].message}",
   "timestamp": "${new Date().toISOString()}"

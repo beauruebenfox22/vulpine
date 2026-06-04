@@ -9,9 +9,11 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'www',
-      // comment the following line to disable service workers in production
-      serviceWorker: null,
+      // serviceWorker: null, // Commented out to enable service workers in production
       baseUrl: 'https://vulpine.digital/',
+      copy: [
+        { src: 'sitemap.xml' }
+      ]
     },
   ],
 };

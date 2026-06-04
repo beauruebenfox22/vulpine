@@ -50,7 +50,7 @@ export class FoxyNav {
     }
   };
 
-  private navigateToService = (track: 'ai' | 'shopify', anchor?: string) => {
+  private navigateToService = (track: 'applied-ai' | 'shopify', anchor?: string) => {
     const path = `/services/${track}${anchor ? '#' + anchor : ''}`;
     Router.push(path);
     this.handleClose();
@@ -98,7 +98,7 @@ export class FoxyNav {
       'has-sub',
       this.hoveredSubmenu === 'ai' ? 'is-focused' : '',
       this.hoveredSubmenu === 'shopify' ? 'is-dimmed' : '',
-      Router.activePath?.includes('/services/ai') ? 'highlight' : '',
+      Router.activePath?.includes('/services/applied-ai') ? 'highlight' : '',
     ].filter(Boolean).join(' ');
 
     const shopifyTriggerClasses = [
@@ -134,7 +134,7 @@ export class FoxyNav {
                   onClick={(e) => { e.preventDefault(); this.setSubmenu('ai'); }}
                   onMouseEnter={() => this.handleDesktopHover('ai')}
                 >
-                  <span class="directory-num">01 //</span> AI ENGINEERING
+                  <span class="directory-num">01 //</span> APPLIED AI
                 </a>
 
                 <a
@@ -143,7 +143,7 @@ export class FoxyNav {
                   onClick={(e) => { e.preventDefault(); this.setSubmenu('shopify'); }}
                   onMouseEnter={() => this.handleDesktopHover('shopify')}
                 >
-                  <span class="directory-num">02 //</span> SHOPIFY ENGINEERING
+                  <span class="directory-num">02 //</span> UNHINGED SHOPIFY
                 </a>
 
                 <a
@@ -362,28 +362,28 @@ export class FoxyNav {
                 </div>
 
                 <div class="takeover-link-grid">
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'agentic-engineering'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('applied-ai', 'agentic-engineering'); }}>
                     <span class="item-num">02.A</span>
                     <span class="item-label">AGENTIC ENGINEERING</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'multi-agent-orchestration'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('applied-ai', 'agentic-systems'); }}>
                     <span class="item-num">02.B</span>
-                    <span class="item-label">MULTI-AGENT ORCHESTRATION</span>
+                    <span class="item-label">AGENTIC SYSTEMS</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'token-architecture-efficiency'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('applied-ai', 'token-architecture-efficiency'); }}>
                     <span class="item-num">02.C</span>
                     <span class="item-label">TOKEN ARCHITECTURE</span>
                     <span class="item-arrow">→</span>
                   </a>
-                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('ai', 'llm-fine-tuning-rag'); }}>
+                  <a href="#" class="takeover-link-item" onClick={(e) => { e.preventDefault(); this.navigateToService('applied-ai', 'llm-fine-tuning-rag'); }}>
                     <span class="item-num">02.D</span>
-                    <span class="item-label">LLM FINE-TUNING & RAG</span>
+                    <span class="item-label">FINE-TUNING</span>
                     <span class="item-arrow">→</span>
                   </a>
 
-                  <a href="#" class="takeover-explore-btn" onClick={(e) => { e.preventDefault(); this.navigateToService('ai'); }}>
+                  <a href="#" class="takeover-explore-btn" onClick={(e) => { e.preventDefault(); this.navigateToService('applied-ai'); }}>
                     [ EXPLORE FULL ARCHITECTURE &rarr; ]
                   </a>
                 </div>
