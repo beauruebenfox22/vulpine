@@ -96,7 +96,7 @@ export class AppHome {
             <div class="intro-content">
               <foxy-logo size="large" class="intro-logo-anim"></foxy-logo>
               <h1 class="intro-title">VULPINE</h1>
-              <p class="intro-subtitle">AI SYSTEMS & SHOPIFY ARCHITECTURE</p>
+              <p class="intro-subtitle">APPLIED AI & SHOPIFY ENGINEERING</p>
             </div>
           </div>
         )}
