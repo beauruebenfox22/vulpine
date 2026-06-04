@@ -1,5 +1,6 @@
 import { Component, Prop, State, Watch, h } from '@stencil/core';
 import { Router } from "../../";
+import { setSEO } from '../../utils/seo';
 
 interface SubService {
   id: string;
@@ -16,78 +17,99 @@ interface SubService {
   shadow: false,
 })
 export class AppServices {
-  @Prop() serviceType: 'ai' | 'shopify' = 'ai';
+  @Prop() serviceType: 'applied-ai' | 'shopify' = 'applied-ai';
 
   @State() activeSectionIndex: number = 0;
 
   private wrapperRef?: HTMLDivElement;
 
+  @Watch('serviceType')
+  watchServiceType() {
+    this.updateSEO();
+  }
+
+  private updateSEO() {
+    if (this.serviceType === 'applied-ai') {
+      setSEO({
+        title: 'Applied AI Systems & Agentic Engineering | Vulpine',
+        description: 'Production-grade AI integration. We deploy autonomous multi-agent orchestration, token optimization proxies, and deterministic LLM fine-tuning.',
+        url: 'https://vulpine.digital/applied-ai'
+      });
+    } else {
+      setSEO({
+        title: 'Unhinged Shopify Engineering | Headless & Custom Apps',
+        description: 'Platform dominance. Performance-engineered headless Stencil frontends, custom Remix applications, and enterprise Checkout Extensibility functions.',
+        url: 'https://vulpine.digital/shopify'
+      });
+    }
+  }
+
   private aiServices: SubService[] = [
     {
-      id: 'gemini-orchestration',
+      id: 'agentic-engineering',
       num: '01',
-      title: 'GEMINI ORCHESTRATION',
-      description: 'Deploying highly coordinated LLM orchestration architectures that integrate deep reasoning and structured outputs seamlessly into your existing product logic.',
-      bentoChips: ['01 / AGENT ARCHITECTURE', '02 / SECURE INFERENCE', '03 / CUSTOM DATA PIPELINES'],
+      title: 'AGENTIC ENGINEERING',
+      description: 'We pair senior human engineering with highly optimized, agentic development workflows to aggressively compress traditional build times. We leverage AI to automate syntax and boilerplate execution, so we can focus on robust high-level system logic, security and performance.',
+      bentoChips: ['01 / WEB DEVELOPMENT', '02 / SaaS DEVELOPMENT', '03 / CUSTOM SOFTWARE DEVELOPMENT'],
       visualType: 'network-matrix',
     },
     {
-      id: 'autonomous-agents',
+      id: 'agentic-systems',
       num: '02',
-      title: 'AUTONOMOUS AGENTS',
-      description: 'Architecting self-correcting agent chains and multi-agent systems designed to run asynchronous operations, background research, and recursive code synthesis.',
-      bentoChips: ['01 / RECURSIVE LOOPS', '02 / HUMAN-IN-THE-LOOP', '03 / BEHAVIORAL LOGS'],
+      title: 'AGENTIC SYSTEMS',
+      description: 'We build custom AI agents and multi-agent orchestration pipelines that execute real-world operations independently. We move beyond basic chatbot widgets into stateful, task-oriented software programs. By linking specialized agents together in self-correcting recursive loops, we construct autonomous systems that can research, analyze, write code, and synthesize data directly inside your product runtime.',
+      bentoChips: ['01 / STATEFUL ORCHESTRATION', '02 / MULTI-AGENT COLLABORATION', '03 / HUMAN INTERCEPTION GATEWAYS'],
       visualType: 'agent-flow',
     },
     {
-      id: 'secure-sdk-bridges',
+      id: 'token-architecture-efficiency',
       num: '03',
-      title: 'SECURE SDK BRIDGES',
-      description: 'Building encrypted interfaces and API gateways that guarantee high-throughput, low-latency token transfers while preserving corporate data boundary compliance.',
-      bentoChips: ['01 / ZERO-TRUST API', '02 / TOKEN SHIELDING', '03 / SECURE MEMORY'],
+      title: 'TOKEN ARCHITECTURE',
+      description: 'Unoptimized AI systems run up ruinous API overhead. We construct dedicated middleman infrastructure, API proxy layers, and dynamic routing gateways designed to radically slash token burn and model latency. Rather than relying on basic prompt tweaks, we implement code-level architectural constraints that intercept, parse, and optimize your data streams before they ever touch an LLM runtime.',
+      bentoChips: ['01 / ASYMMETRIC GATEWAYS', '02 / SEMANTIC COMPRESSION', '03 / RUNTIME DEFLECTION'],
       visualType: 'secure-bridge',
     },
     {
-      id: 'logic-layer-integration',
+      id: 'llm-fine-tuning-rag',
       num: '04',
-      title: 'LOGIC LAYER INTEGRATION',
-      description: 'Integrating powerful reasoning engines deep into your core business rules. Creating robust, predictable layers where LLM flexibility meets transactional safety.',
-      bentoChips: ['01 / DETECT & COPE', '02 / TRANSACTION SHIELD', '03 / STATE MACHINE'],
+      title: 'FINE-TUNING & RAG',
+      description: 'AI models are broad, chatty, and blind to your unique business rules. We build production-ready Retrieval-Augmented Generation (RAG) pipelines and execute custom, narrow-band model fine-tuning. This forces standard foundational LLMs into highly disciplined, deterministic business tools. Creating robust, predictable software, where fluid linguistic intelligence meets solid transactional safety.',
+      bentoChips: ['01 / VECTOR CONTEXT RETRIEVAL', '02 / SYNTAX DETERMINISM', '03 / STATE MACHINE ENFORCEMENT'],
       visualType: 'logic-state',
     },
   ];
 
   private shopifyServices: SubService[] = [
     {
-      id: 'headless-architecture',
+      id: 'build-migrate',
       num: '01',
-      title: 'HEADLESS ARCHITECTURE',
-      description: "Decoupling your storefront using premium custom stacks (Next.js, Remix, Stencil) coupled with Shopify's Storefront API for blazing-fast speed and unparalleled design freedom.",
-      bentoChips: ['01 / HYDROGEN & OXYGEN', '02 / GRAPHQL SPEED', '03 / JAMSTACK SCALING'],
-      visualType: 'headless-api',
-    },
-    {
-      id: 'platform-re-engineering',
-      num: '02',
-      title: 'PLATFORM RE-ENGINEERING',
-      description: 'Migrating complex legacy catalog structures and monolithic setups into modern, clean, scalable architectures with zero-downtime database and schema conversions.',
-      bentoChips: ['01 / DATA DE-DUPLICATE', '02 / MASS CATALOG', '03 / HOT-SWAP DATA'],
-      visualType: 'database-split',
-    },
-    {
-      id: 'custom-app-development',
-      num: '03',
-      title: 'CUSTOM APP DEVELOPMENT',
-      description: 'Crafting bespoke Shopify App Store-compliant applications utilizing high-throughput webhooks, custom databases, and deeply integrated Admin APIs.',
-      bentoChips: ['01 / ROBUST WEBHOOKS', '02 / COMPLIANT ADMIN', '03 / SECURE OAUTH'],
+      title: 'BUILD & MIGRATE',
+      description: 'We build high-velocity native storefronts using optimized Liquid logic, completely untethered from bloated third-party page builders. Simultaneously, we orchestrate zero-downtime re-platforming and data migrations—safely cutting over complex legacy catalogs, customer instances, and transaction history into a pristine Shopify runtime.',
+      bentoChips: ['01 / OS 2.0 LIQUID THEMES', '02 / SCHEMA CONVERSION', '03 / ZERO-LOSS CUTOVER'],
       visualType: 'dashboard-nodes',
     },
     {
-      id: 'extensibility-engines',
+      id: 'checkout-extensibility',
+      num: '02',
+      title: 'CHECKOUT EXTENSION',
+      description: 'We upgrade legacy checkout modifications to Shopify’s modern, app-based extensibility framework with zero disruption to active transaction flow. By injecting lightweight custom UI components and optimizing background server-side scripts, we implement complex commercial logic at the most critical stage of your conversion funnel.',
+      bentoChips: ['01 / SHOPIFY FUNCTIONS', '02 / UI CONTAINER EXTENSIONS', '03 / SECURE PIXEL TRACKING'],
+      visualType: 'database-split',
+    },
+    {
+      id: 'headless-shopify',
+      num: '03',
+      title: 'HEADLESS SHOPIFY',
+      description: "Decoupling a storefront should streamline operations, not complicate them. We bypass the bloat of multi-CMS integrations by treating Shopify strictly as your core data repository. Layering an ultra-lean Stencil frontend directly over Shopify’s Storefront API, we construct hyper-optimized architectures that maximize security, customization and unhinged page velocity.",
+      bentoChips: ['01 / MONOLITH DECOUPLING', '02 / STENCIL FRONTEND', '03 / SINGLE REPOSITORY DATA'],
+      visualType: 'headless-api',
+    },
+    {
+      id: 'custom-apps',
       num: '04',
-      title: 'EXTENSIBILITY ENGINES',
-      description: 'Leveraging Shopify Checkout Extensibility, custom app blocks, theme app extensions, and functions to mold checkout behaviors without performance degradation.',
-      bentoChips: ['01 / CHECKOUT BLOCKS', '02 / CUSTOM FUNCTIONS', '03 / SANDBOX SAFETY'],
+      title: 'CUSTOM APPLICATIONS',
+      description: 'We build tailored, high-throughput backend applications natively on the Shopify Remix framework. By engineering secure middleware layers that communicate flawlessly with the Shopify Admin API, we construct custom dashboards, automate complex multi-channel operational workflows, and handle heavy data processing without slowing down your stores performance.',
+      bentoChips: ['01 / SHOPIFY REMIX RUNTIME', '02 / HIGH-VOLUME WEBHOOK RESILIENCY', '03 / ADMIN API ABSTRACTION'],
       visualType: 'extensibility-blocks',
     },
   ];
@@ -101,7 +123,7 @@ export class AppServices {
   }
 
   componentWillLoad() {
-    // Initial configuration
+    this.updateSEO();
   }
 
   componentDidLoad() {
@@ -132,7 +154,7 @@ export class AppServices {
     const hash = window.location.hash;
     if (hash) {
       const targetId = hash.replace('#', '');
-      const services = this.serviceType === 'ai' ? this.aiServices : this.shopifyServices;
+      const services = this.serviceType === 'applied-ai' ? this.aiServices : this.shopifyServices;
       const index = services.findIndex(s => s.id === targetId);
       if (index !== -1) {
         this.scrollToSection(index);
@@ -160,8 +182,8 @@ export class AppServices {
   };
 
 
-  private handleBackToHome = () => {
-    Router.push('/');
+  private talkToExpert = () => {
+    Router.push('/contact');
   };
 
   private renderVisualEngine(type: string) {
@@ -182,20 +204,20 @@ export class AppServices {
             <line x1="160" y1="240" x2="320" y2="150" class="conn-line delay-4" />
             <line x1="160" y1="240" x2="260" y2="300" class="conn-line delay-5" />
             <line x1="320" y1="150" x2="260" y2="300" class="conn-line delay-6" />
-            
+
             {/* Pulsing Nodes */}
             <circle cx="80" cy="120" r="16" fill="url(#nodeGlow)" class="glow-pulse" />
             <circle cx="80" cy="120" r="6" fill="var(--theme-glow)" />
-            
+
             <circle cx="200" cy="80" r="16" fill="url(#nodeGlow)" class="glow-pulse delay-2" />
             <circle cx="200" cy="80" r="6" fill="var(--theme-glow)" />
-            
+
             <circle cx="320" cy="150" r="16" fill="url(#nodeGlow)" class="glow-pulse delay-4" />
             <circle cx="320" cy="150" r="6" fill="var(--theme-glow)" />
-            
+
             <circle cx="160" cy="240" r="16" fill="url(#nodeGlow)" class="glow-pulse delay-1" />
             <circle cx="160" cy="240" r="6" fill="var(--theme-glow)" />
-            
+
             <circle cx="260" cy="300" r="16" fill="url(#nodeGlow)" class="glow-pulse delay-3" />
             <circle cx="260" cy="300" r="6" fill="var(--theme-glow)" />
           </svg>
@@ -230,7 +252,7 @@ export class AppServices {
             {/* Shield Hexagon */}
             <polygon points="200,110 280,150 280,250 200,290 120,250 120,150" fill="none" stroke="var(--theme-core)" stroke-width="3" class="shield-pulse" />
             <polygon points="200,130 260,165 260,235 200,270 140,235 140,165" fill="none" stroke="var(--theme-glow)" stroke-dasharray="10 5" class="shield-rotate" />
-            
+
             {/* Secure Central Node */}
             <circle cx="200" cy="200" r="15" fill="var(--theme-glow)" />
           </svg>
@@ -251,7 +273,7 @@ export class AppServices {
 
             <rect x="60" y="230" width="100" height="60" rx="6" fill="var(--base-secondary)" stroke="var(--theme-core)" stroke-width="2" />
             <text x="110" y="265" font-family="Outfit" font-size="12" fill="#fff" text-anchor="middle">TRANSACT</text>
-            
+
             <circle cx="110" cy="140" r="4" fill="var(--theme-glow)" class="node-flash" />
             <circle cx="290" cy="80" r="4" fill="var(--theme-glow)" class="node-flash delay-2" />
           </svg>
@@ -308,16 +330,16 @@ export class AppServices {
           <svg class="visual-svg dashboard-nodes-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
             {/* Grid base */}
             <rect x="50" y="80" width="300" height="240" rx="10" fill="var(--base-secondary)" stroke="rgba(255,255,255,0.05)" stroke-width="2" />
-            
+
             {/* Bar charts glowing */}
             <rect x="80" y="240" width="30" height="60" rx="3" fill="var(--theme-core)" opacity="0.6" class="bar-grow-1" />
             <rect x="130" y="180" width="30" height="120" rx="3" fill="var(--theme-core)" opacity="0.8" class="bar-grow-2" />
             <rect x="180" y="140" width="30" height="160" rx="3" fill="var(--theme-glow)" class="bar-grow-3" />
             <rect x="230" y="210" width="30" height="90" rx="3" fill="var(--theme-core)" opacity="0.7" class="bar-grow-4" />
-            
+
             {/* Connected analytical line */}
             <path d="M 95 230 L 145 170 L 195 125 L 245 200 L 295 110" fill="none" stroke="var(--theme-glow)" stroke-width="3" class="line-reveal" />
-            
+
             <circle cx="195" cy="125" r="5" fill="#fff" />
             <circle cx="295" cy="110" r="5" fill="#fff" />
           </svg>
@@ -329,10 +351,10 @@ export class AppServices {
             <g fill="none" stroke="var(--theme-core)" stroke-width="2">
               {/* Outer boundary box */}
               <rect x="60" y="60" width="280" height="280" rx="12" stroke-dasharray="10 5" />
-              
+
               {/* Checkout core */}
               <rect x="100" y="100" width="200" height="200" rx="8" fill="var(--base-secondary)" opacity="0.5" />
-              
+
               {/* Slide-in extension blocks */}
               <g class="block-slide-1">
                 <rect x="120" y="120" width="160" height="40" rx="4" fill="var(--base-secondary)" stroke="var(--theme-glow)" stroke-width="2" />
@@ -355,18 +377,18 @@ export class AppServices {
   }
 
   render() {
-    const services = this.serviceType === 'ai' ? this.aiServices : this.shopifyServices;
-    const currentThemeClass = this.serviceType === 'ai' ? 'track-ai' : 'track-shopify';
-    const seoTitle = this.serviceType === 'ai' 
-      ? 'Vulpine Digital Services - Autonomous AI Architecture' 
+    const services = this.serviceType === 'applied-ai' ? this.aiServices : this.shopifyServices;
+    const currentThemeClass = this.serviceType === 'applied-ai' ? 'track-ai' : 'track-shopify';
+    const seoTitle = this.serviceType === 'applied-ai'
+      ? 'Vulpine Digital Services - Autonomous AI Architecture'
       : 'Vulpine Digital Services - Shopify Commerce Systems';
 
     return (
       <div class={`app-services-container ${currentThemeClass}`}>
-        
+
         {/* SEO Hidden H1 */}
         <h1 class="sr-only">{seoTitle}</h1>
-        
+
         {/* PROGRESS DOTS SIDEBAR NAVIGATION */}
         <div class="service-dot-nav" role="navigation" aria-label="Page scroll position">
           {services.map((service, index) => (
@@ -384,62 +406,62 @@ export class AppServices {
 
         {/* SERVICE DECKS */}
         <div class="service-deck-wrapper" ref={(el) => (this.wrapperRef = el)}>
-        {services.map((service, index) => {
-          // Automatic layout alternating
-          const alignClass = index % 2 === 0 ? 'align-left' : 'align-right';
+          {services.map((service, index) => {
+            // Automatic layout alternating
+            const alignClass = index % 2 === 0 ? 'align-left' : 'align-right';
 
-          return (
-            <section id={service.id} class={`deck-section ${alignClass}`} key={service.id}>
-              
-              {/* PANEL 1: NARRATIVE BLOCK (45vw width) */}
-              <div class="narrative-panel">
-                <div class="panel-inner">
-                  {/* Subtle Faint ID Label */}
-                  <div class="faint-id-label">#{service.num}</div>
-                  
-                  {/* Heading */}
-                  <h2 class="narrative-heading">
-                    {service.title}
-                  </h2>
-                  
-                  {/* Body Text */}
-                  <p class="narrative-body-text">
-                    {service.description}
-                  </p>
-                  
-                  {/* Capabilities Bento Chips */}
-                  <div class="capabilities-bento-grid">
-                    {service.bentoChips.map((chip) => (
-                      <div class="bento-chip" key={chip}>
-                        <span class="chip-dot"></span>
-                        <span class="chip-text">{chip}</span>
-                      </div>
-                    ))}
+            return (
+              <section id={service.id} class={`deck-section ${alignClass}`} key={service.id}>
+
+                {/* PANEL 1: NARRATIVE BLOCK (45vw width) */}
+                <div class="narrative-panel">
+                  <div class="panel-inner">
+                    {/* Subtle Faint ID Label */}
+                    <div class="faint-id-label">#{service.num}</div>
+
+                    {/* Heading */}
+                    <h2 class="narrative-heading">
+                      {service.title}
+                    </h2>
+
+                    {/* Body Text */}
+                    <p class="narrative-body-text">
+                      {service.description}
+                    </p>
+
+                    {/* Capabilities Bento Chips */}
+                    <div class="capabilities-bento-grid">
+                      {service.bentoChips.map((chip) => (
+                        <div class="bento-chip" key={chip}>
+                          <span class="chip-dot"></span>
+                          <span class="chip-text">{chip}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Dynamic Action Button in section footer */}
+                    <div class="narrative-actions">
+                      <button class="cta-outline-btn" onClick={this.talkToExpert}>
+                        [ GIVE US A PING ]
+                      </button>
+                    </div>
                   </div>
+                </div>
 
-                  {/* Dynamic Action Button in section footer */}
-                  <div class="narrative-actions">
-                    <button class="cta-outline-btn" onClick={this.handleBackToHome}>
-                      [ CONTACT AN EXPERT ]
-                    </button>
+                {/* PANEL 2: ARTSTAGE STAGE VISUAL (55vw width) */}
+                <div class="artstage-panel">
+                  <div class="artstage-decorations">
+                    <div class="decor-circle bg-glow-circle-1"></div>
+                    <div class="decor-circle bg-glow-circle-2"></div>
+                  </div>
+                  <div class="artstage-visual-container">
+                    {this.renderVisualEngine(service.visualType)}
                   </div>
                 </div>
-              </div>
 
-              {/* PANEL 2: ARTSTAGE STAGE VISUAL (55vw width) */}
-              <div class="artstage-panel">
-                <div class="artstage-decorations">
-                  <div class="decor-circle bg-glow-circle-1"></div>
-                  <div class="decor-circle bg-glow-circle-2"></div>
-                </div>
-                <div class="artstage-visual-container">
-                  {this.renderVisualEngine(service.visualType)}
-                </div>
-              </div>
-
-            </section>
-          );
-        })}
+              </section>
+            );
+          })}
         </div>
       </div>
     );

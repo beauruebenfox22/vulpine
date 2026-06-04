@@ -12,9 +12,19 @@ export class AppRoot {
   @State() menuOpen: boolean = false;
   @State() drilldownActive: boolean = false;
   @State() debateOpen: boolean = false;
+  @State() isConciergeOpen: boolean = false;
+  @State() isPricingOpen: boolean = false;
 
   componentWillLoad() {
     initThemeStore();
+    if (typeof window !== 'undefined') {
+      window.addEventListener('foxy-open-concierge', () => {
+        this.isConciergeOpen = true;
+      });
+      window.addEventListener('foxy-open-pricing', () => {
+        this.isPricingOpen = true;
+      });
+    }
   }
 
   private handleDrilldownChange = (e: CustomEvent<boolean>) => {
@@ -49,12 +59,15 @@ export class AppRoot {
 
   render() {
     const isShopifyRoute = Router.activePath && Router.activePath.includes('/services/shopify');
+    const isHomeRoute = Router.activePath === '/';
+    const isServiceRoute = Router.activePath && Router.activePath.includes('/services/');
+    const isHeaderTransparent = isHomeRoute || this.menuOpen;
 
     return (
       <div class={{ 'vulpine-app': true, 'menu-open': this.menuOpen, 'theme-shopify': isShopifyRoute }}>
 
         {/* BRAND OVERLAY HEADER */}
-        <header class="vulpine-nav-header">
+        <header class={{ 'vulpine-nav-header': true, 'is-transparent': isHeaderTransparent }}>
           <div class="nav-brand" onClick={this.handleBrandClick} role="button" tabIndex={0}>
             <foxy-logo size="small"></foxy-logo>
             <span class="brand-text">VULPINE</span>
@@ -139,14 +152,28 @@ export class AppRoot {
           </Router.Switch>
         </main>
 
-        <footer class="foxy-footer">
-          <p class="foxy-footer-text">
-            Copyright © {new Date().getFullYear()} Vulpine Digital. All rights reserved.
-          </p>
-        </footer>
+        {!isServiceRoute && (
+          <footer class="foxy-footer">
+            <p class="foxy-footer-text">
+              Copyright © {new Date().getFullYear()} Vulpine Digital. All rights reserved.
+            </p>
+          </footer>
+        )}
 
         {/* GLOBAL NOTIFICATION SYSTEM */}
         <foxy-toast-container></foxy-toast-container>
+
+        {/* THE GLOBAL CONCIERGE MODAL */}
+        <foxy-concierge 
+          isOpen={this.isConciergeOpen} 
+          onCloseConcierge={() => this.isConciergeOpen = false}
+        ></foxy-concierge>
+
+        {/* THE GLOBAL PRICING MODAL */}
+        <foxy-pricing-modal
+          isOpen={this.isPricingOpen}
+          onClosePricing={() => this.isPricingOpen = false}
+        ></foxy-pricing-modal>
 
       </div>
     );

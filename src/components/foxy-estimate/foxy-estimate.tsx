@@ -84,6 +84,21 @@ export class FoxyEstimate {
     return text.split('\n').map((line, i) => {
       const trimmed = line.trim();
       if (trimmed === '') return <br key={i} />;
+      if (trimmed.includes('[Initiate Vulpine Concierge](foxy://open-concierge)')) {
+        const parts = trimmed.split('[Initiate Vulpine Concierge](foxy://open-concierge)');
+        return (
+          <p key={i}>
+            <span innerHTML={parts[0].replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')} />
+            <button class="estimate-submit-btn" onClick={() => {
+              this.isModalOpen = false;
+              if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('foxy-open-concierge'));
+            }} style={{ marginTop: '1.5rem', display: 'block', width: '100%' }}>
+              INITIATE VULPINE CONCIERGE
+            </button>
+            {parts[1] && <span innerHTML={parts[1].replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>')} />}
+          </p>
+        );
+      }
       if (trimmed.startsWith('### ')) {
         return <h5 key={i} class="result-subheading" innerHTML={trimmed.substring(4).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />;
       }
@@ -105,16 +120,16 @@ export class FoxyEstimate {
       <div class="foxy-estimate-container">
         <div class="estimate-header">
           <div class="pulse-indicator"></div>
-          <h3>AI ESTIMATE ENGINE</h3>
+          <h3>VULPINE CORE: SALES & SCOPING</h3>
         </div>
 
         <p class="estimate-instructions">
-          Describe your problem, idea, or desired service below. Our AI uses current Vulpine metrics to provide an instant high-level cost and time scope.
+          Drop your project specifications, codebase bottlenecks, or e-com goals below. Vulpine will immediately map your requirements against our internal engineering metrics to generate a precise, zero-fluff cost and timeline estimation. No discovery meetings required.
         </p>
 
         <textarea
           class="estimate-input"
-          placeholder="e.g. I need a custom Shopify storefront with an AI product recommendation engine integrated via API..."
+          placeholder="e.g., I need a custom headless Shopify frontend with an edge-deployed multi-agent customer service ecosystem..."
           value={this.projectDescription}
           onInput={this.handleInput}
           disabled={this.isEstimating || this.isLimitReached}
@@ -130,7 +145,7 @@ export class FoxyEstimate {
             onClick={() => this.generateEstimate()}
             disabled={this.isEstimating || this.projectDescription.trim().length === 0}
           >
-            {this.isEstimating ? 'ANALYZING SCOPE...' : 'GENERATE ESTIMATE'}
+            {this.isEstimating ? 'ANALYZING SCOPE...' : 'RUN ESTIMATOR PROCESS'}
           </button>
         )}
 

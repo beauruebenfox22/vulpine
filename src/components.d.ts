@@ -22,11 +22,14 @@ export namespace Components {
     interface AppRoot {
     }
     interface AppServices {
-        "serviceType": 'ai' | 'shopify';
+        "serviceType": 'applied-ai' | 'shopify';
     }
     interface AppWorkWithUs {
     }
     interface FoxyBusinessCard {
+    }
+    interface FoxyConcierge {
+        "isOpen": boolean;
     }
     interface FoxyConstellation {
     }
@@ -59,6 +62,9 @@ export namespace Components {
         "active": boolean;
         "resetDrilldown": () => Promise<void>;
     }
+    interface FoxyPricingModal {
+        "isOpen": boolean;
+    }
     interface FoxyToast {
         "message": string;
         "toastId": string;
@@ -66,6 +72,10 @@ export namespace Components {
     }
     interface FoxyToastContainer {
     }
+}
+export interface FoxyConciergeCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFoxyConciergeElement;
 }
 export interface FoxyDebateTakeoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -82,6 +92,10 @@ export interface FoxyModalCustomEvent<T> extends CustomEvent<T> {
 export interface FoxyNavCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLFoxyNavElement;
+}
+export interface FoxyPricingModalCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLFoxyPricingModalElement;
 }
 export interface FoxyToastCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -147,6 +161,23 @@ declare global {
     var HTMLFoxyBusinessCardElement: {
         prototype: HTMLFoxyBusinessCardElement;
         new (): HTMLFoxyBusinessCardElement;
+    };
+    interface HTMLFoxyConciergeElementEventMap {
+        "closeConcierge": void;
+    }
+    interface HTMLFoxyConciergeElement extends Components.FoxyConcierge, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFoxyConciergeElementEventMap>(type: K, listener: (this: HTMLFoxyConciergeElement, ev: FoxyConciergeCustomEvent<HTMLFoxyConciergeElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFoxyConciergeElementEventMap>(type: K, listener: (this: HTMLFoxyConciergeElement, ev: FoxyConciergeCustomEvent<HTMLFoxyConciergeElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLFoxyConciergeElement: {
+        prototype: HTMLFoxyConciergeElement;
+        new (): HTMLFoxyConciergeElement;
     };
     interface HTMLFoxyConstellationElement extends Components.FoxyConstellation, HTMLStencilElement {
     }
@@ -254,6 +285,23 @@ declare global {
         prototype: HTMLFoxyNavElement;
         new (): HTMLFoxyNavElement;
     };
+    interface HTMLFoxyPricingModalElementEventMap {
+        "closePricing": void;
+    }
+    interface HTMLFoxyPricingModalElement extends Components.FoxyPricingModal, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLFoxyPricingModalElementEventMap>(type: K, listener: (this: HTMLFoxyPricingModalElement, ev: FoxyPricingModalCustomEvent<HTMLFoxyPricingModalElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLFoxyPricingModalElementEventMap>(type: K, listener: (this: HTMLFoxyPricingModalElement, ev: FoxyPricingModalCustomEvent<HTMLFoxyPricingModalElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLFoxyPricingModalElement: {
+        prototype: HTMLFoxyPricingModalElement;
+        new (): HTMLFoxyPricingModalElement;
+    };
     interface HTMLFoxyToastElementEventMap {
         "foxy-toast-dismissed": string;
     }
@@ -288,6 +336,7 @@ declare global {
         "app-services": HTMLAppServicesElement;
         "app-work-with-us": HTMLAppWorkWithUsElement;
         "foxy-business-card": HTMLFoxyBusinessCardElement;
+        "foxy-concierge": HTMLFoxyConciergeElement;
         "foxy-constellation": HTMLFoxyConstellationElement;
         "foxy-cta": HTMLFoxyCtaElement;
         "foxy-debate-takeover": HTMLFoxyDebateTakeoverElement;
@@ -298,6 +347,7 @@ declare global {
         "foxy-logo": HTMLFoxyLogoElement;
         "foxy-modal": HTMLFoxyModalElement;
         "foxy-nav": HTMLFoxyNavElement;
+        "foxy-pricing-modal": HTMLFoxyPricingModalElement;
         "foxy-toast": HTMLFoxyToastElement;
         "foxy-toast-container": HTMLFoxyToastContainerElement;
     }
@@ -319,11 +369,15 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface AppServices {
-        "serviceType"?: 'ai' | 'shopify';
+        "serviceType"?: 'applied-ai' | 'shopify';
     }
     interface AppWorkWithUs {
     }
     interface FoxyBusinessCard {
+    }
+    interface FoxyConcierge {
+        "isOpen"?: boolean;
+        "onCloseConcierge"?: (event: FoxyConciergeCustomEvent<void>) => void;
     }
     interface FoxyConstellation {
     }
@@ -361,6 +415,10 @@ declare namespace LocalJSX {
         "onMenuClose"?: (event: FoxyNavCustomEvent<void>) => void;
         "onOpenDebate"?: (event: FoxyNavCustomEvent<void>) => void;
     }
+    interface FoxyPricingModal {
+        "isOpen"?: boolean;
+        "onClosePricing"?: (event: FoxyPricingModalCustomEvent<void>) => void;
+    }
     interface FoxyToast {
         "message"?: string;
         "onFoxy-toast-dismissed"?: (event: FoxyToastCustomEvent<string>) => void;
@@ -380,6 +438,7 @@ declare namespace LocalJSX {
         "app-services": AppServices;
         "app-work-with-us": AppWorkWithUs;
         "foxy-business-card": FoxyBusinessCard;
+        "foxy-concierge": FoxyConcierge;
         "foxy-constellation": FoxyConstellation;
         "foxy-cta": FoxyCta;
         "foxy-debate-takeover": FoxyDebateTakeover;
@@ -390,6 +449,7 @@ declare namespace LocalJSX {
         "foxy-logo": FoxyLogo;
         "foxy-modal": FoxyModal;
         "foxy-nav": FoxyNav;
+        "foxy-pricing-modal": FoxyPricingModal;
         "foxy-toast": FoxyToast;
         "foxy-toast-container": FoxyToastContainer;
     }
@@ -408,6 +468,7 @@ declare module "@stencil/core" {
             "app-services": LocalJSX.AppServices & JSXBase.HTMLAttributes<HTMLAppServicesElement>;
             "app-work-with-us": LocalJSX.AppWorkWithUs & JSXBase.HTMLAttributes<HTMLAppWorkWithUsElement>;
             "foxy-business-card": LocalJSX.FoxyBusinessCard & JSXBase.HTMLAttributes<HTMLFoxyBusinessCardElement>;
+            "foxy-concierge": LocalJSX.FoxyConcierge & JSXBase.HTMLAttributes<HTMLFoxyConciergeElement>;
             "foxy-constellation": LocalJSX.FoxyConstellation & JSXBase.HTMLAttributes<HTMLFoxyConstellationElement>;
             "foxy-cta": LocalJSX.FoxyCta & JSXBase.HTMLAttributes<HTMLFoxyCtaElement>;
             "foxy-debate-takeover": LocalJSX.FoxyDebateTakeover & JSXBase.HTMLAttributes<HTMLFoxyDebateTakeoverElement>;
@@ -418,6 +479,7 @@ declare module "@stencil/core" {
             "foxy-logo": LocalJSX.FoxyLogo & JSXBase.HTMLAttributes<HTMLFoxyLogoElement>;
             "foxy-modal": LocalJSX.FoxyModal & JSXBase.HTMLAttributes<HTMLFoxyModalElement>;
             "foxy-nav": LocalJSX.FoxyNav & JSXBase.HTMLAttributes<HTMLFoxyNavElement>;
+            "foxy-pricing-modal": LocalJSX.FoxyPricingModal & JSXBase.HTMLAttributes<HTMLFoxyPricingModalElement>;
             "foxy-toast": LocalJSX.FoxyToast & JSXBase.HTMLAttributes<HTMLFoxyToastElement>;
             "foxy-toast-container": LocalJSX.FoxyToastContainer & JSXBase.HTMLAttributes<HTMLFoxyToastContainerElement>;
         }

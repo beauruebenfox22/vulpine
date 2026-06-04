@@ -1,5 +1,6 @@
 import { Component, Prop, State, h } from '@stencil/core';
 import { journalData } from '../../blogs/journal-data';
+import { setSEO } from '../../utils/seo';
 
 @Component({
   tag: 'app-blog',
@@ -22,7 +23,7 @@ export class AppBlog {
     if (this.initialSlug) {
       this.activeSlug = this.initialSlug;
     }
-    
+
     // Load column preference
     if (typeof window !== 'undefined') {
       const savedCols = localStorage.getItem('vulpine_blog_cols');
@@ -30,7 +31,14 @@ export class AppBlog {
         this.columns = parseInt(savedCols, 10);
       }
     }
-  }
+
+    setSEO({
+      title: 'System Logs | Vulpine Technical Engineering Blog',
+      description: 'Raw codebase updates, performance analysis, and industry telemetry covering deep Applied AI deployment and unhinged commerce performance.',
+      url: 'https://vulpine.digital/blog'
+    });
+
+  };
 
   private setColumns = (cols: number) => {
     this.columns = cols;
@@ -71,10 +79,10 @@ export class AppBlog {
   render() {
     // 1. Filter Data
     let filteredData = journalData.filter(post => {
-      const matchSearch = this.searchQuery === '' || 
-                          post.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                          post.topic.toLowerCase().includes(this.searchQuery.toLowerCase());
-      
+      const matchSearch = this.searchQuery === '' ||
+        post.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        post.topic.toLowerCase().includes(this.searchQuery.toLowerCase());
+
       const matchTrack = this.activeTrackFilter === 'all' || post.track === this.activeTrackFilter;
 
       return matchSearch && matchTrack;
@@ -90,22 +98,22 @@ export class AppBlog {
 
     return (
       <div class="blog-index-wrapper">
-        <foxy-hero 
+        <foxy-hero
           headline="VULPINE JOURNAL"
           subheadline="Documentation, logic layer architecture, and autonomous commerce engineering."
         ></foxy-hero>
 
         {/* TOOLBAR */}
         <div class="blog-toolbar">
-          
+
           <div class="toolbar-left">
             <button class="filter-toggle-btn" onClick={this.toggleFilterPanel}>
               {this.isFilterPanelOpen ? '[ CLOSE FILTERS ]' : '[ OPEN FILTERS ]'}
             </button>
             <div class="search-box">
-              <input 
-                type="text" 
-                placeholder="Search index..." 
+              <input
+                type="text"
+                placeholder="Search index..."
                 value={this.searchQuery}
                 onInput={(e: any) => {
                   this.searchQuery = e.target.value;
@@ -147,7 +155,7 @@ export class AppBlog {
             <div class="empty-state">NO DATA FOUND FOR QUERY.</div>
           ) : (
             paginatedData.map((post, index) => (
-              <div 
+              <div
                 class={`blog-card track-${post.track} staggered-${index % 3}`}
                 onClick={() => this.openPost(post.slug)}
               >
@@ -168,15 +176,15 @@ export class AppBlog {
 
         {/* PAGINATION */}
         <div class="pagination-controls">
-          <button 
-            disabled={this.currentPage === 1} 
+          <button
+            disabled={this.currentPage === 1}
             onClick={() => this.handlePageChange('prev')}
           >
             [ PREV_PAGE ]
           </button>
           <span class="page-indicator">PAGE 0{this.currentPage} // 0{totalPages}</span>
-          <button 
-            disabled={this.currentPage === totalPages || totalPages === 0} 
+          <button
+            disabled={this.currentPage === totalPages || totalPages === 0}
             onClick={() => this.handlePageChange('next')}
           >
             [ NEXT_PAGE ]
@@ -185,9 +193,9 @@ export class AppBlog {
 
         {/* RENDERER MODAL */}
         {this.activeSlug && (
-          <foxy-journal-renderer 
-            slug={this.activeSlug} 
-            onCloseModal={this.closeModal} 
+          <foxy-journal-renderer
+            slug={this.activeSlug}
+            onCloseModal={this.closeModal}
           />
         )}
       </div>

@@ -1,5 +1,6 @@
 import { Component, h } from '@stencil/core';
 import { Router } from '../../';
+import { setSEO } from '../../utils/seo';
 
 @Component({
   tag: 'app-case-studies',
@@ -7,6 +8,15 @@ import { Router } from '../../';
   shadow: false,
 })
 export class AppCaseStudies {
+
+  componentWillLoad() {
+    setSEO({
+      title: 'Proven Deployments & System Logs | Vulpine Case Studies',
+      description: 'Explore verified production logs. Technical case studies detailing high-throughput AI agent setups and stripped-down commerce architectures.',
+      url: 'https://vulpine.digital/case-studies'
+    });
+  };
+
   private cases = [
     {
       id: 'craft-and-berry',
@@ -68,13 +78,13 @@ export class AppCaseStudies {
               <stop offset="100%" stop-color="#121214" />
             </linearGradient>
           </defs>
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
-          <path d="M3 6h18"/>
-          <path d="M16 10a4 4 0 0 1-8 0"/>
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+          <path d="M3 6h18" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
         </svg>
       );
     }
-    
+
     // AI / Engineering Icon
     return (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="url(#crimsonGradient)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="cs-vector-icon">
@@ -84,11 +94,11 @@ export class AppCaseStudies {
             <stop offset="100%" stop-color="#121214" />
           </linearGradient>
         </defs>
-        <rect x="16" y="16" width="6" height="6" rx="1"/>
-        <rect x="2" y="16" width="6" height="6" rx="1"/>
-        <rect x="9" y="2" width="6" height="6" rx="1"/>
-        <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3"/>
-        <path d="M12 12V8"/>
+        <rect x="16" y="16" width="6" height="6" rx="1" />
+        <rect x="2" y="16" width="6" height="6" rx="1" />
+        <rect x="9" y="2" width="6" height="6" rx="1" />
+        <path d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3" />
+        <path d="M12 12V8" />
       </svg>
     );
   }
@@ -96,7 +106,7 @@ export class AppCaseStudies {
   render() {
     return (
       <div class="case-studies-page">
-        
+
         <header class="cs-header">
           <div class="cs-header-content">
             <div class="cs-badge">[ PROOF OF CONCEPT ]</div>
@@ -119,7 +129,7 @@ export class AppCaseStudies {
                 <div class="cs-card-image">
                   {/* Procedural grid overlay for visual texture */}
                   <div class="css-grid-texture"></div>
-                  
+
                   {/* Vector Graphic */}
                   <div class="cs-vector-container">
                     {this.renderIcon(project.type)}
